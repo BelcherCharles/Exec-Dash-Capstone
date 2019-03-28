@@ -1,5 +1,6 @@
 import React, { Component } from "react"
-// import './login.css'
+import './login.css'
+import userAPImgr from "../../modules/userAPImgr";
 
 
 export default class Login extends Component {
@@ -34,81 +35,90 @@ export default class Login extends Component {
     handleLogin = (e) => {
         e.preventDefault()
 
+        userAPImgr.userLogin(this.state.email)
+            .then(su => {
+                console.log(su)
+                if
+                    (su.length < 1) {
+                    window.alert("That user name was not found. Perhaps you'd like to register?")
+                }
+                else if (this.state.password !== su[0].password) {
+                    window.alert("The password entered is not correct. Please try again.")
+                }
 
-            /*
-                For now, just store the email and password that
-                the customer enters into local storage.
-            */
-            if (this.state.rememberMe === true) {
-                localStorage.setItem(
-                    "userId",
-                    JSON.stringify({
-                        email: this.state.email,
-                        password: this.state.password
-                    }))
-                sessionStorage.setItem(
-                    "userId",
-                    JSON.stringify({
-                        email: this.state.email,
-                        password: this.state.password
-                    }))
-                this.goBack()
-            } else {
-                sessionStorage.setItem(
-                    "userId",
-                    JSON.stringify({
-                        email: this.state.email,
-                        password: this.state.password
-                    }))
-                this.goBack()
-            }
-        }
+                else if (this.state.password === su[0].password && this.state.rememberMe === true) {
+                    localStorage.setItem("userId", su[0].id)
+                    localStorage.setItem("companyId", su[0].companyId)
+                    sessionStorage.setItem("userId", su[0].id)
+                    sessionStorage.setItem("companyId", su[0].companyId)
+                    // this.goBack()
+                    if (su[0].deptId === 1) {
+                     this.props.history.push("/execLandingPage")
+                    }
+                    else {
+                        this.props.history.push("/employeeLandingPage")
+                    }
+                } else {
+                    sessionStorage.setItem("userId", su[0].id)
+                    sessionStorage.setItem("companyId", su[0].companyId)
+                    // this.goBack()
+                    if (su[0].deptId === 1) {
+                        this.props.history.push("/execLandingPage")
+                       }
+                       else {
+                           this.props.history.push("/employeeLandingPage")
+                       }
+                }
+            })
+    }
+
 
     render() {
         return (
             <div>
-            <form onSubmit={this.handleLogin}>
-                <h1>Widget World</h1>
-                <h2 className="h3 mb-3 font-weight-normal">Please sign in</h2>
-                <br></br>
-                <label htmlFor="inputEmail">
-                    Email address
+                <form onSubmit={this.handleLogin}>
+                    <h1>Widget World</h1>
+                    <h2 className="h3 mb-3 font-weight-normal">Please sign in</h2>
+                    <br></br>
+                    <label htmlFor="inputEmail">
+                        Email address
                 </label>
-                <input onChange={this.handleFieldChange} type="email"
-                    id="email"
-                    placeholder="Email address"
-                    required="" autoFocus="" />
-                <br></br>
-                <label htmlFor="inputPassword">
-                    Password
+                    <input onChange={this.handleFieldChange} type="email"
+                        id="email"
+                        placeholder="Email address"
+                        required="" autoFocus="" />
+                    <br></br>
+                    <label htmlFor="inputPassword">
+                        Password
                 </label>
-                <input onChange={this.handleFieldChange} type="password"
-                    id="password"
-                    placeholder="Password"
-                    required="" />
-                <br></br>
-                <label htmlFor="rememberMe">
-                    Remember Me
+                    <input onChange={this.handleFieldChange} type="password"
+                        id="password"
+                        placeholder="Password"
+                        required="" />
+                    <br></br>
+                    <label htmlFor="rememberMe">
+                        Remember Me
                 </label>
-                <input onChange={this.handleCheckbox} type="checkbox"
-                    id="rememberMe"
-                    placeholder=""
-                    required="" autoFocus="" />
-                <br></br>
-                <button type="submit">
-                    Sign in
+                    <input onChange={this.handleCheckbox} type="checkbox"
+                        id="rememberMe"
+                        placeholder=""
+                        required="" autoFocus="" />
+                    <br></br>
+                    <br></br>
+                    <button type="submit">
+                        Sign in
                 </button>
-            </form>
-            <section>
-            <br></br>
-            <h2>-or-</h2>
-            <br></br>
-                <button type="register" onClick={() => this.props.history.push("/regNewUser")}
-                id="newUserReg">
-                    Register New User
+                </form>
+                <section>
+                    <br></br>
+                    <h2>-or-</h2>
+                    <br></br>
+                    <button type="register" onClick={() => this.props.history.push("/regNewCompany")}
+                        id="newCompanyReg">
+                        Register New Company
                 </button>
-            </section>
-            </div>
+                </section>
+            </div >
         )
     }
 }

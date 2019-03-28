@@ -1,8 +1,11 @@
 import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from "react"
 import Login from './authentication/login'
+import RegNewCompany from './authentication/newCompanyReg'
+import userAPImgr from '../modules/userAPImgr'
+import companyAPImgr from '../modules/companyAPImgr'
+import ExecLandingPage from './executives/execLandingPage'
 // import Callback from '../authentication/callBack'
-// import RegNewUser from '../authentication/newUserReg'
 // import ResourceList from '../generics/resourceList'
 // import Auth0Client from "../authentication/auth"
 
@@ -11,16 +14,16 @@ class ApplicationViews extends Component {
 
     state = {
         users: [],
-        clients: [],
+        companies: [],
+        departments: [],
         tasks: [],
-        requests: [],
         empTasks: []
     }
 
 
 
     // Check if credentials are in local storage
-    isAuthenticated = () => sessionStorage.getItem("userId") !== null
+    isAuthenticated = () => sessionStorage.getItem("userId") !== null && sessionStorage.getItem("companyId") !== null
 
     // deleteAnimal = (id) => {
     //     return animalAPIManager.deleteAnimal(id)
@@ -48,14 +51,14 @@ class ApplicationViews extends Component {
     //         });
     // };
 
-    // addEmployee = employee =>
-    //     animalAPIManager.postEmployee(employee)
-    //         .then(() => animalAPIManager.getAllEmployees())
-    //         .then(employees =>
-    //             this.setState({
-    //                 employees: employees
-    //             })
-    //         );
+    addUser = newUser =>
+        userAPImgr.postNewUser(newUser)
+            .then(() => userAPImgr.getCompanyUsers())
+            .then(cu =>
+                this.setState({
+                    users: cu
+                })
+            );
 
     // fireEmployee = id => {
     //     return fetch(`http://localhost:5002/employees/${id}`, {
@@ -70,14 +73,14 @@ class ApplicationViews extends Component {
     //         )
     // }
 
-    // addOwner = owner =>
-    //     animalAPIManager.postOwner(owner)
-    //         .then(() => animalAPIManager.getAllOwners())
-    //         .then(owners =>
-    //             this.setState({
-    //                 owners: owners
-    //             })
-    //         );
+    addCompany = newCompany =>
+        companyAPImgr.postNewCompany(newCompany)
+    // .then(() => companyAPImgr.getAllCompanies())
+    // .then(ac =>
+    //     this.setState({
+    //         companies: ac
+    //     })
+    // );
 
     // removeOwner = id => {
     //     return fetch(`http://localhost:5002/owners/${id}`, {
@@ -105,6 +108,17 @@ class ApplicationViews extends Component {
                     render={props => {
                         return <Login {...props} />
                     }} />
+
+                <Route path="/regNewCompany" render={(props) => {
+                    return <RegNewCompany  {...props} addUser={this.addUser} addCompany={this.addCompany} />
+                }} />
+
+                <Route path="/execLandingPage" render={(props) => {
+                    if (this.isAuthenticated()) {
+                    return <ExecLandingPage  {...props} addUser={this.addUser} addCompany={this.addCompany} />
+                    }
+                    return <Redirect to="/" />
+                }} />
 
 
             </div>
