@@ -5,6 +5,10 @@ import RegNewCompany from './authentication/newCompanyReg'
 import userAPImgr from '../modules/userAPImgr'
 import companyAPImgr from '../modules/companyAPImgr'
 import ExecLandingPage from './executives/execLandingPage'
+import EmployeeList from './executives/employeeList'
+import EmployeeForm from './executives/employeeForm'
+import EmployeeEditForm from './executives/employeeEditForm'
+import TaskManager from '../components/tasks/tasks'
 // import Callback from '../authentication/callBack'
 // import ResourceList from '../generics/resourceList'
 // import Auth0Client from "../authentication/auth"
@@ -40,16 +44,14 @@ class ApplicationViews extends Component {
     //                 animals: animals
     //             })
     //         );
+    getCompUsers = compId =>
+        userAPImgr.getCompanyUsers(compId)
+            .then(cu =>
+                this.setState({
+                    users: cu
+                })
+            );
 
-    // updateAnimal = (editedAnimalObject) => {
-    //     return animalAPIManager.put(editedAnimalObject)
-    //         .then(() => animalAPIManager.getAllAnimals())
-    //         .then(animals => {
-    //             this.setState({
-    //                 animals: animals
-    //             })
-    //         });
-    // };
 
     addUser = newUser =>
         userAPImgr.postNewUser(newUser)
@@ -60,18 +62,15 @@ class ApplicationViews extends Component {
                 })
             );
 
-    // fireEmployee = id => {
-    //     return fetch(`http://localhost:5002/employees/${id}`, {
-    //         method: "DELETE"
-    //     })
-    //         .then(e => e.json())
-    //         .then(() => fetch(`http://localhost:5002/employees`))
-    //         .then(e => e.json())
-    //         .then(employees => this.setState({
-    //             employees: employees
-    //         })
-    //         )
-    // }
+    deleteEmp = userId => {
+        userAPImgr.deleteEmp(userId)
+            .then(() => userAPImgr.getCompanyUsers())
+            .then(cu =>
+                this.setState({
+                    users: cu
+                })
+            )
+    }
 
     addCompany = newCompany =>
         companyAPImgr.postNewCompany(newCompany)
@@ -82,21 +81,24 @@ class ApplicationViews extends Component {
     //     })
     // );
 
-    // removeOwner = id => {
-    //     return fetch(`http://localhost:5002/owners/${id}`, {
-    //         method: "DELETE"
-    //     })
-    //         .then(e => e.json())
-    //         .then(() => fetch(`http://localhost:5002/owners`))
-    //         .then(e => e.json())
-    //         .then(owners => this.setState({
-    //             owners: owners
-    //         })
-    //         )
-    // }
+    newTask = newTask => {
+        return companyAPImgr.postNewTask(newTask)
+            .then(at => {
+                this.setState({
+                tasks: at
+            })
+        })
+    }
 
     componentDidMount() {
         const newState = {};
+        userAPImgr.getAllUsers()
+            .then(pau => {
+                // console.log(pau)
+                newState.users = pau
+            })
+        // console.log(newState)
+        this.setState(newState)
     }
 
     render() {
@@ -115,7 +117,37 @@ class ApplicationViews extends Component {
 
                 <Route path="/execLandingPage" render={(props) => {
                     if (this.isAuthenticated()) {
-                    return <ExecLandingPage  {...props} addUser={this.addUser} addCompany={this.addCompany} />
+                        return <ExecLandingPage  {...props} addUser={this.addUser} addCompany={this.addCompany} />
+                    }
+                    return <Redirect to="/" />
+                }} />
+
+                <Route exact path="/employees" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <EmployeeList  {...props} users={this.state.users} getCompUsers={this.getCompUsers} addUser={this.addUser} deleteUser={this.deleteUser} />
+                    }
+                    return <Redirect to="/" />
+                }} />
+
+                <Route path="/employees/new" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <EmployeeForm  {...props} addUser={this.addUser} />
+                    }
+                    return <Redirect to="/" />
+                }} />
+
+                <Route path="/employees/:employeeId(\d+)" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <EmployeeEditForm {...props} />
+                    } else {
+                        return <Redirect to="/" />
+                    }
+                }
+                } />
+
+                <Route exact path="/taskManager" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <TaskManager  {...props} users={this.state.users} newTask={this.newTask} />
                     }
                     return <Redirect to="/" />
                 }} />

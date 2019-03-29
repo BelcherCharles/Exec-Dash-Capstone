@@ -1,0 +1,45 @@
+.empCard {
+    display: flex;
+    justify-content: space-evenly;
+    flex: wrap;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.empImg {
+    width: 8rem;
+    height: 8rem;
+}
+
+.empCard {
+    width: 10rem;
+}
+
+.empCardTitle {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card-link {
+    margin: 12px 0 0 0;
+    font-size: 0.7em;
+}
+
+.hireEmployeeButton {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 0 10px 0;
+  }
+
+  #hireEmpBtn {
+      margin-top: 8vh;
+      margin-bottom: 8vh;
+      margin-left:auto;
+      margin-right:auto;
+  }
+
+  .empCardBody p {
+      font-size: 14px;
+  }

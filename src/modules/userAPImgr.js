@@ -6,8 +6,8 @@ export default {
             .then(au => au.json())
     },
 
-    getCompanyUsers: (companyId) => {
-        return fetch(`${remoteURL}/users/companyId=${companyId}`)
+    getCompanyUsers: () => {
+        return fetch(`${remoteURL}/users/?companyId=${sessionStorage.getItem("companyId")}`)
             .then(cu => cu.json())
     },
 
@@ -25,6 +25,12 @@ export default {
             body: JSON.stringify(newUser)
         }).then(nu => nu.json())
     },
+
+    deleteEmp: (userId) => {
+        return fetch(`${remoteURL}/users/${userId}`, {
+            method: "DELETE"
+    })
+},
 
     userLogin: (userEmail) => {
         return fetch(`${remoteURL}/users/?email=${userEmail}`)
