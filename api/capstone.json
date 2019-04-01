@@ -1,24 +1,8 @@
 {
-  "users": [
-    {
-      "userName": "Charles",
-      "userSurname": "Belcher",
-      "phone": "(304) 932-2120",
-      "email": "BelcherCharles@yahoo.com",
-      "password": "Kennedy",
-      "companyId": 1,
-      "deptId": 1,
-      "id": 1
-    }
-  ],
+  "users": [],
   "tasks": [],
   "empTasks": [],
-  "companies": [
-    {
-      "companyName": "Almost Heaven Interiors",
-      "id": 1
-    }
-  ],
+  "companies": [],
   "departments": [
     {
       "departmentName": "Executive/Administrative",

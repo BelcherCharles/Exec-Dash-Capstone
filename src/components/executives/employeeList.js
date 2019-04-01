@@ -8,42 +8,44 @@ import EmployeeCard from './employeeCard'
 // import "./employees.css"
 
 export default class EmployeeList extends Component {
-    state = {
-        users: [],
-        tasks: [],
-        empTasks: [],
-        departments: [],
-        employees: []
-    }
+    // state = {
+    //     users: [],
+    //     tasks: [],
+    //     empTasks: [],
+    //     departments: [],
+    //     employees: []
+    // }
 
 
-    deleteEmp = () => {
-        const newState = {}
-        userAPImgr.deleteEmp()
-            .then(() => userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
-                .then(pcu => {
-                    const employees = pcu.filter(
-                        user => user.companyId === parseInt(sessionStorage.getItem("companyId")) && user.hireDate !== ""
-                    )
-                    newState.users = pcu
-                    newState.employees = employees
-                    this.setState(newState)
-                })
-            )
-    }
+    // deleteEmp = () => {
+    //     const newState = {}
+    //     userAPImgr.deleteEmp()
+    //         .then(() => userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
+    //             .then(pcu => {
+    //                 const employees = pcu.filter(
+    //                     user => user.companyId === parseInt(sessionStorage.getItem("companyId")) && user.hireDate !== ""
+    //                 )
+    //                 newState.users = pcu
+    //                 newState.employees = employees
+    //                 this.setState(newState)
+    //             })
+    //         )
+    // }
 
     componentDidMount() {
-        const newState = {};
-        userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
-            .then(pcu => {
-                const employees = pcu.filter(
-                    user => user.companyId === parseInt(sessionStorage.getItem("companyId")) && user.hireDate !== ""
-                )
-                newState.users = pcu
-                newState.employees = employees
-                this.setState(newState)
-            })
+        this.props.getCompEmps(sessionStorage.getItem("companyId"))
+    //     const newState = {};
+    //     userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
+    //         .then(pcu => {
+    //             const employees = pcu.filter(
+    //                 user => user.companyId === parseInt(sessionStorage.getItem("companyId")) && user.hireDate !== ""
+    //             )
+    //             newState.users = pcu
+    //             newState.employees = employees
+    //             this.setState(newState)
+    //         })
     }
+
 
     render() {
         return (
@@ -57,14 +59,14 @@ export default class EmployeeList extends Component {
                         }>
                         Hire Employee
                     </button>
-                </div>
+                </div >
                 <section className="employees">
                     {
-                        this.state.employees.map(employee => {
+                        this.props.employees.map(employee => {
                             console.log(employee)
                             return (
                                 <div key={employee.id}>
-                                    < EmployeeCard key={employee.id} employee={employee} route={"employees"} deleteEmp={this.deleteEmp} {...this.props} />
+                                    < EmployeeCard key={employee.id} employee={employee} route={"employees"} deleteEmp={this.props.deleteEmp} {...this.props} />
                                 </div>
                             )
                         }

@@ -6,8 +6,8 @@ export default {
             .then(au => au.json())
     },
 
-    getCompanyUsers: () => {
-        return fetch(`${remoteURL}/users/?companyId=${sessionStorage.getItem("companyId")}`)
+    getCompanyUsers: (compId) => {
+        return fetch(`${remoteURL}/users/?companyId=${compId}`)
             .then(cu => cu.json())
     },
 
@@ -23,14 +23,26 @@ export default {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newUser)
-        }).then(nu => nu.json())
+        })
+        .then(nu => nu.json())
+    },
+
+    updateUser: (editedUser, userId) => {
+        return fetch(`${remoteURL}/users/${userId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(editedUser)
+        })
+            .then(eu => eu.json())
     },
 
     deleteEmp: (userId) => {
         return fetch(`${remoteURL}/users/${userId}`, {
             method: "DELETE"
-    })
-},
+        })
+    },
 
     userLogin: (userEmail) => {
         return fetch(`${remoteURL}/users/?email=${userEmail}`)

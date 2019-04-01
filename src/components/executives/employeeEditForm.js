@@ -1,122 +1,188 @@
 import React, { Component } from "react"
-// import AnimalManager from "../../modules/AnimalManager"
+import userAPImgr from "../../modules/userAPImgr"
 
 export default class EmployeeEditForm extends Component {
-    // Set initial state
-  //   state = {
-  //     animalName: "",
-  //     breed: "",
-  //     employeeId: "",
-  //     speciesId: ""
-  //   }
+  state = {
+    name: "",
+    surname: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+    image: "",
+    hireDate: ""
+  }
 
+  handleFieldChange = evt => {
+    const stateToChange = {}
+    stateToChange[evt.target.id] = evt.target.value
+    this.setState(stateToChange)
+  }
 
-  //   handleFieldChange = evt => {
-  //       const stateToChange = {}
-  //       stateToChange[evt.target.id] = evt.target.value
-  //       this.setState(stateToChange)
-  //   }
+    updateEmployee = evt => {
+      evt.preventDefault()
 
-  //   updateExistingAnimal = evt => {
-  //     evt.preventDefault()
+      if (this.state.employee === "") {
+        window.alert("Please select a caretaker");
+      } else {
+        const editedEmployee = {
+          id: parseInt(this.props.match.params.employeeId),
+          name: this.state.name,
+          surname: this.state.surname,
+          email: this.state.email,
+          phone: this.state.phone,
+          address: this.state.address,
+          city: this.state.city,
+          zip: this.state.zip,
+          hireDate: this.state.hireDate,
+          companyId: parseInt(sessionStorage.getItem("companyId"))
+        };
 
-  //     if (this.state.employee === "") {
-  //       window.alert("Please select a caretaker");
-  //     } else {
-  //       const editedAnimal = {
-  //         id: this.props.match.params.animalId,
-  //         name: this.state.animalName,
-  //         breed: this.state.breed,
-  //         employeeId: parseInt(this.state.employeeId),
-  //         speciesId: parseInt(this.state.speciesId)
-  //       };
+    this.props.updateUser(editedEmployee, this.props.match.params.employeeId)
+    .then(() => this.props.history.push("/employees"))
+    // console.log(parseInt(this.props.match.params.employeeId))
+    // console.log(editedEmployee)
 
-  //   this.props.updateAnimal(editedAnimal)
-  //   .then(() => this.props.history.push("/animals"))
-  //   }
-  // }
-
-  //   componentDidMount() {
-  //     AnimalManager.getSingleAnimal(this.props.match.params.animalId)
-  //     .then(animal => {
-  //       this.setState({
-  //         animalName: animal.name,
-  //         breed: animal.breed,
-  //         employeeId: animal.employeeId,
-  //         speciesId: animal.speciesId
-  //       });
-  //     });
-  //   }
-
-
-    render() {
-
-      return (
-        <h1> This Is Employee Edit Form </h1>
-      //   <React.Fragment>
-      //     <form className="animalForm">
-      //       <div className="form-group">
-      //         <label htmlFor="animalName">Animal name</label>
-      //         <input
-      //           type="text"
-      //           required
-      //           className="form-control"
-      //           onChange={this.handleFieldChange}
-      //           id="animalName"
-      //           value={this.state.animalName}
-      //         />
-      //       </div>
-      //       <label htmlFor="species">Species</label>
-      //         <select
-      //           name="species"
-      //           id="speciesId"
-      //           onChange={this.handleFieldChange}
-      //           value={this.state.speciesId}
-      //         >
-      //           <option value="">Select a species</option>
-      //           {this.props.species.map(s => (
-      //             <option key={s.id} id={s.id} value={s.id}>
-      //               {s.name}
-      //             </option>
-      //           ))}
-      //         </select>
-      //       <div className="form-group">
-      //         <label htmlFor="breed">Breed</label>
-      //         <input
-      //           type="text"
-      //           required
-      //           className="form-control"
-      //           onChange={this.handleFieldChange}
-      //           name="breed"
-      //           id="breed"
-      //           value={this.state.breed}
-      //         />
-      //       </div>
-      //       <div className="form-group">
-      //         <label htmlFor="employee">Assign to caretaker</label>
-      //         <select
-      //           name="employee"
-      //           id="employeeId"
-      //           onChange={this.handleFieldChange}
-      //           value={this.state.employeeId}
-      //         >
-      //           <option value="">Select an employee</option>
-      //           {this.props.employees.map(e => (
-      //             <option key={e.id} id={e.id} value={e.id}>
-      //               {e.name}
-      //             </option>
-      //           ))}
-      //         </select>
-      //       </div>
-      //       <button
-      //         type="submit"
-      //         onClick={this.updateExistingAnimal}
-      //         className="btn btn-primary"
-      //       >
-      //         Submit
-      //       </button>
-      //     </form>
-      //   </React.Fragment>
-      );
     }
+  }
+
+  componentDidMount() {
+    console.log(this.props.match.params.employeeId)
+    userAPImgr.getOneUser(this.props.match.params.employeeId)
+    .then(employee => {
+        this.setState({
+          name: employee.name,
+          surname: employee.surname,
+          email: employee.email,
+          phone: employee.phone,
+          address: employee.address,
+          city: employee.city,
+          state: employee.state,
+          zip: employee.zip,
+          hireDate: employee.hireDate
+
+          // image: employee.image
+        });
+      });
+  }
+
+
+  render() {
+    return (
+      <React.Fragment>
+        <h1> This Is Employee Edit Form </h1>
+        <form className="employeeForm">
+          <div className="form-group">
+            <label htmlFor="name">First Name</label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="name"
+              placeholder="First Name"
+              value={this.state.name}
+            />
+            <br></br>
+            <label htmlFor="surname">Surname</label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="surname"
+              placeholder="Surname"
+              value={this.state.surname}
+            />
+            <br></br>
+            <label htmlFor="userEmail">Email</label>
+            <input
+              type="email"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="email"
+              placeholder="Email"
+              value={this.state.email}
+            />
+            <br></br>
+            <label htmlFor="phone">Phone #</label>
+            <input
+              type="tel"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="phone"
+              placeholder="Phone #"
+              value={this.state.phone}
+            />
+            <br></br>
+            <label htmlFor="address">Address</label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="address"
+              placeholder="Street Address"
+              value={this.state.address}
+            />
+            <br></br>
+            <label htmlFor="city">City</label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="city"
+              placeholder="City"
+              value={this.state.city}
+            />
+            <br></br>
+            <label htmlFor="state">State</label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="state"
+              placeholder="State"
+              value={this.state.state}
+            />
+            <br></br>
+            <label htmlFor="zip">Zip Code</label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="zip"
+              placeholder="Zip Code"
+              value={this.state.zip}
+            />
+            <br></br>
+            {/* <label htmlFor="image">Headshot</label>
+            <input
+              type="file"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="image"
+              placeholder="Image"
+              value={this.state.image}
+            /> */}
+            <button
+              type="submit"
+              onClick={this.updateEmployee}
+              className="btn btn-primary"
+            >
+              Submit
+           </button>
+           </div>
+          </form>
+        </React.Fragment>
+        );
+      }
 }

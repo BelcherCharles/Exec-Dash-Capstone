@@ -15,7 +15,8 @@ export default class NewCompanyReg extends Component {
         userPhone: "",
         userEmail: "",
         userPassword: "",
-        companyId: ""
+        companyId: "",
+        hireDate: ""
     }
 
     // Update state whenever an input field is edited
@@ -79,6 +80,7 @@ export default class NewCompanyReg extends Component {
                         email: this.state.userEmail,
                         password: this.state.userPassword,
                         companyId: parseInt(pnc.id),
+                        hireDate: "",
                         deptId: 1
                     }
 
@@ -88,7 +90,7 @@ export default class NewCompanyReg extends Component {
                             sessionStorage.setItem("userId", nu.id)
                             sessionStorage.setItem("companyId", pnc.id)
                         })
-                    // .then(() => this.props.history.push("/admininfo"));
+                    .then(() => this.props.history.push("/"));
                 })
         };
     }

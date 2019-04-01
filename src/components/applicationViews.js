@@ -21,7 +21,8 @@ class ApplicationViews extends Component {
         companies: [],
         departments: [],
         tasks: [],
-        empTasks: []
+        empTasks: [],
+        employees: []
     }
 
 
@@ -29,21 +30,6 @@ class ApplicationViews extends Component {
     // Check if credentials are in local storage
     isAuthenticated = () => sessionStorage.getItem("userId") !== null && sessionStorage.getItem("companyId") !== null
 
-    // deleteAnimal = (id) => {
-    //     return animalAPIManager.deleteAnimal(id)
-    //         .then(animalAPIManager.getAllAnimals)
-    //         .then(animals => this.setState({ animals: animals })
-    //         )
-    // }
-
-    // addAnimal = animalObject =>
-    //     animalAPIManager.postAnimal(animalObject)
-    //         .then(() => animalAPIManager.getAllAnimals())
-    //         .then(animals =>
-    //             this.setState({
-    //                 animals: animals
-    //             })
-    //         );
     getCompUsers = compId =>
         userAPImgr.getCompanyUsers(compId)
             .then(cu =>
@@ -51,6 +37,19 @@ class ApplicationViews extends Component {
                     users: cu
                 })
             );
+
+    getCompEmps = compId =>
+        userAPImgr.getCompanyUsers(compId)
+            .then(pcu => {
+                const employees = pcu.filter(
+                    user => user.companyId === parseInt(sessionStorage.getItem("companyId")) && user.hireDate !== ""
+                )
+                this.setState({
+                    users: pcu,
+                    employees: employees
+                })
+                console.log(employees)
+            })
 
 
     addUser = newUser =>
@@ -62,12 +61,35 @@ class ApplicationViews extends Component {
                 })
             );
 
+
+    updateUser = (editedUser, id) => {
+        const newState = {}
+        return userAPImgr.updateUser(editedUser, id)
+            .then(() => userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
+                .then(pcu => {
+                    const employees = pcu.filter(
+                        user => user.companyId === parseInt(sessionStorage.getItem("companyId")) && user.hireDate !== ""
+                    )
+                    newState.users = pcu
+                    newState.employees = employees
+                    this.setState(newState)
+                })
+            );
+    }
+
+
+
     deleteEmp = userId => {
+        const newState = {}
         userAPImgr.deleteEmp(userId)
-            .then(() => userAPImgr.getCompanyUsers())
-            .then(cu =>
-                this.setState({
-                    users: cu
+            .then(() => userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
+                .then(pcu => {
+                    const employees = pcu.filter(
+                        user => user.companyId === parseInt(sessionStorage.getItem("companyId")) && user.hireDate !== ""
+                    )
+                    newState.users = pcu
+                    newState.employees = employees
+                    this.setState(newState)
                 })
             )
     }
@@ -85,20 +107,26 @@ class ApplicationViews extends Component {
         return companyAPImgr.postNewTask(newTask)
             .then(at => {
                 this.setState({
-                tasks: at
+                    tasks: at
+                })
             })
-        })
     }
+
 
     componentDidMount() {
         const newState = {};
-        userAPImgr.getAllUsers()
-            .then(pau => {
-                // console.log(pau)
-                newState.users = pau
+        userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
+            .then(pcu => {
+                // console.log(pcu)
+                newState.users = pcu;
+
+                const employees = pcu.filter(
+                    user => user.companyId === parseInt(sessionStorage.getItem("companyId")) && user.hireDate !== ""
+                )
+                // console.log(employees)
+                newState.employees = employees;
+                this.setState(newState)
             })
-        // console.log(newState)
-        this.setState(newState)
     }
 
     render() {
@@ -117,14 +145,14 @@ class ApplicationViews extends Component {
 
                 <Route path="/execLandingPage" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <ExecLandingPage  {...props} addUser={this.addUser} addCompany={this.addCompany} />
+                        return <ExecLandingPage  {...props} addUser={this.addUser} addCompany={this.addCompany} employees={this.employees} />
                     }
                     return <Redirect to="/" />
                 }} />
 
                 <Route exact path="/employees" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <EmployeeList  {...props} users={this.state.users} getCompUsers={this.getCompUsers} addUser={this.addUser} deleteUser={this.deleteUser} />
+                        return <EmployeeList  {...props} users={this.state.users} employees={this.state.employees} getCompUsers={this.getCompUsers} addUser={this.addUser} deleteEmp={this.deleteEmp} getCompEmps={this.getCompEmps} />
                     }
                     return <Redirect to="/" />
                 }} />
@@ -136,9 +164,9 @@ class ApplicationViews extends Component {
                     return <Redirect to="/" />
                 }} />
 
-                <Route path="/employees/:employeeId(\d+)" render={(props) => {
+                <Route path="/employees/:employeeId(\d+)/edit" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <EmployeeEditForm {...props} />
+                        return <EmployeeEditForm {...props} employees={this.state.employees} updateUser={this.updateUser} />
                     } else {
                         return <Redirect to="/" />
                     }
