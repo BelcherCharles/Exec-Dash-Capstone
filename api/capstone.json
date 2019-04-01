@@ -1,8 +1,53 @@
 {
-  "users": [],
-  "tasks": [],
+  "users": [
+    {
+      "userName": "Charles",
+      "userSurname": "Belcher",
+      "phone": "(304) 932-2120",
+      "email": "BelcherCharles@yahoo.com",
+      "password": "Kennedy",
+      "companyId": 1,
+      "hireDate": "",
+      "deptId": 1,
+      "id": 1
+    }
+  ],
+  "tasks": [
+    {
+      "taskDesc": "Let's Do The Thing",
+      "dueDate": "1980-07-19",
+      "note": "Birfday",
+      "isPriority": "",
+      "companyId": 1,
+      "id": 1
+    },
+    {
+      "id": 2,
+      "taskDesc": "Something new",
+      "dueDate": "1616-06-16",
+      "isPriority": true,
+      "note": "Just a test",
+      "type": "General Info",
+      "isComplete": "",
+      "companyId": 1
+    },
+    {
+      "taskDesc": "Task #3",
+      "dueDate": "2050-03-15",
+      "note": "Fix the Ides of March",
+      "isPriority": true,
+      "type": "Service",
+      "companyId": 1,
+      "id": 3
+    }
+  ],
   "empTasks": [],
-  "companies": [],
+  "companies": [
+    {
+      "companyName": "Almost Heaven Interiors",
+      "id": 1
+    }
+  ],
   "departments": [
     {
       "departmentName": "Executive/Administrative",

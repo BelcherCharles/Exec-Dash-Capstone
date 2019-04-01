@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import "./employees.css";
 
-export default class TaskManager extends Component {
+export default class TaskForm extends Component {
     // Set initial state
     state = {
         clientId: "",
@@ -9,10 +9,10 @@ export default class TaskManager extends Component {
         dueDate: "",
         isPriority: "",
         note: "",
+        type: "",
         isComplete: ""
     };
 
-    // Update state whenever an input field is edited (USED ALMOST EVERY TIME A FORM IS IN REACT!!!!)
     handleFieldChange = evt => {
         const stateToChange = {};
         stateToChange[evt.target.id] = evt.target.value;
@@ -25,38 +25,31 @@ export default class TaskManager extends Component {
         this.setState(stateToChange)
     }
 
-    /*
-          Local method for validation, creating animal object, and
-          invoking the function reference passed from parent component
-       */
     buildNewTask = evt => {
         evt.preventDefault();
-        if (this.state.taskDesc === "") {
-            window.alert("Please enter a task description.");
-        } else if
-            (this.state.dueDate === "") {
-            window.alert("Please select a task due date.");
-            } else {
+
             const newTask = {
-                companyId: parseInt(sessionStorage.getItem("companyId")),
-                clientId: this.state.clientId,
                 taskDesc: this.state.taskDesc,
                 dueDate: this.state.dueDate,
+                note: this.state.note,
                 isPriority: this.state.isPriority,
-                note: this.state.note
+                type: this.state.type,
+                companyId: parseInt(sessionStorage.getItem("companyId"))
             };
 
             console.log(newTask)
-
-            this.props.newTask(newTask)
+            //   debugger;
+            // Create the animal and redirect user to animal list
+            this.props.addTask(newTask)
                 .then(() => this.props.history.push("/taskManager"));
+
         };
-    }
+
 
     render() {
         return (
             <React.Fragment>
-                <h2>Task Manager</h2>
+                <h1>Add A New Task</h1>
                 <form className="taskForm">
                     <div className="form-group">
                         <label htmlFor="taskDesc">Task Description</label>
@@ -116,7 +109,7 @@ export default class TaskManager extends Component {
                         Add New Task
                     </button>
                 </form>
-            </React.Fragment>
+            </React.Fragment >
         );
     }
 }

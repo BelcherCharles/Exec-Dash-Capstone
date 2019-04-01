@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-// import NavBar from "./nav/NavBar"
-import ApplicationViews from "./applicationViews"
+import NavBar from "./nav/navBar"
+import ApplicationViews from "./nav/applicationViews"
 import {withRouter} from 'react-router-dom';
 // import auth0Client from './authentication/auth'
 // import "./kennel.css"
@@ -21,7 +21,7 @@ export default class Capstone extends Component {
     render() {
         return (
             <React.Fragment>
-                {/* <NavBar /> */}
+                <NavBar />
                 <ApplicationViews />
             </React.Fragment>
         )

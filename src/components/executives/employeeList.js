@@ -50,6 +50,7 @@ export default class EmployeeList extends Component {
     render() {
         return (
             <React.Fragment>
+                <h2>Employee Manager</h2>
                 <div className="hireEmployeeButton">
                     <button type="button"
                         className="btn btn-success" id="hireEmpBtn"

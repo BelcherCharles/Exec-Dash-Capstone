@@ -1,19 +1,21 @@
 import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from "react"
-import Login from './authentication/login'
-import RegNewCompany from './authentication/newCompanyReg'
-import userAPImgr from '../modules/userAPImgr'
-import companyAPImgr from '../modules/companyAPImgr'
-import ExecLandingPage from './executives/execLandingPage'
-import EmployeeList from './executives/employeeList'
-import EmployeeForm from './executives/employeeForm'
-import EmployeeEditForm from './executives/employeeEditForm'
-import TaskManager from '../components/tasks/tasks'
+import Login from '../authentication/login'
+import RegNewCompany from '../authentication/newCompanyReg'
+import userAPImgr from '../../modules/userAPImgr'
+import companyAPImgr from '../../modules/companyAPImgr'
+import ExecLandingPage from '../executives/execLandingPage'
+import EmployeeList from '../executives/employeeList'
+import EmployeeForm from '../executives/employeeForm'
+import EmployeeEditForm from '../executives/employeeEditForm'
+import TaskList from '../tasks/taskList'
+import TaskForm from '../tasks/taskForm'
+import TaskEditForm from '../tasks/taskEditForm'
 // import Callback from '../authentication/callBack'
 // import ResourceList from '../generics/resourceList'
 // import Auth0Client from "../authentication/auth"
 
-class ApplicationViews extends Component {
+export default class ApplicationViews extends Component {
 
 
     state = {
@@ -77,8 +79,6 @@ class ApplicationViews extends Component {
             );
     }
 
-
-
     deleteEmp = userId => {
         const newState = {}
         userAPImgr.deleteEmp(userId)
@@ -103,13 +103,45 @@ class ApplicationViews extends Component {
     //     })
     // );
 
-    newTask = newTask => {
-        return companyAPImgr.postNewTask(newTask)
-            .then(at => {
+    getCompTasks = compId =>
+        companyAPImgr.getCompanyTasks(compId)
+            .then(pct => {
+
                 this.setState({
-                    tasks: at
+                    tasks: pct,
                 })
+                console.log(pct)
             })
+
+    addTask = newTask => {
+        const newState = {}
+        return companyAPImgr.postNewTask(newTask)
+            .then(() => companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId")))
+                .then(pct => {
+                    newState.tasks = pct
+                    this.setState(newState)
+                })
+    }
+
+    updateTask = (editedTask, id) => {
+        const newState = {}
+        return companyAPImgr.updateTask(editedTask, id)
+            .then(() => companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId"))
+                .then(pct => {
+                    newState.tasks = pct
+                    this.setState(newState)
+                })
+            );
+    }
+
+    deleteTask = (taskId) => {
+        const newState = {}
+        return companyAPImgr.deleteTask(taskId)
+        .then(() => companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId")))
+                .then(pct => {
+                    newState.tasks = pct
+                    this.setState(newState)
+                })
     }
 
 
@@ -125,6 +157,10 @@ class ApplicationViews extends Component {
                 )
                 // console.log(employees)
                 newState.employees = employees;
+                return companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId"));
+            })
+            .then(pct => {
+                newState.tasks = pct
                 this.setState(newState)
             })
     }
@@ -175,10 +211,26 @@ class ApplicationViews extends Component {
 
                 <Route exact path="/taskManager" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <TaskManager  {...props} users={this.state.users} newTask={this.newTask} />
+                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} />
                     }
                     return <Redirect to="/" />
                 }} />
+
+                <Route path="/tasks/new" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <TaskForm  {...props} tasks={this.state.tasks} addTask={this.addTask} />
+                    }
+                    return <Redirect to="/" />
+                }} />
+
+                <Route path="/tasks/:taskId(\d+)/edit" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <TaskEditForm {...props} tasks={this.state.tasks} updateTask={this.updateTask} />
+                    } else {
+                        return <Redirect to="/" />
+                    }
+                }
+                } />
 
 
             </div>
@@ -186,4 +238,3 @@ class ApplicationViews extends Component {
     }
 }
 
-export default ApplicationViews
