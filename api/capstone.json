@@ -1,7 +1,12 @@
 {
-    "users":[],
-    "clients":[],
-    "tasks":[],
-    "empTasks":[],
-    "requests":[]
+  "users": [],
+  "tasks": [],
+  "empTasks": [],
+  "companies": [],
+  "departments": [
+    {
+      "departmentName": "Executive/Administrative",
+      "id": 1
+    }
+  ]
 }

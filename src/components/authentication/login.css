@@ -1,0 +1,13 @@
+form {
+    text-align:center;
+}
+
+label, input {
+    padding-right:10px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+section {
+    text-align: center;
+}
