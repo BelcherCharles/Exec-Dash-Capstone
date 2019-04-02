@@ -1,3 +1,4 @@
-nav {
-    margin-bottom:3vh;
+ .navBar {
+    opacity: 1;
+    background-color: rgba(255,255,255,0)
 }

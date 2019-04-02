@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import './login.css'
 import userAPImgr from "../../modules/userAPImgr";
+import NavBar from "../nav/navBar";
+import Capstone from '../capstone'
 
 
 export default class Login extends Component {
@@ -9,7 +11,9 @@ export default class Login extends Component {
     state = {
         email: "",
         password: "",
-        rememberMe: ""
+        rememberMe: "",
+        user: ""
+
     }
 
     // Update state whenever an input field is edited
@@ -47,6 +51,7 @@ export default class Login extends Component {
                 }
 
                 else if (this.state.password === su[0].password && this.state.rememberMe === true) {
+                    this.props.handleLogin()
                     localStorage.setItem("userId", su[0].id)
                     localStorage.setItem("companyId", su[0].companyId)
                     sessionStorage.setItem("userId", su[0].id)
@@ -59,6 +64,7 @@ export default class Login extends Component {
                         this.props.history.push("/employeeLandingPage")
                     }
                 } else {
+                    this.props.handleLogin()
                     sessionStorage.setItem("userId", su[0].id)
                     sessionStorage.setItem("companyId", su[0].companyId)
                     // this.goBack()

@@ -57,7 +57,7 @@ export default class TaskList extends Component {
     render() {
         return (
             <React.Fragment>
-                <h2>Task Manager</h2>
+                <h1 className="header">Task Manager</h1>
                 <div className="addTaskButton">
                     <button type="button"
                         className="btn btn-success" id="addTaskBtn"

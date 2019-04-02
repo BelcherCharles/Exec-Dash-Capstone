@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 import PropTypes from "prop-types"
 import userAPImgr from '../../modules/userAPImgr'
-// import "./employees.css"
+import "./landingPage.css"
 
 export default class ExecLandingPage extends Component {
 
@@ -48,11 +48,13 @@ export default class ExecLandingPage extends Component {
     render() {
         return (
             <React.Fragment>
-                <h1>Executive Landing Page</h1>
+                <h1 className="header">Executive Landing Page</h1>
 
                 <Link className="nav-link" to={`/employees`}>Employee Manager</Link>
 
                 <Link className="nav-link" to={`/taskManager`}>Task Manager</Link>
+
+                <Link className="nav-link" to={`/clientList`}>Client List</Link>
 
             </React.Fragment>
         )

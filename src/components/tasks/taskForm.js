@@ -49,7 +49,7 @@ export default class TaskForm extends Component {
     render() {
         return (
             <React.Fragment>
-                <h1>Add A New Task</h1>
+                <h1 className="header">Add A New Task</h1>
                 <form className="taskForm">
                     <div className="form-group">
                         <label htmlFor="taskDesc">Task Description</label>

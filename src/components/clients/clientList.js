@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import userAPImgr from '../../modules/userAPImgr'
-import EmployeeCard from './employeeCard'
+import ClientCard from './clientCard'
 // import ResourceCard from '../generics/resourceCard'
 // import EmployeeCard from './employeeCard'
 // import PropTypes from "prop-types"
-import "./employees.css"
+import "./clients.css"
 
-export default class EmployeeList extends Component {
+export default class ClientList extends Component {
     // state = {
     //     users: [],
     //     tasks: [],
@@ -16,31 +16,31 @@ export default class EmployeeList extends Component {
     //     employees: []
     // }
 
-    // componentDidMount() {
-    //     this.props.getCompEmps(sessionStorage.getItem("companyId"))
-    //     }
+    componentDidMount() {
+        // this.props.getCompClients(sessionStorage.getItem("companyId"))
+        }
 
     render() {
         return (
             <React.Fragment>
-                <h1 className="header">Employee Manager</h1>
-                <div className="hireEmployeeButton">
+                <h1 className="header">Client List</h1>
+                 <div className="addClientButton">
                     <button type="button"
-                        className="btn btn-success" id="hireEmpBtn"
+                        className="btn btn-success" id="addClientBtn"
                         onClick={() => {
-                            this.props.history.push("/employees/new")
+                            this.props.history.push("/clients/new")
                         }
                         }>
-                        Hire Employee
+                        Add New Client
                     </button>
                 </div >
-                <section className="employees">
+               <section className="clients">
                     {
-                        this.props.employees.map(employee => {
-                            console.log(employee)
+                        this.props.clients.map(client => {
+                            console.log(client)
                             return (
-                                <div key={employee.id}>
-                                    < EmployeeCard key={employee.id} employee={employee} route={"employees"} deleteEmp={this.props.deleteEmp} {...this.props} />
+                                <div key={client.id}>
+                                    < ClientCard key={client.id} client={client} deleteClient={this.props.deleteClient} {...this.props} />
                                 </div>
                             )
                         }

@@ -38,7 +38,7 @@ export default {
             .then(eu => eu.json())
     },
 
-    deleteEmp: (userId) => {
+    deleteUser: (userId) => {
         return fetch(`${remoteURL}/users/${userId}`, {
             method: "DELETE"
         })

@@ -5,6 +5,7 @@
     margin-left: auto;
     margin-right: auto;
     justify-content:space-evenly;
+    /* margin-top:10vh; */
 }
 
 .taskCard {
@@ -43,7 +44,7 @@
   }
 
   #addTaskBtn {
-      margin-top: 8vh;
+      margin-top: 3vh;
       margin-bottom: 8vh;
       margin-left:auto;
       margin-right:auto;
@@ -53,6 +54,7 @@
       font-size: 14px;
   }
 
-  h2 {
+  .header {
+      margin-top:10vh;
       text-align:center;
   }

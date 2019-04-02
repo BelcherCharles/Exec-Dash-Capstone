@@ -17,7 +17,7 @@ export default class EmployeeCard extends Component {
                         <p>{this.props.employee.city}, {this.props.employee.state} {this.props.employee.zip}</p>
                         {/* <p>{this.props.employee.id}</p> */}
 
-                       <button className="btn btn-primary"  onClick={() => this.props.history.push(`/employees/${this.props.employee.id}/edit`)} userId={this.props.employee.id}>Edit Employee</button>
+                       <button className="btn btn-primary"  onClick={() => this.props.history.push(`/employees/${this.props.employee.id}/edit`)} >Edit Employee</button>
                         <br></br>
                         <button onClick={() => this.props.deleteEmp(this.props.employee.id)}
                             className="btn btn-danger">Fire Employee

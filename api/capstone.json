@@ -9,43 +9,65 @@
       "companyId": 1,
       "hireDate": "",
       "deptId": 1,
-      "id": 1
-    }
-  ],
-  "tasks": [
-    {
-      "taskDesc": "Let's Do The Thing",
-      "dueDate": "1980-07-19",
-      "note": "Birfday",
-      "isPriority": "",
-      "companyId": 1,
+      "userType": "employee",
+      "isAdmin": true,
       "id": 1
     },
     {
-      "id": 2,
-      "taskDesc": "Something new",
-      "dueDate": "1616-06-16",
-      "isPriority": true,
-      "note": "Just a test",
-      "type": "General Info",
-      "isComplete": "",
-      "companyId": 1
-    },
-    {
-      "taskDesc": "Task #3",
-      "dueDate": "2050-03-15",
-      "note": "Fix the Ides of March",
-      "isPriority": true,
-      "type": "Service",
-      "companyId": 1,
+      "userName": "Testy",
+      "userSurname": "McTest",
+      "phone": "(222) 333-4444",
+      "email": "Test@test.com",
+      "password": "aaaaaa",
+      "companyId": 2,
+      "hireDate": "",
+      "userType": "employee",
+      "isAdmin": true,
+      "deptId": 1,
       "id": 3
+    },
+    {
+      "name": "Employee",
+      "surname": "#1",
+      "email": "Employee#1@test.com",
+      "phone": "(333) 444-5555",
+      "address": "21 Jump St.",
+      "city": "Nowhere",
+      "state": "AK",
+      "zip": "99999",
+      "companyId": 2,
+      "hireDate": "2019-04-02T14:46:17.299Z",
+      "userType": "employee",
+      "id": 4
+    },
+    {
+      "userName": "Executive",
+      "userSurname": "Director",
+      "phone": "(888) 888-8888",
+      "email": "Ed@company3.com",
+      "password": "ededed",
+      "companyId": 3,
+      "hireDate": "",
+      "userType": "employee",
+      "isAdmin": true,
+      "deptId": 1,
+      "id": 6
     }
   ],
+  "tasks": [],
   "empTasks": [],
   "companies": [
     {
       "companyName": "Almost Heaven Interiors",
       "id": 1
+    },
+    {
+      "companyName": "Test Company",
+      "id": 2
+    },
+    {
+      "companyName": "Company 3",
+      "id": 3
     }
   ],
   "departments": [
