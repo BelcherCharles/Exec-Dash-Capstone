@@ -14,6 +14,8 @@ import TaskForm from '../tasks/taskForm'
 import TaskEditForm from '../tasks/taskEditForm'
 import ClientList from '../clients/clientList'
 import ClientForm from '../clients/clientForm'
+import ClientEditForm from '../clients/clientEditForm'
+import EmpLandingPage from '../employees/empLandingPage'
 // import Callback from '../authentication/callBack'
 // import ResourceList from '../generics/resourceList'
 // import Auth0Client from "../authentication/auth"
@@ -48,6 +50,9 @@ export default class ApplicationViews extends Component {
                 this.setState(newState)
             });
     }
+
+
+
     // userAPImgr.getCompanyUsers(compId)
     //     .then(cu =>
     //         this.setState({
@@ -94,8 +99,12 @@ export default class ApplicationViews extends Component {
                     const employees = pcu.filter(
                         user => user.userType === "employee" && user.isAdmin !== true
                     )
+                    const clients = pcu.filter(
+                        user => user.userType === "client"
+                    )
                     newState.users = pcu
                     newState.employees = employees
+                    newState.clients = clients
                     this.setState(newState)
                 })
             );
@@ -190,6 +199,8 @@ export default class ApplicationViews extends Component {
             })
     }
 
+
+
     componentDidMount() {
         const newState = {};
         userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
@@ -200,13 +211,13 @@ export default class ApplicationViews extends Component {
                 const employees = pcu.filter(
                     user => user.userType === "employee" && user.isAdmin !== true
                 )
-                console.log(employees)
+                // console.log(employees)
                 newState.employees = employees;
 
                 const clients = pcu.filter(
                     client => client.userType === "client"
                 )
-                console.log(clients)
+                // console.log(clients)
                 newState.clients = clients;
                 return companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId"));
             })
@@ -237,6 +248,13 @@ export default class ApplicationViews extends Component {
                     return <Redirect to="/" />
                 }} />
 
+                <Route path="/empLandingPage" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <EmpLandingPage  {...props} tasks={this.state.tasks} />
+                    }
+                    return <Redirect to="/" />
+                }} />
+
                 <Route exact path="/employees" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <EmployeeList  {...props} users={this.state.users} employees={this.state.employees} getCompUsers={this.getCompUsers} addUser={this.addUser} deleteEmp={this.deleteEmp} getCompEmps={this.getCompEmps} />
@@ -262,7 +280,7 @@ export default class ApplicationViews extends Component {
 
                 <Route exact path="/taskManager" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} />
+                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} employees={this.state.employees}/>
                     }
                     return <Redirect to="/" />
                 }} />
@@ -294,6 +312,14 @@ export default class ApplicationViews extends Component {
                         return <ClientForm  {...props} clients={this.state.clients} addUser={this.addUser} />
                     }
                     return <Redirect to="/" />
+                }} />
+
+                <Route path="/clients/:clientId(\d+)/edit" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <ClientEditForm {...props} client={this.state.clients} updateUser={this.updateUser} />
+                    } else {
+                        return <Redirect to="/" />
+                    }
                 }} />
 
             </div>

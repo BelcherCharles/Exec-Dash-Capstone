@@ -8,17 +8,32 @@ import EmployeeCard from './employeeCard'
 import "./employees.css"
 
 export default class EmployeeList extends Component {
-    // state = {
-    //     users: [],
-    //     tasks: [],
-    //     empTasks: [],
-    //     departments: [],
-    //     employees: []
-    // }
+    state = {
+        // users: [],
+        // tasks: [],
+        // empTasks: [],
+        // departments: [],
+        filterEmps: [],
+        searchName: []
+    }
 
-    // componentDidMount() {
-    //     this.props.getCompEmps(sessionStorage.getItem("companyId"))
-    //     }
+    searchCompUsers = () => {
+        const newState = {}
+                const filteredEmps = this.props.employees.filter(
+                    user => user.name.includes(this.state.searchName)
+                    // user.userType === "employee" && user.isAdmin !== true &&
+                )
+                console.log(filteredEmps)
+                newState.filterEmps = filteredEmps
+                this.setState(newState)
+    }
+
+    empSearch = evt => {
+        const stateToChange = {};
+        stateToChange[evt.target.id] = evt.target.value;
+        this.setState(stateToChange);
+        this.searchCompUsers()
+    };
 
     render() {
         return (
@@ -34,10 +49,34 @@ export default class EmployeeList extends Component {
                         Hire Employee
                     </button>
                 </div >
+                <section className="empSearch">
+                    <h3 className="sectHeader">Search For Employees</h3>
+                    <label htmlFor="firstName">First Name</label>
+                    <input
+                        type="text"
+                        required
+                        className="search-form-control"
+                        onChange={this.empSearch}
+                        id="searchName"
+                        placeholder="First Name"
+                    />
+                    <br></br>
+                    <label htmlFor="surname">Surname</label>
+                    <input
+                        type="text"
+                        required
+                        className="search-form-control"
+                        onChange={this.empSearch}
+                        id="searchSurname"
+                        placeholder="Surname"
+                    />
+                </section>
+                <br></br>
+                <br></br>
                 <section className="employees">
                     {
                         this.props.employees.map(employee => {
-                            console.log(employee)
+                            // console.log(employee)
                             return (
                                 <div key={employee.id}>
                                     < EmployeeCard key={employee.id} employee={employee} route={"employees"} deleteEmp={this.props.deleteEmp} {...this.props} />

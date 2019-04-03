@@ -44,8 +44,8 @@
   }
 
   #hireEmpBtn {
-      margin-top: 3vh;
-      margin-bottom: 8vh;
+      margin-top: 1vh;
+      margin-bottom: 3vh;
       margin-left:auto;
       margin-right:auto;
   }
@@ -57,4 +57,8 @@
   .header {
       text-align:center;
       margin-top:10vh;
+  }
+
+  .search-form-control {
+      width:30%;
   }

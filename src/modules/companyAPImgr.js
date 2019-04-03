@@ -57,4 +57,24 @@ export default {
             method: "DELETE"
         })
     },
+
+    markTaskComp: (taskId) => {
+        return fetch(`${remoteURL}/tasks/${taskId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ isComplete: true })
+        });
+    },
+
+    assignTask: (taskId, empId) => {
+        return fetch(`${remoteURL}/tasks/${taskId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ assignedTo: parseInt(empId) })
+        });
+    }
 }

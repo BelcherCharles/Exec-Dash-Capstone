@@ -9,7 +9,7 @@ export default class EmployeeCard extends Component {
             <div key={this.props.employee.id} className="empCard">
                 <div className="empCardBody">
                     <h3 className="empCardTitle">
-                        <img src={this.props.employee.image} alt={this.props.employee.name} className="empImg" />
+                        {/* <img src={this.props.employee.image} alt={this.props.employee.name} className="empImg" /> */}
                         <p>{this.props.employee.name} {this.props.employee.surname}</p>
                         <p>{this.props.employee.email}</p>
                         <p>{this.props.employee.phone}</p>

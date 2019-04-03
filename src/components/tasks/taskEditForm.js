@@ -70,7 +70,7 @@ export default class TaskEditForm extends Component {
     render() {
         return (
             <React.Fragment>
-                <h1> This Is Employee Edit Form </h1>
+                <h1 className="header"> Task Edit Form </h1>
                 <form className="taskForm">
                     <div className="form-group">
                         <label htmlFor="taskDesc">Task Description</label>
@@ -99,10 +99,7 @@ export default class TaskEditForm extends Component {
                         <select className="form-control" value={this.state.type}
                             onChange={this.handleFieldChange}
                             id="type">
-                            <option value="Sales">Sales</option>
-                            <option value="Service">Service</option>
-                            <option value="General Info">General Info</option>
-                            <option value="Finance">Finance</option>
+                            ))}
                         </select>
                         <br></br>
                         <label htmlFor="note">Notes</label>

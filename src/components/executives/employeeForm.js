@@ -50,10 +50,8 @@ export default class EmployeeForm extends Component {
 
                 // department: this.state.department,
             };
-
             console.log(newUser)
-            //   debugger;
-            // Create the animal and redirect user to animal list
+
             this.props.addUser(newUser)
                 .then(() => this.props.history.push("/employees"));
 
@@ -70,7 +68,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="firstName"
                             placeholder="First Name"
@@ -80,7 +78,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="surname"
                             placeholder="Surname"
@@ -90,7 +88,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="email"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="email"
                             placeholder="Email"
@@ -100,7 +98,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="tel"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="phone"
                             placeholder="Phone #"
@@ -110,7 +108,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="address"
                             placeholder="Street Address"
@@ -120,7 +118,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="city"
                             placeholder="City"
@@ -130,7 +128,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="state"
                             placeholder="State"
@@ -140,21 +138,21 @@ export default class EmployeeForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="zip"
                             placeholder="Zip Code"
                         />
                         <br></br>
-                        <label htmlFor="image">Headshot</label>
+                        {/* <label htmlFor="image">Headshot</label>
                         <input
                             type="file"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="image"
                             placeholder="Image"
-                        />
+                        /> */}
                         {/* <label htmlFor="department">Department</label>
                             <input
                                 type="text"

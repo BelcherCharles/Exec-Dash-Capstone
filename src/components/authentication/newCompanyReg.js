@@ -75,8 +75,8 @@ export default class NewCompanyReg extends Component {
                     console.log(pnc)
 
                     const newUser = {
-                        userName: this.state.userFirstName,
-                        userSurname: this.state.userSurname,
+                        name: this.state.userFirstName,
+                        surname: this.state.userSurname,
                         phone: this.state.userPhone,
                         email: this.state.userEmail,
                         password: this.state.userPassword,

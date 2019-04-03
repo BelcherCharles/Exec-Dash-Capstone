@@ -19,7 +19,7 @@ class NavBar extends Component {
     // }
 
     render() {
-        console.log(this.props.location)
+        // console.log(this.props.location)
         if (this.props.capState.user === false && this.props.location.pathname === "/") {
             return (
                 <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow opaqueNav">

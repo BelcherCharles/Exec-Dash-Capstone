@@ -33,6 +33,7 @@ export default class TaskForm extends Component {
                 dueDate: this.state.dueDate,
                 note: this.state.note,
                 isPriority: this.state.isPriority,
+                isComplete: false,
                 type: this.state.type,
                 companyId: parseInt(sessionStorage.getItem("companyId"))
             };

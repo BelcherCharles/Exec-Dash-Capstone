@@ -72,7 +72,7 @@ export default class Login extends Component {
                         this.props.history.push("/execLandingPage")
                        }
                        else {
-                           this.props.history.push("/employeeLandingPage")
+                           this.props.history.push("/empLandingPage")
                        }
                 }
             })

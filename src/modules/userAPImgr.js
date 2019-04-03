@@ -24,7 +24,7 @@ export default {
             },
             body: JSON.stringify(newUser)
         })
-        .then(nu => nu.json())
+            .then(nu => nu.json())
     },
 
     updateUser: (editedUser, userId) => {
@@ -48,4 +48,9 @@ export default {
         return fetch(`${remoteURL}/users/?email=${userEmail}`)
             .then(su => su.json())
     }
+    // searchUserName: (name) => {
+    //     return fetch(`${remoteURL}/users/?name=${name}`)
+    //         .then(pu => pu.json())
+
+
 }
