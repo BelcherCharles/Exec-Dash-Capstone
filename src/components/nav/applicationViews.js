@@ -29,6 +29,7 @@ export default class ApplicationViews extends Component {
         tasks: [],
         empTasks: [],
         employees: [],
+        filterEmps: [],
         clients: []
     }
 
@@ -140,6 +141,7 @@ export default class ApplicationViews extends Component {
                 console.log(pct)
             })
 
+
     addTask = newTask => {
         const newState = {}
         return companyAPImgr.postNewTask(newTask)
@@ -183,7 +185,6 @@ export default class ApplicationViews extends Component {
                 this.setState(newState)
             })
     }
-    // client.companyId === parseInt(sessionStorage.getItem("companyId"))
 
     deleteClient = (clientId) => {
         const newState = {}
@@ -200,20 +201,18 @@ export default class ApplicationViews extends Component {
     }
 
 
-
     componentDidMount() {
         const newState = {};
         userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
             .then(pcu => {
                 // console.log(pcu)
                 newState.users = pcu;
-
                 const employees = pcu.filter(
                     user => user.userType === "employee" && user.isAdmin !== true
                 )
                 // console.log(employees)
                 newState.employees = employees;
-
+                newState.filterEmps = employees
                 const clients = pcu.filter(
                     client => client.userType === "client"
                 )
@@ -222,7 +221,11 @@ export default class ApplicationViews extends Component {
                 return companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId"));
             })
             .then(pct => {
+                const empTasks = pct.filter(task => task.userId === +sessionStorage.getItem("userId"))
+                // console.log(pct)
+                // console.log(empTasks)
                 newState.tasks = pct
+                newState.empTasks = empTasks
                 this.setState(newState)
             })
     }
@@ -250,14 +253,15 @@ export default class ApplicationViews extends Component {
 
                 <Route path="/empLandingPage" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <EmpLandingPage  {...props} tasks={this.state.tasks} />
+                        return <EmpLandingPage  {...props} tasks={this.state.tasks} empTasks={this.state.empTasks} />
                     }
                     return <Redirect to="/" />
                 }} />
 
                 <Route exact path="/employees" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <EmployeeList  {...props} users={this.state.users} employees={this.state.employees} getCompUsers={this.getCompUsers} addUser={this.addUser} deleteEmp={this.deleteEmp} getCompEmps={this.getCompEmps} />
+                        return <EmployeeList  {...props} users={this.state.users} employees={this.state.employees}  addUser={this.addUser} deleteEmp={this.deleteEmp} filterEmps={this.state.filterEmps} />
+                        // getCompUsers={this.getCompUsers} getCompEmps={this.getCompEmps}
                     }
                     return <Redirect to="/" />
                 }} />
@@ -280,7 +284,7 @@ export default class ApplicationViews extends Component {
 
                 <Route exact path="/taskManager" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} employees={this.state.employees}/>
+                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} employees={this.state.employees} />
                     }
                     return <Redirect to="/" />
                 }} />

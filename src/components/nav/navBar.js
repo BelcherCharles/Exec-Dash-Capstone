@@ -27,19 +27,22 @@ class NavBar extends Component {
                         <li className="nav-item">
                             <Link className="nav-link" to="/RegNewCompany">Register Company</Link>
                         </li>
-                   </ul>
-               </nav>
+                    </ul>
+                </nav>
             )
-        } else if (this.props.capState.user === false && this.props.location.pathname === "/RegNewCompany"){
-             return (
-            <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow opaqueNav">
-                <ul className="nav nav-pills">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/">Login</Link>
-                    </li>
-               </ul>
-           </nav>
-        )} else {
+        } else if (this.props.capState.user === false && this.props.location.pathname === "/RegNewCompany") {
+            return (
+                <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow opaqueNav">
+                    <ul className="nav nav-pills">
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/">Login</Link>
+                        </li>
+                    </ul>
+                </nav>
+            )
+        } else {
+            if (sessionStorage.getItem("isAdmin") === true) {
+        //(this.props.capState === true  && sessionStorage.getItem("isAdmin") === true {
             return (
                 <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow">
                     <ul className="nav nav-pills">
@@ -62,6 +65,46 @@ class NavBar extends Component {
                     </ul>
                 </nav>
             )
+            } else {
+                return (
+                    <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow">
+                        <ul className="nav nav-pills">
+
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/" onClick={this.props.handleLogout}>Log Out</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/empLandingPage">Dashboard</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/employees">Employee Manager</Link>
+                            </li>
+                            {/* <li className="nav-item">
+                                <Link className="nav-link" to="/taskManager">Task Manager</Link>
+                            </li> */}
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/clientList">Client List</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                )
+            }
+
+        // } else if (this.props.capState === true && sessionStorage.getItem("isAdmin") === false) {
+        //     return (
+        //         <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow">
+        //             <ul className="nav nav-pills"></ul>
+        //             <li className="nav-item">
+        //                 <Link className="nav-link" to="/" onClick={this.props.handleLogout}>Log Out</Link>
+        //             </li>
+        //             <li className="nav-item">
+        //                 <Link className="nav-link" to="/empLandingPage">Dashboard</Link>
+        //             </li>
+        //             <li className="nav-item">
+        //                 <Link className="nav-link" to="/clientList">Client List</Link>
+        //             </li>
+        //         </nav>
+        //     )
         }
     }
 }

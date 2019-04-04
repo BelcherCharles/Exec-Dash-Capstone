@@ -34,7 +34,7 @@ render() {
                     <select className="form-control"
                         onInput={this.assignTo}
                         id="assignTo" placeholder="Assign To">
-                        {/* <option value="" disabled defaultValue value>Employee</option> */}
+                        <option value="" selected>Employee:</option>
                         {this.props.employees.map(employee => (
                             <option key={employee.id} id={employee.id} value={employee.id}>
                                 {employee.name} {employee.surname}

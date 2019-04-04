@@ -74,7 +74,7 @@ export default {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ assignedTo: parseInt(empId) })
+            body: JSON.stringify({ userId: parseInt(empId) })
         });
     }
 }

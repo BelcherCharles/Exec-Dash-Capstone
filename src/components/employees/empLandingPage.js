@@ -30,9 +30,10 @@ export default class EmpLandingPage extends Component {
                 <h1 className="header">Employee Landing Page</h1>
                 <br></br>
                 <h3 className="centered">Here's Your Tasks</h3>
+                <br></br>
                 <section className="tasks">
                     {
-                        this.props.tasks.map(task => {
+                        this.props.empTasks.map(task => {
                             console.log(task)
                             return (
                                 <div key={task.id}>
@@ -45,8 +46,6 @@ export default class EmpLandingPage extends Component {
                 </section>
 
                 <Link className="nav-link" to={`/employees`}>Employee Manager</Link>
-
-                <Link className="nav-link" to={`/taskManager`}>Task Manager</Link>
 
                 <Link className="nav-link" to={`/clientList`}>Client List</Link>
 

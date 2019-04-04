@@ -42,6 +42,34 @@
       "deptId": 2,
       "password": "airforce",
       "id": 3
+    },
+    {
+      "name": "Client",
+      "surname": "#1",
+      "email": "Client#1@clients.com",
+      "phone": "(111) 222-3333",
+      "address": "",
+      "city": "",
+      "state": "WV",
+      "zip": "",
+      "companyId": 1,
+      "clientSince": "2019-04-04T13:10:42.134Z",
+      "userType": "client",
+      "id": 4
+    },
+    {
+      "name": "Client",
+      "surname": "#2",
+      "email": "Client#2@clients.com",
+      "phone": "(111) 222-3333",
+      "address": "21 Jump St.",
+      "city": "Abbazabba",
+      "state": "FL",
+      "zip": "44444",
+      "companyId": 1,
+      "clientSince": "2019-04-04T14:36:58.583Z",
+      "userType": "client",
+      "id": 5
     }
   ],
   "tasks": [
@@ -54,7 +82,18 @@
       "type": "",
       "companyId": 1,
       "id": 1,
-      "assignedTo": 2
+      "userId": 2
+    },
+    {
+      "taskDesc": "File your fucking taxes!",
+      "dueDate": "2019-04-15",
+      "note": "Get that shit done!",
+      "isPriority": true,
+      "isComplete": false,
+      "type": "Finance",
+      "companyId": 1,
+      "id": 2,
+      "userId": 2
     }
   ],
   "empTasks": [],

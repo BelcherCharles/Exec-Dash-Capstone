@@ -57,23 +57,29 @@ export default class Login extends Component {
                     sessionStorage.setItem("userId", su[0].id)
                     sessionStorage.setItem("companyId", su[0].companyId)
                     // this.goBack()
-                    if (su[0].deptId === 1) {
-                     this.props.history.push("/execLandingPage")
+                    if (su[0].isAdmin === true) {
+                        sessionStorage.setItem("isAdmin", true)
+                        this.props.history.push("/execLandingPage")
+
                     }
                     else {
+                        sessionStorage.setItem("isAdmin", false)
                         this.props.history.push("/employeeLandingPage")
+
                     }
                 } else {
                     this.props.handleLogin()
                     sessionStorage.setItem("userId", su[0].id)
                     sessionStorage.setItem("companyId", su[0].companyId)
                     // this.goBack()
-                    if (su[0].deptId === 1) {
+                    if (su[0].isAdmin === true) {
+                        sessionStorage.setItem("isAdmin", true)
                         this.props.history.push("/execLandingPage")
-                       }
-                       else {
-                           this.props.history.push("/empLandingPage")
-                       }
+                    }
+                    else {
+                        sessionStorage.setItem("isAdmin", false)
+                        this.props.history.push("/empLandingPage")
+                    }
                 }
             })
     }
