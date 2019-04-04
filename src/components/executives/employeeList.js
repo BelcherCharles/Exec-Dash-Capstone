@@ -13,14 +13,14 @@ export default class EmployeeList extends Component {
         // tasks: [],
         // empTasks: [],
         // departments: [],
-        filterEmps: this.props.filterEmps,
+        filterEmps: [],
         searchName: []
     }
 
     empSearch = evt => {
         const newState = {}
         const filteredEmps = this.props.employees.filter(
-            user => user.name.includes(evt.target.value)
+            user => user.name.includes(evt.target.value) || user.surname.includes(evt.target.value)
         )
         console.log(filteredEmps)
         newState.filterEmps = filteredEmps
@@ -35,7 +35,14 @@ export default class EmployeeList extends Component {
     // }
 
     render() {
-        if (sessionStorage.getItem("isAdmin") === true) {
+        if (sessionStorage.getItem("isAdmin") === "true") {
+            let empsToPrint = ""
+            if (this.state.filterEmps.length === 0) {
+                empsToPrint = this.props.filterEmps
+            } else {
+                empsToPrint = this.state.filterEmps
+            }
+
             return (
                 <React.Fragment>
                     <h1 className="header">Employee Manager</h1>
@@ -75,7 +82,7 @@ export default class EmployeeList extends Component {
                     <br></br>
                     <section className="employees">
                         {
-                            this.state.filterEmps.map(employee => {
+                            empsToPrint.map(employee => {
                                 // console.log(employee)
                                 return (
                                     <div key={employee.id}>
@@ -87,8 +94,14 @@ export default class EmployeeList extends Component {
                         }
                     </section>
                 </React.Fragment>
-            );
+            )
         } else {
+            let empsToPrint = ""
+            if (this.state.filterEmps.length === 0) {
+                empsToPrint = this.props.filterEmps
+            } else {
+                empsToPrint = this.state.filterEmps
+            }
             return (
                 <React.Fragment>
                     <h1 className="header">Employee Manager</h1>
@@ -119,7 +132,7 @@ export default class EmployeeList extends Component {
                     <br></br>
                     <section className="employees">
                         {
-                            this.state.filterEmps.map(employee => {
+                            empsToPrint.map(employee => {
                                 // console.log(employee)
                                 return (
                                     <div key={employee.id}>
@@ -130,7 +143,7 @@ export default class EmployeeList extends Component {
                             )
                         }
                     </section>
-                </React.Fragment>
+                </React.Fragment >
             )
         }
     }

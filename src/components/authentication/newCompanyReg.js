@@ -81,7 +81,7 @@ export default class NewCompanyReg extends Component {
                         email: this.state.userEmail,
                         password: this.state.userPassword,
                         companyId: parseInt(pnc.id),
-                        hireDate: "",
+                        hireDate: new Date(),
                         userType: "employee",
                         isAdmin: true,
                         deptId: 1

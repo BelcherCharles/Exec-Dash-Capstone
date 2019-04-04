@@ -5,7 +5,7 @@ import "./clients.css"
 
 export default class ClientCard extends Component {
     render() {
-        if (sessionStorage.getItem("isAdmin" === true)) {
+        if (sessionStorage.getItem("isAdmin") === "true") {
             return (
                 <div key={this.props.client.id} className="clientCard">
                     <div className="clientCardBody">
@@ -42,9 +42,6 @@ export default class ClientCard extends Component {
 
                             <button className="btn btn-primary" onClick={() => this.props.history.push(`/clients/${this.props.client.id}/edit`)} >Edit Client</button>
                             <br></br>
-                            {/* <button onClick={() => this.props.deleteClient(this.props.client.id)}
-                            className="btn btn-danger">Delete Client
-                        </button> */}
                         </h3>
                     </div>
                 </div>

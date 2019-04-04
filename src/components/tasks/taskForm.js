@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import "./employees.css";
+import "./tasks.css";
 
 export default class TaskForm extends Component {
     // Set initial state
@@ -57,7 +57,7 @@ export default class TaskForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="taskDesc"
                             placeholder="Description"
@@ -67,14 +67,14 @@ export default class TaskForm extends Component {
                         <input
                             type="date"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="dueDate"
                             placeholder="Due Date"
                         />
                         <br></br>
-                        <label htmlFor="requestType" placeholder="Request For"></label>
-                        <select className="form-control"
+                        <label htmlFor="requestType" placeholder="Request For">Request Type</label>
+                        <select className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="type">
                             <option value="Sales">Sales</option>
@@ -87,7 +87,7 @@ export default class TaskForm extends Component {
                         <input
                             type="textarea"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="note"
                             placeholder="Notes"
@@ -96,7 +96,7 @@ export default class TaskForm extends Component {
                         <label htmlFor="isPriority">Priority Task?</label>
                         <input
                             type="checkbox"
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleCheckbox}
                             id="isPriority">
                         </input>

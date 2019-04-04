@@ -9,19 +9,12 @@
 }
 
 .taskCard {
+    border: 1px solid black;
     display: flex;
     justify-content: space-evenly;
     flex: wrap;
     margin-left: auto;
     margin-right: auto;
-}
-
-/* .empImg {
-    width: 8rem;
-    height: 8rem;
-} */
-
-.taskCard {
     width: 10rem;
 }
 
@@ -58,3 +51,7 @@
       margin-top:10vh;
       text-align:center;
   }
+
+  .search-form-control {
+    width:30%;
+}

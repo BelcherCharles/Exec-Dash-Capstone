@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Link, Redirect } from "react-router-dom"
 import companyAPImgr from "../../modules/companyAPImgr";
 // import PropTypes from "prop-types"
-// import "./employees.css"
+import "./tasks.css"
 
 
 
@@ -34,7 +34,7 @@ render() {
                     <select className="form-control"
                         onInput={this.assignTo}
                         id="assignTo" placeholder="Assign To">
-                        <option value="" selected>Employee:</option>
+                        <option value="" defaultValue="">Employee:</option>
                         {this.props.employees.map(employee => (
                             <option key={employee.id} id={employee.id} value={employee.id}>
                                 {employee.name} {employee.surname}

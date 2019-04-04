@@ -52,15 +52,6 @@ export default class ApplicationViews extends Component {
             });
     }
 
-
-
-    // userAPImgr.getCompanyUsers(compId)
-    //     .then(cu =>
-    //         this.setState({
-    //             users: cu
-    //         })
-    //     );
-
     getCompEmps = () =>
         userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
             .then(pcu => {
@@ -87,6 +78,7 @@ export default class ApplicationViews extends Component {
                 )
                 newState.users = pcu
                 newState.employees = employees
+                newState.filterEmps = employees
                 newState.clients = clients
                 this.setState(newState)
             });
@@ -122,6 +114,7 @@ export default class ApplicationViews extends Component {
                     )
                     newState.users = pcu
                     newState.employees = employees
+                    newState.filterEmps = employees
                     this.setState(newState)
                 })
             )
@@ -140,7 +133,6 @@ export default class ApplicationViews extends Component {
                 })
                 console.log(pct)
             })
-
 
     addTask = newTask => {
         const newState = {}
@@ -199,7 +191,6 @@ export default class ApplicationViews extends Component {
                 this.setState(newState)
             })
     }
-
 
     componentDidMount() {
         const newState = {};
@@ -330,4 +321,3 @@ export default class ApplicationViews extends Component {
         )
     }
 }
-

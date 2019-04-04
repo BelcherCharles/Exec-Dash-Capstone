@@ -34,6 +34,15 @@ export default class EmployeeForm extends Component {
         if (this.state.department === "") {
             window.alert("Please select a department");
         } else {
+            var generator = require('generate-password');
+
+            var newUserPass = generator.generate({
+                length: 8,
+                numbers: true
+            });
+
+            // 'uEyMTw32v9'
+            console.log(newUserPass);
             const newUser = {
                 name: this.state.firstName,
                 surname: this.state.surname,
@@ -46,6 +55,7 @@ export default class EmployeeForm extends Component {
                 companyId: parseInt(sessionStorage.getItem("companyId")),
                 hireDate: new Date(),
                 userType: "employee",
+                password: newUserPass
                 // image: this.state.image
 
                 // department: this.state.department,

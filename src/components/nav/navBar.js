@@ -40,8 +40,8 @@ class NavBar extends Component {
                     </ul>
                 </nav>
             )
-        } else {
-            if (sessionStorage.getItem("isAdmin") === true) {
+        } else
+            if (sessionStorage.getItem("isAdmin") === "true") {
         //(this.props.capState === true  && sessionStorage.getItem("isAdmin") === true {
             return (
                 <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow">
@@ -89,25 +89,9 @@ class NavBar extends Component {
                     </nav>
                 )
             }
-
-        // } else if (this.props.capState === true && sessionStorage.getItem("isAdmin") === false) {
-        //     return (
-        //         <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow">
-        //             <ul className="nav nav-pills"></ul>
-        //             <li className="nav-item">
-        //                 <Link className="nav-link" to="/" onClick={this.props.handleLogout}>Log Out</Link>
-        //             </li>
-        //             <li className="nav-item">
-        //                 <Link className="nav-link" to="/empLandingPage">Dashboard</Link>
-        //             </li>
-        //             <li className="nav-item">
-        //                 <Link className="nav-link" to="/clientList">Client List</Link>
-        //             </li>
-        //         </nav>
-        //     )
         }
     }
-}
+
 
 export default withRouter(NavBar)
 
