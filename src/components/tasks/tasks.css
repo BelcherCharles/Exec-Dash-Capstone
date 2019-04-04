@@ -1,4 +1,4 @@
-.employees {
+.tasks {
     display:flex;
     flex-direction:row;
     flex:wrap;
@@ -8,7 +8,7 @@
     /* margin-top:10vh; */
 }
 
-.empCard {
+.taskCard {
     display: flex;
     justify-content: space-evenly;
     flex: wrap;
@@ -16,16 +16,16 @@
     margin-right: auto;
 }
 
-.empImg {
+/* .empImg {
     width: 8rem;
     height: 8rem;
-}
+} */
 
-.empCard {
+.taskCard {
     width: 10rem;
 }
 
-.empCardTitle {
+.taskCardTitle {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -37,28 +37,24 @@
     font-size: 0.7em;
 }
 
-.hireEmployeeButton {
+.addTaskButton {
     display: flex;
     justify-content: space-evenly;
     margin: 0 0 10px 0;
   }
 
-  #hireEmpBtn {
-      margin-top: 1vh;
-      margin-bottom: 3vh;
+  #addTaskBtn {
+      margin-top: 3vh;
+      margin-bottom: 8vh;
       margin-left:auto;
       margin-right:auto;
   }
 
-  .empCardBody p {
+  .taskCardBody p {
       font-size: 14px;
   }
 
   .header {
-      text-align:center;
       margin-top:10vh;
-  }
-
-  .search-form-control {
-      width:30%;
+      text-align:center;
   }

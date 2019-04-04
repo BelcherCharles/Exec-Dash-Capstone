@@ -1,62 +1,76 @@
-import React, { Component } from "react";
-// import "./employees.css";
+import React, { Component } from "react"
+import companyAPImgr from "../../modules/companyAPImgr"
 
-export default class TaskManager extends Component {
-    // Set initial state
+export default class TaskEditForm extends Component {
     state = {
         clientId: "",
         taskDesc: "",
         dueDate: "",
         isPriority: "",
         note: "",
+        type: "",
         isComplete: ""
     };
 
-    // Update state whenever an input field is edited (USED ALMOST EVERY TIME A FORM IS IN REACT!!!!)
     handleFieldChange = evt => {
-        const stateToChange = {};
-        stateToChange[evt.target.id] = evt.target.value;
-        this.setState(stateToChange);
-    };
-
-    handleCheckbox = evt => {
-        const stateToChange = {};
-        stateToChange[evt.target.id] = evt.target.checked;
+        const stateToChange = {}
+        stateToChange[evt.target.id] = evt.target.value
         this.setState(stateToChange)
     }
 
-    /*
-          Local method for validation, creating animal object, and
-          invoking the function reference passed from parent component
-       */
-    buildNewTask = evt => {
-        evt.preventDefault();
-        if (this.state.taskDesc === "") {
-            window.alert("Please enter a task description.");
-        } else if
-            (this.state.dueDate === "") {
-            window.alert("Please select a task due date.");
-            } else {
-            const newTask = {
-                companyId: parseInt(sessionStorage.getItem("companyId")),
-                clientId: this.state.clientId,
+    handleCheckbox = evt => {
+        const stateToChange = {}
+        stateToChange[evt.target.id] = evt.target.checked
+        this.setState(stateToChange)
+    }
+
+    updateEmployee = evt => {
+        evt.preventDefault()
+
+        if (this.state.employee === "") {
+            window.alert("Please select a caretaker");
+        } else {
+            const editedTask = {
+                id: parseInt(this.props.match.params.taskId),
                 taskDesc: this.state.taskDesc,
                 dueDate: this.state.dueDate,
                 isPriority: this.state.isPriority,
-                note: this.state.note
+                note: this.state.note,
+                type: this.state.type,
+                isComplete: "",
+                companyId: parseInt(sessionStorage.getItem("companyId"))
             };
 
-            console.log(newTask)
+            this.props.updateTask(editedTask, this.props.match.params.taskId)
+                .then(() => this.props.history.push("/taskManager"))
+            // console.log(parseInt(this.props.match.params.employeeId))
+            // console.log(editedEmployee)
 
-            this.props.newTask(newTask)
-                .then(() => this.props.history.push("/taskManager"));
-        };
+        }
     }
+
+    componentDidMount() {
+        console.log(this.props.match.params.taskId)
+        companyAPImgr.getOneTask(this.props.match.params.taskId)
+            .then(task => {
+                this.setState({
+                    taskDesc: task.taskDesc,
+                    dueDate: task.dueDate,
+                    isPriority: task.isPriority,
+                    note: task.note,
+                    type: task.type,
+                    isComplete: task.isComplete
+
+                    // image: employee.image
+                });
+            });
+    }
+
 
     render() {
         return (
             <React.Fragment>
-                <h2>Task Manager</h2>
+                <h1 className="header"> Task Edit Form </h1>
                 <form className="taskForm">
                     <div className="form-group">
                         <label htmlFor="taskDesc">Task Description</label>
@@ -67,6 +81,7 @@ export default class TaskManager extends Component {
                             onChange={this.handleFieldChange}
                             id="taskDesc"
                             placeholder="Description"
+                            value={this.state.taskDesc}
                         />
                         <br></br>
                         <label htmlFor="dueDate">Due Date</label>
@@ -77,16 +92,14 @@ export default class TaskManager extends Component {
                             onChange={this.handleFieldChange}
                             id="dueDate"
                             placeholder="Due Date"
+                            value={this.state.dueDate}
                         />
                         <br></br>
                         <label htmlFor="requestType" placeholder="Request For"></label>
-                        <select className="form-control"
+                        <select className="form-control" value={this.state.type}
                             onChange={this.handleFieldChange}
                             id="type">
-                            <option value="Sales">Sales</option>
-                            <option value="Service">Service</option>
-                            <option value="General Info">General Info</option>
-                            <option value="Finance">Finance</option>
+                            ))}
                         </select>
                         <br></br>
                         <label htmlFor="note">Notes</label>
@@ -97,6 +110,7 @@ export default class TaskManager extends Component {
                             onChange={this.handleFieldChange}
                             id="note"
                             placeholder="Notes"
+                            value={this.state.note}
                         />
                         <br></br>
                         <label htmlFor="isPriority">Priority Task?</label>
@@ -104,19 +118,14 @@ export default class TaskManager extends Component {
                             type="checkbox"
                             className="form-control"
                             onChange={this.handleCheckbox}
-                            id="isPriority">
+                            id="isPriority"
+                            value={this.state.isPriority}>
                         </input>
                     </div>
                     <br></br>
-                    <button
-                        type="submit"
-                        onClick={this.buildNewTask}
-                        className="btn btn-primary"
-                    >
-                        Add New Task
-                    </button>
+                    <button type="submit" onClick={this.updateEmployee} className="btn btn-primary">Submit</button>
                 </form>
-            </React.Fragment>
+            </React.Fragment >
         );
     }
 }

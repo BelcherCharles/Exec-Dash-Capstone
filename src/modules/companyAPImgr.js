@@ -26,6 +26,11 @@ export default {
             .then(ct => ct.json())
     },
 
+    getOneTask: (taskId) => {
+        return fetch(`${remoteURL}/tasks/${taskId}`)
+            .then(ot => ot.json())
+    },
+
     postNewTask: (newTask) => {
         return fetch(`${remoteURL}/tasks`, {
             method: "POST",
@@ -33,7 +38,43 @@ export default {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newTask)
-        }).then(at => at.json())
-        }
+        }).then(nt => nt.json())
+    },
 
+    updateTask: (editedTask, userId) => {
+        return fetch(`${remoteURL}/tasks/${userId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(editedTask)
+        })
+            .then(et => et.json())
+    },
+
+    deleteTask: (taskId) => {
+        return fetch(`${remoteURL}/tasks/${taskId}`, {
+            method: "DELETE"
+        })
+    },
+
+    markTaskComp: (taskId) => {
+        return fetch(`${remoteURL}/tasks/${taskId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ isComplete: true })
+        });
+    },
+
+    assignTask: (taskId, empId) => {
+        return fetch(`${remoteURL}/tasks/${taskId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ userId: parseInt(empId) })
+        });
+    }
 }

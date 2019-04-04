@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import userAPImgr from "../../modules/userAPImgr"
 
-export default class EmployeeEditForm extends Component {
+export default class ClientEditForm extends Component {
   state = {
     name: "",
     surname: "",
@@ -12,7 +12,7 @@ export default class EmployeeEditForm extends Component {
     state: "",
     zip: "",
     image: "",
-    hireDate: ""
+    clientSince: ""
   }
 
   handleFieldChange = evt => {
@@ -21,14 +21,14 @@ export default class EmployeeEditForm extends Component {
     this.setState(stateToChange)
   }
 
-    updateEmployee = evt => {
+    updateClient = evt => {
       evt.preventDefault()
 
       if (this.state.employee === "") {
         window.alert("Please select a caretaker");
       } else {
-        const editedEmployee = {
-          id: parseInt(this.props.match.params.employeeId),
+        const editedClient = {
+          id: parseInt(this.props.match.params.clientId),
           name: this.state.name,
           surname: this.state.surname,
           email: this.state.email,
@@ -37,13 +37,13 @@ export default class EmployeeEditForm extends Component {
           city: this.state.city,
           state: this.state.state,
           zip: this.state.zip,
-          hireDate: this.state.hireDate,
+          clientSince: this.state.clientSince,
           companyId: parseInt(sessionStorage.getItem("companyId")),
-          userType: "employee"
+          userType: "client"
         };
 
-    this.props.updateUser(editedEmployee, this.props.match.params.employeeId)
-    .then(() => this.props.history.push("/employees"))
+    this.props.updateUser(editedClient, this.props.match.params.clientId)
+    .then(() => this.props.history.push("/clientList"))
     // console.log(parseInt(this.props.match.params.employeeId))
     // console.log(editedEmployee)
 
@@ -51,19 +51,19 @@ export default class EmployeeEditForm extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match.params.employeeId)
-    userAPImgr.getOneUser(this.props.match.params.employeeId)
-    .then(employee => {
+    console.log(this.props.match.params.clientId)
+    userAPImgr.getOneUser(this.props.match.params.clientId)
+    .then(client => {
         this.setState({
-          name: employee.name,
-          surname: employee.surname,
-          email: employee.email,
-          phone: employee.phone,
-          address: employee.address,
-          city: employee.city,
-          state: employee.state,
-          zip: employee.zip,
-          hireDate: employee.hireDate,
+          name: client.name,
+          surname: client.surname,
+          email: client.email,
+          phone: client.phone,
+          address: client.address,
+          city: client.city,
+          state: client.state,
+          zip: client.zip,
+          clientSince: client.clientSince,
 
 
           // image: employee.image
@@ -75,7 +75,7 @@ export default class EmployeeEditForm extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1 className="header">Edit Employee Form</h1>
+        <h1 className="header">Client Edit Form</h1>
         <form className="employeeForm">
           <div className="form-group">
             <label htmlFor="name">First Name</label>
@@ -178,7 +178,7 @@ export default class EmployeeEditForm extends Component {
             /> */}
             <button
               type="submit"
-              onClick={this.updateEmployee}
+              onClick={this.updateClient}
               className="btn btn-primary"
             >
               Submit

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import "./employees.css";
 
-export default class EmployeeForm extends Component {
+export default class ClientForm extends Component {
     // Set initial state
     state = {
         firstName: "",
@@ -13,7 +13,7 @@ export default class EmployeeForm extends Component {
         city: "",
         state: "",
         zip: "",
-        image: ""
+        // image: ""
     };
 
     // Update state whenever an input field is edited (USED ALMOST EVERY TIME A FORM IS IN REACT!!!!)
@@ -25,16 +25,12 @@ export default class EmployeeForm extends Component {
         this.setState(stateToChange);
     };
 
-    /*
-          Local method for validation, creating animal object, and
-          invoking the function reference passed from parent component
-       */
-    buildNewUser = evt => {
+    buildNewClient = evt => {
         evt.preventDefault();
         if (this.state.department === "") {
             window.alert("Please select a department");
         } else {
-            const newUser = {
+            const newClient = {
                 name: this.state.firstName,
                 surname: this.state.surname,
                 email: this.state.email,
@@ -44,16 +40,18 @@ export default class EmployeeForm extends Component {
                 state: this.state.state,
                 zip: this.state.zip,
                 companyId: parseInt(sessionStorage.getItem("companyId")),
-                hireDate: new Date(),
-                userType: "employee",
-                // image: this.state.image
+                clientSince: new Date(),
+                userType: "client",
+                image: this.state.image
 
                 // department: this.state.department,
             };
-            console.log(newUser)
 
-            this.props.addUser(newUser)
-                .then(() => this.props.history.push("/employees"));
+            console.log(newClient)
+            //   debugger;
+            // Create the animal and redirect user to animal list
+            this.props.addUser(newClient)
+                .then(() => this.props.history.push("/clientList"));
 
         };
     }
@@ -61,14 +59,14 @@ export default class EmployeeForm extends Component {
     render() {
         return (
             <React.Fragment>
-                <h1 className="header">Add New Employee</h1>
-                <form className="employeeForm">
+                <h1 className="header">Add New Client</h1>
+                <form className="clientForm">
                     <div className="form-group">
                         <label htmlFor="firstName">First Name</label>
                         <input
                             type="text"
                             required
-                            className="search-form-control"
+                            className="form-control"
                             onChange={this.handleFieldChange}
                             id="firstName"
                             placeholder="First Name"
@@ -78,7 +76,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="text"
                             required
-                            className="search-form-control"
+                            className="form-control"
                             onChange={this.handleFieldChange}
                             id="surname"
                             placeholder="Surname"
@@ -88,7 +86,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="email"
                             required
-                            className="search-form-control"
+                            className="form-control"
                             onChange={this.handleFieldChange}
                             id="email"
                             placeholder="Email"
@@ -98,7 +96,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="tel"
                             required
-                            className="search-form-control"
+                            className="form-control"
                             onChange={this.handleFieldChange}
                             id="phone"
                             placeholder="Phone #"
@@ -108,7 +106,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="text"
                             required
-                            className="search-form-control"
+                            className="form-control"
                             onChange={this.handleFieldChange}
                             id="address"
                             placeholder="Street Address"
@@ -118,7 +116,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="text"
                             required
-                            className="search-form-control"
+                            className="form-control"
                             onChange={this.handleFieldChange}
                             id="city"
                             placeholder="City"
@@ -128,7 +126,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="text"
                             required
-                            className="search-form-control"
+                            className="form-control"
                             onChange={this.handleFieldChange}
                             id="state"
                             placeholder="State"
@@ -138,7 +136,7 @@ export default class EmployeeForm extends Component {
                         <input
                             type="text"
                             required
-                            className="search-form-control"
+                            className="form-control"
                             onChange={this.handleFieldChange}
                             id="zip"
                             placeholder="Zip Code"
@@ -148,45 +146,17 @@ export default class EmployeeForm extends Component {
                         <input
                             type="file"
                             required
-                            className="search-form-control"
+                            className="form-control"
                             onChange={this.handleFieldChange}
                             id="image"
                             placeholder="Image"
                         /> */}
-                        {/* <label htmlFor="department">Department</label>
-                            <input
-                                type="text"
-                                required
-                                className="form-control"
-                                onChange={this.handleFieldChange}
-                                id="department"
-                                placeholder="Department"
-                            /> */}
                     </div>
-                    {/* <div className="form-group">
-            <label htmlFor="employee">Assign to caretaker</label>
-            <select
-              defaultValue=""
-              name="employee"
-              id="employeeId"
-              onChange={this.handleFieldChange}
-            >
-              <option value="">Select an employee</option>
-              {this.props.employees.map(e => (
-                <option key={e.id} id={e.id} value={e.id}>
-                  {e.name}
-                </option>
-              ))}
-            </select>
-          </div> */}
+
                     <br></br>
-                    <button
-                        type="submit"
-                        onClick={this.buildNewUser}
-                        className="btn btn-primary"
-                    >
-                        Add Employee
-          </button>
+                    <button type="submit" onClick={this.buildNewClient} className="btn btn-primary">
+                        Add New Client
+                    </button>
                 </form>
             </React.Fragment>
         );

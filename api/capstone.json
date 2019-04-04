@@ -1,8 +1,108 @@
 {
-  "users": [],
-  "tasks": [],
+  "users": [
+    {
+      "name": "Charles",
+      "surname": "Belcher",
+      "phone": "(304) 932-2120",
+      "email": "BelcherCharles@yahoo.com",
+      "password": "Kennedy",
+      "companyId": 1,
+      "hireDate": "",
+      "userType": "employee",
+      "isAdmin": true,
+      "deptId": 1,
+      "id": 1
+    },
+    {
+      "name": "Matt",
+      "surname": "Rowe",
+      "email": "Matt@Rowe.com",
+      "phone": "(111) 222-3333",
+      "address": "I dunno man",
+      "city": "Huntington",
+      "state": "WV",
+      "zip": "25701",
+      "companyId": 1,
+      "hireDate": "2019-04-02T19:31:48.729Z",
+      "userType": "employee",
+      "id": 2
+    },
+    {
+      "name": "Jeff",
+      "surname": "Britt",
+      "email": "Jeff@Britt.com",
+      "phone": "",
+      "address": "",
+      "city": "Sissonville",
+      "state": "WV",
+      "zip": "25360",
+      "companyId": 1,
+      "hireDate": "2019-04-02T19:41:45.065Z",
+      "userType": "employee",
+      "deptId": 2,
+      "password": "airforce",
+      "id": 3
+    },
+    {
+      "name": "Client",
+      "surname": "#1",
+      "email": "Client#1@clients.com",
+      "phone": "(111) 222-3333",
+      "address": "",
+      "city": "",
+      "state": "WV",
+      "zip": "",
+      "companyId": 1,
+      "clientSince": "2019-04-04T13:10:42.134Z",
+      "userType": "client",
+      "id": 4
+    },
+    {
+      "name": "Client",
+      "surname": "#2",
+      "email": "Client#2@clients.com",
+      "phone": "(111) 222-3333",
+      "address": "21 Jump St.",
+      "city": "Abbazabba",
+      "state": "FL",
+      "zip": "44444",
+      "companyId": 1,
+      "clientSince": "2019-04-04T14:36:58.583Z",
+      "userType": "client",
+      "id": 5
+    }
+  ],
+  "tasks": [
+    {
+      "taskDesc": "Go Sell Some Shit!",
+      "dueDate": "2019-04-03",
+      "note": "A lot or some expensive stuff!",
+      "isPriority": "",
+      "isComplete": true,
+      "type": "",
+      "companyId": 1,
+      "id": 1,
+      "userId": 2
+    },
+    {
+      "taskDesc": "File your fucking taxes!",
+      "dueDate": "2019-04-15",
+      "note": "Get that shit done!",
+      "isPriority": true,
+      "isComplete": false,
+      "type": "Finance",
+      "companyId": 1,
+      "id": 2,
+      "userId": 2
+    }
+  ],
   "empTasks": [],
-  "companies": [],
+  "companies": [
+    {
+      "companyName": "Almost Heaven Interiors",
+      "id": 1
+    }
+  ],
   "departments": [
     {
       "departmentName": "Executive/Administrative",

@@ -1,4 +1,4 @@
-.employees {
+.clients {
     display:flex;
     flex-direction:row;
     flex:wrap;
@@ -37,28 +37,24 @@
     font-size: 0.7em;
 }
 
-.hireEmployeeButton {
+.addClientButton {
     display: flex;
     justify-content: space-evenly;
     margin: 0 0 10px 0;
   }
 
-  #hireEmpBtn {
-      margin-top: 1vh;
-      margin-bottom: 3vh;
+  #addClientBtn {
+      margin-top: 3vh;
+      margin-bottom: 8vh;
       margin-left:auto;
       margin-right:auto;
   }
 
-  .empCardBody p {
+  .clientCardBody p {
       font-size: 14px;
   }
 
   .header {
       text-align:center;
       margin-top:10vh;
-  }
-
-  .search-form-control {
-      width:30%;
   }
