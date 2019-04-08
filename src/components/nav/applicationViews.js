@@ -35,25 +35,53 @@ export default class ApplicationViews extends Component {
 
     isAuthenticated = () => sessionStorage.getItem("userId") !== null && sessionStorage.getItem("companyId") !== null
 
-    getCompUsers = () => {
-        const newState = {}
-        return userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
+    getCompData = (compId, userId) => {
+        const newState = {};
+        userAPImgr.getCompanyUsers(compId)
             .then(pcu => {
+                // console.log(pcu)
+                newState.users = pcu;
                 const employees = pcu.filter(
                     user => user.userType === "employee" && user.isAdmin !== true
                 )
+                // console.log(employees)
+                newState.employees = employees;
+                newState.filterEmps = employees
                 const clients = pcu.filter(
-                    user => user.userType === "client"
+                    client => client.userType === "client"
                 )
-                newState.users = pcu
-                newState.employees = employees
-                newState.clients = clients
+                // console.log(clients)
+                newState.clients = clients;
+                return companyAPImgr.getCompanyTasks(compId);
+            })
+            .then(pct => {
+                const empTasks = pct.filter(task => task.userId === userId)
+                // console.log(pct)
+                // console.log(empTasks)
+                newState.tasks = pct
+                newState.empTasks = empTasks
                 this.setState(newState)
-            });
+            })
     }
+    // getCompUsers = () => {
+    //     const newState = {}
+    //     return userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
+    //         .then(pcu => {
+    //             const employees = pcu.filter(
+    //                 user => user.userType === "employee" && user.isAdmin !== true
+    //             )
+    //             const clients = pcu.filter(
+    //                 user => user.userType === "client"
+    //             )
+    //             newState.users = pcu
+    //             newState.employees = employees
+    //             newState.clients = clients
+    //             this.setState(newState)
+    //         });
+    // }
 
-    getCompEmps = () =>
-        userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
+    getCompEmps = () => {
+        return userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
             .then(pcu => {
                 const employees = pcu.filter(
                     user => user.userType === "employee" && user.isAdmin !== true
@@ -64,6 +92,7 @@ export default class ApplicationViews extends Component {
                 })
                 console.log(employees)
             })
+        }
 
     addUser = (newUser) => {
         const newState = {}
@@ -96,6 +125,7 @@ export default class ApplicationViews extends Component {
                         user => user.userType === "client"
                     )
                     newState.users = pcu
+                    newState.filterEmps = employees
                     newState.employees = employees
                     newState.clients = clients
                     this.setState(newState)
@@ -192,7 +222,7 @@ export default class ApplicationViews extends Component {
             })
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const newState = {};
         userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
             .then(pcu => {
@@ -213,7 +243,7 @@ export default class ApplicationViews extends Component {
             })
             .then(pct => {
                 const empTasks = pct.filter(task => task.userId === +sessionStorage.getItem("userId"))
-                // console.log(pct)
+                console.log(pct)
                 // console.log(empTasks)
                 newState.tasks = pct
                 newState.empTasks = empTasks
@@ -228,7 +258,7 @@ export default class ApplicationViews extends Component {
                 <Route exact path="/"
                     // component={Login}
                     render={props => {
-                        return <Login {...props} handleLogin={this.props.handleLogin} />
+                        return <Login {...props} handleLogin={this.props.handleLogin} getCompData={this.getCompData}/>
                     }} />
 
                 <Route path="/regNewCompany" render={(props) => {

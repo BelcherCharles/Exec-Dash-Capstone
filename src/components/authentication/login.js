@@ -81,6 +81,7 @@ export default class Login extends Component {
                         this.props.history.push("/empLandingPage")
                     }
                 }
+                this.props.getCompData(+sessionStorage.getItem("companyId"), +sessionStorage.getItem("userId"))
             })
     }
 

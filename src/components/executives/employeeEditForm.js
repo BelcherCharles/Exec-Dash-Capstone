@@ -12,7 +12,8 @@ export default class EmployeeEditForm extends Component {
     state: "",
     zip: "",
     image: "",
-    hireDate: ""
+    hireDate: "",
+    password: "",
   }
 
   handleFieldChange = evt => {
@@ -39,7 +40,8 @@ export default class EmployeeEditForm extends Component {
           zip: this.state.zip,
           hireDate: this.state.hireDate,
           companyId: parseInt(sessionStorage.getItem("companyId")),
-          userType: "employee"
+          userType: "employee",
+          password: this.state.password
         };
 
     this.props.updateUser(editedEmployee, this.props.match.params.employeeId)
@@ -51,7 +53,7 @@ export default class EmployeeEditForm extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match.params.employeeId)
+    // console.log(this.props.match.params.employeeId)
     userAPImgr.getOneUser(this.props.match.params.employeeId)
     .then(employee => {
         this.setState({
@@ -64,6 +66,9 @@ export default class EmployeeEditForm extends Component {
           state: employee.state,
           zip: employee.zip,
           hireDate: employee.hireDate,
+          password: employee.password,
+          userType: employee.userType
+
 
 
           // image: employee.image

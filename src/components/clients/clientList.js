@@ -37,7 +37,7 @@ export default class ClientList extends Component {
                <section className="clients">
                     {
                         this.props.clients.map(client => {
-                            console.log(client)
+                            // console.log(client)
                             return (
                                 <div key={client.id}>
                                     < ClientCard key={client.id} client={client} deleteClient={this.props.deleteClient} {...this.props} />

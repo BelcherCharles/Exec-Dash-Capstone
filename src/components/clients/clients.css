@@ -56,3 +56,7 @@
       text-align:center;
       margin-top:10vh;
   }
+
+  .search-form-control {
+      width: 35%
+  }

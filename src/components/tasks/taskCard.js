@@ -8,9 +8,9 @@ import "./tasks.css"
 
 export default class TaskCard extends Component {
 
-    state = {
-        assignTo: ""
-    }
+    // state = {
+    //     assignTo: []
+    // }
 
     assignTo = evt => {
         const stateToChange = {}
@@ -30,18 +30,23 @@ render() {
                     <p>{this.props.task.dueDate}</p>
                     <p>{this.props.task.note}</p>
 
-                    <label htmlFor="assignTo" placeholder="Assign To">Assign To</label>
+                    <label htmlFor="assignTo" >Assign To</label>
                     <select className="form-control"
-                        onInput={this.assignTo}
-                        id="assignTo" placeholder="Assign To">
-                        <option value="" defaultValue="">Employee:</option>
-                        {this.props.employees.map(employee => (
-                            <option key={employee.id} id={employee.id} value={employee.id}>
+                        onChange={this.assignTo}
+                        id="assignTo" >
+                        {/* <option value={this.props.task.userId}>{this.props.task.user.name} {this.props.task.user.surname}</option> */}
+                        {this.props.employees.map(employee => {
+                            if (employee.id === this.props.task.userId) {
+                               return <option key={employee.id} id={employee.id} value={employee.id} selected>
                                 {employee.name} {employee.surname}
                             </option>
-                        ))}
+                            } else {
+                               return <option key={employee.id} id={employee.id} value={employee.id} >
+                                {employee.name} {employee.surname}
+                                </option>
+                            }
+                        })}
                     </select>
-
 
                     <br></br>
 

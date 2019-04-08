@@ -92,7 +92,9 @@ export default class NewCompanyReg extends Component {
                         .then(nu => {
                             sessionStorage.setItem("userId", nu.id)
                             sessionStorage.setItem("companyId", pnc.id)
+                            sessionStorage.setItem("isAdmin", true)
                         })
+
                     .then(() => this.props.history.push("/execLandingPage"));
                 })
         };

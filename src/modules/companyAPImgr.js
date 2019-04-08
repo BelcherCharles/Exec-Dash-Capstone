@@ -22,12 +22,12 @@ export default {
     },
 
     getCompanyTasks: (companyId) => {
-        return fetch(`${remoteURL}/tasks/?companyId=${companyId}`)
+        return fetch(`${remoteURL}/tasks/?companyId=${companyId}&_expand=user`)
             .then(ct => ct.json())
     },
 
     getOneTask: (taskId) => {
-        return fetch(`${remoteURL}/tasks/${taskId}`)
+        return fetch(`${remoteURL}/tasks/${taskId}?_expand=user`)
             .then(ot => ot.json())
     },
 

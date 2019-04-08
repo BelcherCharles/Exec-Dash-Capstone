@@ -39,8 +39,6 @@ export default class TaskForm extends Component {
             };
 
             console.log(newTask)
-            //   debugger;
-            // Create the animal and redirect user to animal list
             this.props.addTask(newTask)
                 .then(() => this.props.history.push("/taskManager"));
 
