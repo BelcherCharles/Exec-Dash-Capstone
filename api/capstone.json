@@ -14,7 +14,8 @@
       "id": 1
     },
     {
-      "name": "Kennedy",
+      "id": 2,
+      "name": "Lincoln",
       "surname": "Belcher",
       "email": "KB@KB.com",
       "phone": "(000) 000-0000",
@@ -22,26 +23,25 @@
       "city": "South Charleston",
       "state": "WV",
       "zip": "25309",
-      "companyId": 1,
       "hireDate": "2019-04-04T17:08:09.864Z",
+      "companyId": 1,
       "userType": "employee",
-      "password": "k0vOPjtp",
-      "id": 2
+      "password": "k0vOPjtp"
     },
     {
-      "name": "Norman",
-      "surname": "Reedus",
-      "email": "NR@walkingdead.com",
+      "id": 3,
+      "name": "Frank",
+      "surname": "Dux",
+      "email": "KJ@hangover.com",
       "phone": "(111) 999-5555",
-      "address": "Somewhere",
-      "city": "Some City",
-      "state": "CA",
-      "zip": "98765",
-      "companyId": 1,
+      "address": "Bangkok",
+      "city": "Thailand",
+      "state": "",
+      "zip": "",
       "hireDate": "2019-04-04T17:18:02.822Z",
+      "companyId": 1,
       "userType": "employee",
-      "password": "T8waUcBv",
-      "id": 3
+      "password": "ffffff"
     }
   ],
   "tasks": [
@@ -54,7 +54,7 @@
       "type": "",
       "companyId": 1,
       "id": 1,
-      "userId": 2
+      "userId": 3
     },
     {
       "taskDesc": "Here's something new",
@@ -65,7 +65,7 @@
       "type": "",
       "companyId": 1,
       "id": 2,
-      "userId": 3
+      "userId": 2
     }
   ],
   "empTasks": [],
@@ -73,6 +73,10 @@
     {
       "companyName": "Almost Heaven Interiors",
       "id": 1
+    },
+    {
+      "companyName": "k",
+      "id": 2
     }
   ],
   "departments": [
