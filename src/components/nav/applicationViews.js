@@ -102,7 +102,6 @@ export default class ApplicationViews extends Component {
                 })
             );
     }
-    // user.companyId === parseInt(sessionStorage.getItem("companyId")) &&
 
     deleteEmp = userId => {
         const newState = {}
@@ -119,7 +118,6 @@ export default class ApplicationViews extends Component {
                 })
             )
     }
-    // user.companyId === parseInt(sessionStorage.getItem("companyId")) &&
 
     addCompany = newCompany =>
         companyAPImgr.postNewCompany(newCompany)
@@ -251,7 +249,7 @@ export default class ApplicationViews extends Component {
 
                 <Route exact path="/employees" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <EmployeeList  {...props} users={this.state.users} employees={this.state.employees}  addUser={this.addUser} deleteEmp={this.deleteEmp} filterEmps={this.state.filterEmps} />
+                        return <EmployeeList  {...props} users={this.state.users} employees={this.state.employees}  addUser={this.addUser} deleteEmp={this.deleteEmp} filterEmps={this.state.filterEmps} updateUser={this.updateUser} />
                         // getCompUsers={this.getCompUsers} getCompEmps={this.getCompEmps}
                     }
                     return <Redirect to="/" />

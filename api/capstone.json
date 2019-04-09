@@ -14,34 +14,18 @@
       "id": 1
     },
     {
-      "name": "Kennedy",
+      "id": 2,
+      "name": "Lincoln",
       "surname": "Belcher",
       "email": "KB@KB.com",
-      "phone": "(000) 000-0000",
+      "phone": "(304) 304-3040",
       "address": "68 Heatherwood Dr.",
       "city": "South Charleston",
       "state": "WV",
       "zip": "25309",
-      "companyId": 1,
       "hireDate": "2019-04-04T17:08:09.864Z",
-      "userType": "employee",
-      "password": "k0vOPjtp",
-      "id": 2
-    },
-    {
-      "name": "Norman",
-      "surname": "Reedus",
-      "email": "NR@walkingdead.com",
-      "phone": "(111) 999-5555",
-      "address": "Somewhere",
-      "city": "Some City",
-      "state": "CA",
-      "zip": "98765",
       "companyId": 1,
-      "hireDate": "2019-04-04T17:18:02.822Z",
-      "userType": "employee",
-      "password": "T8waUcBv",
-      "id": 3
+      "userType": "employee"
     }
   ],
   "tasks": [
@@ -55,17 +39,6 @@
       "companyId": 1,
       "id": 1,
       "userId": 2
-    },
-    {
-      "taskDesc": "Here's something new",
-      "dueDate": "2019-04-01",
-      "note": "",
-      "isPriority": "",
-      "isComplete": false,
-      "type": "",
-      "companyId": 1,
-      "id": 2,
-      "userId": 3
     }
   ],
   "empTasks": [],

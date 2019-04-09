@@ -59,4 +59,14 @@
 
   .search-form-control {
       width:30%;
+
   }
+
+  .edit-form-control {
+    width:60%;
+}
+
+.editHeader {
+    font-size:18px;
+    text-align:center;
+}
