@@ -74,7 +74,7 @@ export default class EmployeeList extends Component {
 
                 // department: this.state.department,
             };
-            console.log(newUser)
+            // console.log(newUser)
 
             this.props.addUser(newUser)
                 .then(() => this.onCloseModal());
@@ -116,7 +116,7 @@ export default class EmployeeList extends Component {
                         <input
                             type="text"
                             required
-                            className="search-form-control"
+                            className="empSearchInput"
                             onChange={this.empSearch}
                             id="searchName"
                             placeholder="First Name"
@@ -126,7 +126,7 @@ export default class EmployeeList extends Component {
                         <input
                             type="text"
                             required
-                            className="search-form-control"
+                            className="empSearchInput"
                             onChange={this.empSearch}
                             id="searchSurname"
                             placeholder="Surname"
@@ -158,7 +158,7 @@ export default class EmployeeList extends Component {
                                         onChange={this.handleFieldChange}
                                         id="name"
                                         placeholder="First Name"
-                                        // value=""
+                                    // value=""
                                     />
                                     <br></br>
                                     <label htmlFor="surname">Surname</label>
@@ -169,7 +169,7 @@ export default class EmployeeList extends Component {
                                         onChange={this.handleFieldChange}
                                         id="surname"
                                         placeholder="Surname"
-                                        // value=""
+                                    // value=""
                                     />
                                     <br></br>
                                     <label htmlFor="userEmail">Email</label>
@@ -180,7 +180,7 @@ export default class EmployeeList extends Component {
                                         onChange={this.handleFieldChange}
                                         id="email"
                                         placeholder="Email"
-                                        // value=""
+                                    // value=""
                                     />
                                     <br></br>
                                     <label htmlFor="phone">Phone #</label>
@@ -191,7 +191,7 @@ export default class EmployeeList extends Component {
                                         onChange={this.handleFieldChange}
                                         id="phone"
                                         placeholder="Phone #"
-                                        // value=""
+                                    // value=""
                                     />
                                     <br></br>
                                     <label htmlFor="address">Address</label>
@@ -202,7 +202,7 @@ export default class EmployeeList extends Component {
                                         onChange={this.handleFieldChange}
                                         id="address"
                                         placeholder="Street Address"
-                                        // value=""
+                                    // value=""
                                     />
                                     <br></br>
                                     <label htmlFor="city">City</label>
@@ -213,7 +213,7 @@ export default class EmployeeList extends Component {
                                         onChange={this.handleFieldChange}
                                         id="city"
                                         placeholder="City"
-                                        // value=""
+                                    // value=""
                                     />
                                     <br></br>
                                     <label htmlFor="state">State</label>
@@ -224,7 +224,7 @@ export default class EmployeeList extends Component {
                                         onChange={this.handleFieldChange}
                                         id="state"
                                         placeholder="State"
-                                        // value=""
+                                    // value=""
                                     />
                                     <br></br>
                                     <label htmlFor="zip">Zip Code</label>
@@ -235,7 +235,7 @@ export default class EmployeeList extends Component {
                                         onChange={this.handleFieldChange}
                                         id="zip"
                                         placeholder="Zip Code"
-                                        // value=""
+                                    // value=""
                                     />
                                     <br></br>
                                     <br></br>
@@ -246,10 +246,6 @@ export default class EmployeeList extends Component {
                             </form>
                         </Modal>
                     </div>
-                    )
-                            {/* })
-                        }
-                    </section> */}
                 </React.Fragment>
             )
         } else {
@@ -261,15 +257,15 @@ export default class EmployeeList extends Component {
             }
             return (
                 <React.Fragment>
-                    <h1 className="header">Employee Manager</h1>
-
+                    <h1 className="header">Employee Listing</h1>
+                    <br></br>
                     <section className="empSearch">
                         <h3 className="sectHeader">Search For Employees</h3>
                         <label htmlFor="firstName">First Name</label>
                         <input
                             type="text"
                             required
-                            className="search-form-control"
+                            className="empSearchInput"
                             onChange={this.empSearch}
                             id="searchName"
                             placeholder="First Name"
@@ -279,7 +275,7 @@ export default class EmployeeList extends Component {
                         <input
                             type="text"
                             required
-                            className="search-form-control"
+                            className="empSearchInput"
                             onChange={this.empSearch}
                             id="searchSurname"
                             placeholder="Surname"
@@ -293,7 +289,9 @@ export default class EmployeeList extends Component {
                                 // console.log(employee)
                                 return (
                                     <div key={employee.id}>
-                                        < EmployeeCard key={employee.id} employee={employee} route={"employees"} deleteEmp={this.props.deleteEmp} {...this.props} />
+                                        < EmployeeCard key={employee.id} employee={employee} route={"employees"}
+                                            // deleteEmp={this.props.deleteEmp}
+                                            {...this.props} />
                                     </div>
                                 )
                             }

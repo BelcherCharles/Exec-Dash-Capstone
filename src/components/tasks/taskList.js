@@ -1,24 +1,41 @@
 import React, { Component } from "react";
+import Modal from "react-responsive-modal";
 import TaskCard from './taskCard'
 import "./tasks.css";
+import { runInThisContext } from "vm";
+
+const styles = {
+    fontFamily: "sans-serif",
+    textAlign: "center"
+};
 
 export default class TaskList extends Component {
-    // Set initial state
-    // state = {
-    //     clientId: "",
-    //     taskDesc: "",
-    //     dueDate: "",
-    //     isPriority: "",
-    //     note: "",
-    //     isComplete: ""
-    // };
+    state = {
+        open: false,
+        clientId: "",
+        taskDesc: "",
+        dueDate: "",
+        isPriority: "",
+        note: "",
+        type: "Sales",
+        isComplete: ""
+    }
 
-    // Update state whenever an input field is edited (USED ALMOST EVERY TIME A FORM IS IN REACT!!!!)
+    onOpenModal = () => {
+        this.setState({ open: true });
+    }
+
+    onCloseModal = () => {
+        this.setState({ open: false });
+    }
+
     handleFieldChange = evt => {
-        const stateToChange = {};
-        stateToChange[evt.target.id] = evt.target.value;
-        this.setState(stateToChange);
-    };
+        const updatedState = {
+            ...this.state, // This is called the spread operator
+            [evt.target.id]: evt.target.value
+        }
+        this.setState(updatedState)
+    }
 
     handleCheckbox = evt => {
         const stateToChange = {};
@@ -26,45 +43,63 @@ export default class TaskList extends Component {
         this.setState(stateToChange)
     }
 
-    /*
-          Local method for validation, creating animal object, and
-          invoking the function reference passed from parent component
-       */
+    buildNewTask = evt => {
+        evt.preventDefault();
+
+            const newTask = {
+                taskDesc: this.state.taskDesc,
+                dueDate: this.state.dueDate,
+                note: this.state.note,
+                isPriority: this.state.isPriority,
+                isComplete: false,
+                type: this.state.type,
+                companyId: parseInt(sessionStorage.getItem("companyId")),
+                userId:""
+            };
+
+            console.log(newTask)
+            this.props.addTask(newTask)
+                .then(() => this.onCloseModal());
+        }
+
     buildNewTask = evt => {
         evt.preventDefault();
         if (this.state.taskDesc === "") {
             window.alert("Please enter a task description.");
-        } else if
-            (this.state.dueDate === "") {
+        } else if (this.state.dueDate === "") {
             window.alert("Please select a task due date.");
+        } else if (this.state.type === "") {
+            window.alert("Please select a task type.")
         } else {
             const newTask = {
                 companyId: parseInt(sessionStorage.getItem("companyId")),
                 clientId: this.state.clientId,
                 taskDesc: this.state.taskDesc,
                 dueDate: this.state.dueDate,
+                type: this.state.type,
                 isPriority: this.state.isPriority,
-                note: this.state.note
+                note: this.state.note,
+                userId: ""
             };
 
             console.log(newTask)
 
             this.props.newTask(newTask)
-                .then(() => this.props.history.push("/taskManager"));
+                .then(() => this.onCloseModal())
+                    // () => this.props.history.push("/taskManager"));
         };
     }
 
     render() {
+        const { open } = this.state;
         return (
             <React.Fragment>
                 <h1 className="header">Task Manager</h1>
                 <div className="addTaskButton">
                     <button type="button"
                         className="btn btn-success" id="addTaskBtn"
-                        onClick={() => {
-                            this.props.history.push("/tasks/new")
-                        }
-                        }>
+                        onClick={this.onOpenModal}>
+                        {/* {() => {this.props.history.push("/tasks/new")}}> */}
                         Add New Task
                     </button>
                 </div>
@@ -77,11 +112,74 @@ export default class TaskList extends Component {
                                     <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} {...this.props} />
                                 </div>
                             )
-                        }
-                        )
+                        })
                     }
                 </section>
+                <div style={styles}>
+                    <Modal open={open} onClose={this.onCloseModal} center>
+                        <h2 className="editHeader">Enter New Task Info.</h2>
+                        <form className="employeeForm">
+                            <div className="form-group">
+                                <label htmlFor="taskDesc">Task Description</label>
+                                <input
+                                    type="text"
+                                    required
+                                    className="task-form-control"
+                                    onChange={this.handleFieldChange}
+                                    id="taskDesc"
+                                    placeholder="Description"
+
+                                />
+                                <br></br>
+                                <label htmlFor="dueDate">Due Date</label>
+                                <input
+                                    type="date"
+                                    required
+                                    className="task-form-control"
+                                    onChange={this.handleFieldChange}
+                                    id="dueDate"
+                                    placeholder="Due Date"
+
+                                />
+                                <br></br>
+                                <label htmlFor="type" >Request For:</label>
+                                <select className="task-form-control"
+                                    onChange={this.handleFieldChange}
+                                    id="type">
+                                    <option value="Sales">Sales</option>
+                                    <option value="Service">Service</option>
+                                    <option value="General Info">General Info</option>
+                                    <option value="Finance">Finance</option>
+                                </select>
+                                <br></br>
+                                <label htmlFor="note">Notes</label>
+                                <input
+                                    type="textarea"
+                                    required
+                                    className="task-form-control"
+                                    onChange={this.handleFieldChange}
+                                    id="note"
+                                    placeholder="Notes"
+                                />
+                                <br></br>
+                                <label htmlFor="isPriority">Priority Task?</label>
+                                <input
+                                    type="checkbox"
+                                    className="task-form-control"
+                                    onChange={this.handleCheckbox}
+                                    id="isPriority"
+                                   >
+                                </input>
+                                <br></br>
+                                <br></br>
+                                <button type="submit" onClick={this.buildNewTask} className="btn btn-primary">
+                                    Submit
+                                    </button>
+                            </div>
+                        </form>
+                    </Modal>
+                </div>
             </React.Fragment>
-        );
+        )
     }
 }

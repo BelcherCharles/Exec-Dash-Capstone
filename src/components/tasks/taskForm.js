@@ -35,7 +35,8 @@ export default class TaskForm extends Component {
                 isPriority: this.state.isPriority,
                 isComplete: false,
                 type: this.state.type,
-                companyId: parseInt(sessionStorage.getItem("companyId"))
+                companyId: parseInt(sessionStorage.getItem("companyId")),
+                userId:""
             };
 
             console.log(newTask)

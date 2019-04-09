@@ -55,3 +55,15 @@
   .search-form-control {
     width:30%;
 }
+
+.assignToLabel {
+    font-size:14px;
+}
+
+.task-form-control {
+    width:60%
+}
+
+.editHeader {
+    font-size: 18px;
+}

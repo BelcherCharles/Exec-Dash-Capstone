@@ -57,6 +57,10 @@
       margin-top:10vh;
   }
 
-  .search-form-control {
+  /* .search-form-control {
       width: 35%
-  }
+  } */
+
+  .client-form-control {
+    width: 60%
+}

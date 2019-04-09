@@ -27,6 +27,35 @@
       "password": "daddy1",
       "companyId": 1,
       "userType": "employee"
+    },
+    {
+      "name": "Hallie",
+      "surname": "Warnock",
+      "email": "HW@company1.com",
+      "phone": "(681) 888-3333",
+      "address": "Hickory St.",
+      "city": "South Charleston",
+      "state": "WV",
+      "zip": "25309",
+      "companyId": 1,
+      "hireDate": "2019-04-09T15:18:15.703Z",
+      "userType": "employee",
+      "password": "fVM3U1vD",
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "John",
+      "surname": "Doe",
+      "email": "JD@JD.com",
+      "phone": "(111) 222-333",
+      "address": "Somewhere",
+      "city": "Some City",
+      "state": "AZ",
+      "zip": "15678",
+      "clientSince": "2019-04-09T17:36:15.102Z",
+      "companyId": 1,
+      "userType": "client"
     }
   ],
   "tasks": [
@@ -35,11 +64,44 @@
       "dueDate": "2019-04-19",
       "note": "",
       "isPriority": "",
-      "isComplete": false,
+      "isComplete": true,
       "type": "",
       "companyId": 1,
       "id": 1,
+      "userId": 3
+    },
+    {
+      "taskDesc": "New Task #2",
+      "dueDate": "2019-04-12",
+      "note": "Get up and do something!",
+      "isPriority": "",
+      "isComplete": false,
+      "type": "Service",
+      "companyId": 1,
+      "id": 2,
       "userId": 2
+    },
+    {
+      "taskDesc": "Task #3",
+      "dueDate": "2019-04-27",
+      "note": "Get some f'n money!",
+      "isPriority": true,
+      "isComplete": false,
+      "type": "Finance",
+      "companyId": 1,
+      "userId": 2,
+      "id": 3
+    },
+    {
+      "companyId": 1,
+      "clientId": "",
+      "taskDesc": "Task #4",
+      "dueDate": "2019-04-24",
+      "type": "Sales",
+      "isPriority": "",
+      "note": "Get 'er Done!",
+      "userId": "",
+      "id": 4
     }
   ],
   "empTasks": [],

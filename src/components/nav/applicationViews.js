@@ -92,7 +92,7 @@ export default class ApplicationViews extends Component {
                 })
                 console.log(employees)
             })
-        }
+    }
 
     addUser = (newUser) => {
         const newState = {}
@@ -132,7 +132,6 @@ export default class ApplicationViews extends Component {
                 })
             );
     }
-    // user.companyId === parseInt(sessionStorage.getItem("companyId")) &&
 
     deleteEmp = userId => {
         const newState = {}
@@ -149,7 +148,6 @@ export default class ApplicationViews extends Component {
                 })
             )
     }
-    // user.companyId === parseInt(sessionStorage.getItem("companyId")) &&
 
     addCompany = newCompany =>
         companyAPImgr.postNewCompany(newCompany)
@@ -164,7 +162,7 @@ export default class ApplicationViews extends Component {
                 console.log(pct)
             })
 
-    addTask = newTask => {
+    newTask = newTask => {
         const newState = {}
         return companyAPImgr.postNewTask(newTask)
             .then(() => companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId")))
@@ -258,7 +256,7 @@ export default class ApplicationViews extends Component {
                 <Route exact path="/"
                     // component={Login}
                     render={props => {
-                        return <Login {...props} handleLogin={this.props.handleLogin} getCompData={this.getCompData}/>
+                        return <Login {...props} handleLogin={this.props.handleLogin} getCompData={this.getCompData} />
                     }} />
 
                 <Route path="/regNewCompany" render={(props) => {
@@ -281,13 +279,27 @@ export default class ApplicationViews extends Component {
 
                 <Route exact path="/employees" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <EmployeeList  {...props} users={this.state.users} employees={this.state.employees}  addUser={this.addUser} deleteEmp={this.deleteEmp} filterEmps={this.state.filterEmps} updateUser={this.updateUser} />
+                        return <EmployeeList  {...props} users={this.state.users} employees={this.state.employees} addUser={this.addUser} deleteEmp={this.deleteEmp} filterEmps={this.state.filterEmps} updateUser={this.updateUser} />
                         // getCompUsers={this.getCompUsers} getCompEmps={this.getCompEmps}
                     }
                     return <Redirect to="/" />
                 }} />
 
-                <Route path="/employees/new" render={(props) => {
+                <Route exact path="/taskManager" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} employees={this.state.employees} />
+                    }
+                    return <Redirect to="/" />
+                }} />
+
+                <Route exact path="/clientList" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <ClientList  {...props} clients={this.state.clients} getCompClients={this.getCompClients} addUser={this.addUser} deleteClient={this.deleteClient} updateUser={this.updateUser} />
+                    }
+                    return <Redirect to="/" />
+                }} />
+
+                {/* <Route path="/employees/new" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <EmployeeForm  {...props} addUser={this.addUser} />
                     }
@@ -301,21 +313,16 @@ export default class ApplicationViews extends Component {
                         return <Redirect to="/" />
                     }
                 }
-                } />
+                } /> */}
 
-                <Route exact path="/taskManager" render={(props) => {
-                    if (this.isAuthenticated()) {
-                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} employees={this.state.employees} />
-                    }
-                    return <Redirect to="/" />
-                }} />
 
-                <Route path="/tasks/new" render={(props) => {
+
+                {/* <Route path="/tasks/new" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <TaskForm  {...props} tasks={this.state.tasks} addTask={this.addTask} />
                     }
                     return <Redirect to="/" />
-                }} />
+                }} /> */}
 
                 <Route path="/tasks/:taskId(\d+)/edit" render={(props) => {
                     if (this.isAuthenticated()) {
@@ -325,27 +332,20 @@ export default class ApplicationViews extends Component {
                     }
                 }} />
 
-                <Route exact path="/clientList" render={(props) => {
-                    if (this.isAuthenticated()) {
-                        return <ClientList  {...props} clients={this.state.clients} getCompClients={this.getCompClients} addUser={this.addUser} deleteClient={this.deleteClient} />
-                    }
-                    return <Redirect to="/" />
-                }} />
-
-                <Route path="/clients/new" render={(props) => {
+                {/* <Route path="/clients/new" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <ClientForm  {...props} clients={this.state.clients} addUser={this.addUser} />
                     }
                     return <Redirect to="/" />
-                }} />
+                }} /> */}
 
-                <Route path="/clients/:clientId(\d+)/edit" render={(props) => {
+                {/* <Route path="/clients/:clientId(\d+)/edit" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <ClientEditForm {...props} client={this.state.clients} updateUser={this.updateUser} />
                     } else {
                         return <Redirect to="/" />
                     }
-                }} />
+                }} /> */}
 
             </div>
         )
