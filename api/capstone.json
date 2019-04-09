@@ -54,7 +54,7 @@
       "type": "",
       "companyId": 1,
       "id": 1,
-      "userId": 3
+      "userId": 2
     },
     {
       "taskDesc": "Here's something new",
@@ -65,7 +65,7 @@
       "type": "",
       "companyId": 1,
       "id": 2,
-      "userId": 2
+      "userId": 3
     }
   ],
   "empTasks": [],

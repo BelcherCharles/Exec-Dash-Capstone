@@ -4,6 +4,44 @@ import { Link, Redirect } from "react-router-dom"
 import "./employees.css"
 
 export default class EmployeeCard extends Component {
+
+    handleFieldChange = evt => {
+        const stateToChange = {}
+        stateToChange[evt.target.id] = evt.target.value
+        this.setState(stateToChange)
+      }
+
+        updateEmployee = evt => {
+          evt.preventDefault()
+
+        //   if (this.state.employee === "") {
+        //     window.alert("Please select a caretaker");
+        //   } else {
+            const editedEmployee = {
+              id: parseInt(this.props.match.params.employeeId),
+              name: this.state.name,
+              surname: this.state.surname,
+              email: this.state.email,
+              phone: this.state.phone,
+              address: this.state.address,
+              city: this.state.city,
+              state: this.state.state,
+              zip: this.state.zip,
+              hireDate: this.state.hireDate,
+              companyId: parseInt(sessionStorage.getItem("companyId")),
+              userType: "employee",
+              password: this.state.password
+            };
+
+        this.props.updateUser(editedEmployee, this.props.match.params.employeeId)
+        .then(() => this.props.history.push("/employees"))
+        // console.log(parseInt(this.props.match.params.employeeId))
+        // console.log(editedEmployee)
+
+        // }
+      }
+
+
     render() {
         return (
             <div key={this.props.employee.id} className="empCard">
@@ -18,6 +56,7 @@ export default class EmployeeCard extends Component {
                         {/* <p>{this.props.employee.id}</p> */}
 
                         <button className="btn btn-primary" onClick={() => this.props.history.push(`/employees/${this.props.employee.id}/edit`)} >Edit Employee</button>
+
                         <br></br>
                         <button onClick={() => this.props.deleteEmp(this.props.employee.id)}
                             className="btn btn-danger">Fire Employee

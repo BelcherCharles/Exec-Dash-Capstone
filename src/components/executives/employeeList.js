@@ -86,7 +86,7 @@ export default class EmployeeList extends Component {
                                 // console.log(employee)
                                 return (
                                     <div key={employee.id}>
-                                        < EmployeeCard key={employee.id} employee={employee} route={"employees"} deleteEmp={this.props.deleteEmp} {...this.props} />
+                                        < EmployeeCard key={employee.id} employee={employee} route={"employees"} deleteEmp={this.props.deleteEmp} updateUser={this.props.updateUser} {...this.props} />
                                     </div>
                                 )
                             }
