@@ -37,6 +37,7 @@ export default class EmployeeCard extends Component {
                     city: employee.city,
                     state: employee.state,
                     zip: employee.zip,
+                    password: employee.password,
                     hireDate: employee.hireDate,
                     open: true
                 });
