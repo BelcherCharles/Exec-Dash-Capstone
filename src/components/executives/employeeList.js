@@ -2,17 +2,11 @@ import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import userAPImgr from '../../modules/userAPImgr'
 import EmployeeCard from './employeeCard'
-// import ResourceCard from '../generics/resourceCard'
-// import EmployeeCard from './employeeCard'
 // import PropTypes from "prop-types"
 import "./employees.css"
 
 export default class EmployeeList extends Component {
     state = {
-        // users: [],
-        // tasks: [],
-        // empTasks: [],
-        // departments: [],
         filterEmps: [],
         searchName: []
     }
@@ -26,13 +20,6 @@ export default class EmployeeList extends Component {
         newState.filterEmps = filteredEmps
         this.setState(newState)
     }
-
-    // componentWillMount() {
-    //     const newState = {}
-    //     console.log(this.props.employees)
-    //     newState.filterEmps = this.props.employees
-    //     this.setState(newState)
-    // }
 
     render() {
         if (sessionStorage.getItem("isAdmin") === "true") {
