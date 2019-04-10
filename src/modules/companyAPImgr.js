@@ -1,18 +1,18 @@
-const remoteURL = "http://localhost:5002"
+// const remoteURL = "http://localhost:5002"
 
 export default {
     getAllCompanies: () => {
-        return fetch(`${remoteURL}/companies`)
+        return fetch("https://frontend-capstone-api.herokuapp.com/companies")
             .then(ac => ac.json())
     },
 
     getOneCompany: () => {
-        return fetch(`${remoteURL}/companies`)
+        return fetch("https://frontend-capstone-api.herokuapp.com/companies")
             .then(oc => oc.json())
     },
 
     postNewCompany: (newCompany) => {
-        return fetch(`${remoteURL}/companies`, {
+        return fetch("https://frontend-capstone-api.herokuapp.com/companies", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -22,17 +22,17 @@ export default {
     },
 
     getCompanyTasks: (companyId) => {
-        return fetch(`${remoteURL}/tasks/?companyId=${companyId}&_expand=user`)
+        return fetch(`https://frontend-capstone-api.herokuapp.com/tasks/?companyId=${companyId}&_expand=user`)
             .then(ct => ct.json())
     },
 
     getOneTask: (taskId) => {
-        return fetch(`${remoteURL}/tasks/${taskId}?_expand=user`)
+        return fetch(`https://frontend-capstone-api.herokuapp.com/tasks/${taskId}?_expand=user`)
             .then(ot => ot.json())
     },
 
     postNewTask: (newTask) => {
-        return fetch(`${remoteURL}/tasks`, {
+        return fetch("https://frontend-capstone-api.herokuapp.com/tasks", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -42,7 +42,7 @@ export default {
     },
 
     updateTask: (editedTask, userId) => {
-        return fetch(`${remoteURL}/tasks/${userId}`, {
+        return fetch(`https://frontend-capstone-api.herokuapp.com/tasks/${userId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -53,13 +53,13 @@ export default {
     },
 
     deleteTask: (taskId) => {
-        return fetch(`${remoteURL}/tasks/${taskId}`, {
+        return fetch(`https://frontend-capstone-api.herokuapp.com/tasks/${taskId}`, {
             method: "DELETE"
         })
     },
 
     markTaskComp: (taskId) => {
-        return fetch(`${remoteURL}/tasks/${taskId}`, {
+        return fetch(`https://frontend-capstone-api.herokuapp.com/tasks/${taskId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -69,7 +69,7 @@ export default {
     },
 
     assignTask: (taskId, empId) => {
-        return fetch(`${remoteURL}/tasks/${taskId}`, {
+        return fetch(`https://frontend-capstone-api.herokuapp.com/tasks/${taskId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"

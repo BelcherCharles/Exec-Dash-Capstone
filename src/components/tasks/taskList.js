@@ -118,7 +118,7 @@ export default class TaskList extends Component {
                 <div style={styles}>
                     <Modal open={open} onClose={this.onCloseModal} center>
                         <h2 className="editHeader">Enter New Task Info.</h2>
-                        <form className="employeeForm">
+                        <form className="taskForm">
                             <div className="form-group">
                                 <label htmlFor="taskDesc">Task Description</label>
                                 <input
