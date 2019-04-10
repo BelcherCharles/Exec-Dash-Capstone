@@ -2,22 +2,22 @@ const remoteURL = "http://localhost:5002"
 
 export default {
     getAllUsers: () => {
-        return fetch(`https://frontend-capstone-api.herokuapp.com/users`)
+        return fetch(`${remoteURL}/users`)
             .then(au => au.json())
     },
 
     getCompanyUsers: (compId) => {
-        return fetch(`https://frontend-capstone-api.herokuapp.com/users/?companyId=${compId}`)
+        return fetch(`${remoteURL}/users/?companyId=${compId}`)
             .then(cu => cu.json())
     },
 
     getOneUser: (userId) => {
-        return fetch(`https://frontend-capstone-api.herokuapp.com/users/${userId}`)
+        return fetch(`${remoteURL}/users/${userId}`)
             .then(ou => ou.json())
     },
 
     postNewUser: (newUser) => {
-        return fetch(`https://frontend-capstone-api.herokuapp.com/users`, {
+        return fetch(`${remoteURL}/users`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -28,7 +28,7 @@ export default {
     },
 
     updateUser: (editedUser, userId) => {
-        return fetch(`https://frontend-capstone-api.herokuapp.com/users/${userId}`, {
+        return fetch(`${remoteURL}/users/${userId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -39,17 +39,17 @@ export default {
     },
 
     deleteUser: (userId) => {
-        return fetch(`https://frontend-capstone-api.herokuapp.com/users/${userId}`, {
+        return fetch(`${remoteURL}/users/${userId}`, {
             method: "DELETE"
         })
     },
 
     userLogin: (userEmail) => {
-        return fetch(`https://frontend-capstone-api.herokuapp.com/users/?email=${userEmail}`)
+        return fetch(`${remoteURL}/users/?email=${userEmail}`)
             .then(su => su.json())
     }
     // searchUserName: (name) => {
-    //     return fetch(`https://frontend-capstone-api.herokuapp.com/users/?name=${name}`)
+    //     return fetch(`${remoteURL}/users/?name=${name}`)
     //         .then(pu => pu.json())
 
 

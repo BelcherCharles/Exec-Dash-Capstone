@@ -71,37 +71,15 @@
       "userId": 3
     },
     {
-      "taskDesc": "New Task #2",
-      "dueDate": "2019-04-12",
-      "note": "Get up and do something!",
-      "isPriority": "",
-      "isComplete": false,
-      "type": "Service",
-      "companyId": 1,
+      "userId": 3,
       "id": 2,
-      "userId": 2
-    },
-    {
-      "taskDesc": "Task #3",
-      "dueDate": "2019-04-27",
-      "note": "Get some f'n money!",
-      "isPriority": true,
+      "taskDesc": "Task #16",
+      "dueDate": "2019-04-30",
+      "isPriority": false,
+      "note": "Get up and do something!",
+      "type": "Service",
       "isComplete": false,
-      "type": "Finance",
-      "companyId": 1,
-      "userId": 2,
-      "id": 3
-    },
-    {
-      "companyId": 1,
-      "clientId": "",
-      "taskDesc": "Task #4",
-      "dueDate": "2019-04-24",
-      "type": "Sales",
-      "isPriority": "",
-      "note": "Get 'er Done!",
-      "userId": "",
-      "id": 4
+      "companyId": 1
     }
   ],
   "empTasks": [],

@@ -41,7 +41,7 @@ export default class Login extends Component {
 
         userAPImgr.userLogin(this.state.email)
             .then(su => {
-                console.log(su)
+                // console.log(su)
                 if
                     (su.length < 1) {
                     window.alert("That user name was not found. Perhaps you'd like to register?")

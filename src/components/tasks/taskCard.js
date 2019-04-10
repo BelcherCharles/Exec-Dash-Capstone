@@ -14,6 +14,7 @@ export default class TaskCard extends Component {
 
     state = {
         open: false,
+        companyId: "",
         clientId: "",
         taskDesc: "",
         dueDate: "",
@@ -22,10 +23,15 @@ export default class TaskCard extends Component {
         type: "",
         isComplete: ""
     }
+
     onOpenModal = () => {
         companyAPImgr.getOneTask(this.props.task.id)
+        // console.log(this.props.task.id)
             .then(task => {
+                console.log(task)
                 this.setState({
+                    userId: task.userId,
+                    companyId: task.companyId,
                     taskDesc: task.taskDesc,
                     dueDate: task.dueDate,
                     isPriority: task.isPriority,
@@ -48,13 +54,50 @@ export default class TaskCard extends Component {
         }
         this.setState(updatedState)
     }
+
+    handleCheckbox = evt => {
+        const stateToChange = {}
+        stateToChange[evt.target.id] = evt.target.checked
+        this.setState(stateToChange)
+    }
+
     assignTo = evt => {
         const stateToChange = {}
         stateToChange[evt.target.id] = evt.target.value
         this.setState(stateToChange)
-        console.log(this.props.task.id)
-        console.log(evt.target.value)
+        // console.log(this.props.task.id)
+        // console.log(evt.target.value)
         companyAPImgr.assignTask(this.props.task.id, evt.target.value)
+    }
+
+    updateTask = evt => {
+        evt.preventDefault()
+
+        if (this.state.taskDesc === "") {
+            window.alert("Please input a description of the task.")
+        } else if (this.state.dueDate === "") {
+            window.alert("Please choose a task due date.")
+        } else if (this.state.type === "") {
+            window.alert("Please choose a task type.")
+        } else {
+            const editedTask = {
+                userId: parseInt(this.state.userId),
+                id: parseInt(this.props.task.id),
+                taskDesc: this.state.taskDesc,
+                dueDate: this.state.dueDate,
+                isPriority: this.state.isPriority,
+                note: this.state.note,
+                type: this.state.type,
+                isComplete: this.state.isComplete,
+                companyId: this.state.companyId
+            };
+
+            console.log(editedTask)
+            this.props.updateTask(editedTask, this.props.task.id)
+                .then(() => this.onCloseModal())
+
+            // this.props.history.push("/taskManager"))
+        }
     }
 
     render() {
@@ -134,7 +177,7 @@ export default class TaskCard extends Component {
                                 <label htmlFor="note">Notes</label>
                                 <input
                                     type="textarea"
-                                    required
+                                    // required
                                     className="form-control"
                                     onChange={this.handleFieldChange}
                                     id="note"
@@ -148,10 +191,10 @@ export default class TaskCard extends Component {
                                     className="form-control"
                                     onChange={this.handleCheckbox}
                                     id="isPriority"
-                                    value={this.state.isPriority}>
+                                    checked={this.state.isPriority}>
                                 </input>
                                 <br></br>
-                                <button type="submit" onClick={this.updateEmployee} className="btn btn-primary">Submit</button>
+                                <button type="submit" onClick={this.updateTask} className="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </Modal>

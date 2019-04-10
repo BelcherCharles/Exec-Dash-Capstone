@@ -287,7 +287,7 @@ export default class ApplicationViews extends Component {
 
                 <Route exact path="/taskManager" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} employees={this.state.employees} />
+                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} updateTask = {this.updateTask} employees={this.state.employees} />
                     }
                     return <Redirect to="/" />
                 }} />

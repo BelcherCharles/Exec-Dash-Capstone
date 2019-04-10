@@ -133,7 +133,7 @@ export default class EmployeeCard extends Component {
                                         onChange={this.handleFieldChange}
                                         id="name"
                                         placeholder="First Name"
-                                        defaultValue={this.state.name}
+                                        value={this.state.name}
                                     />
                                     <br></br>
                                     <label htmlFor="surname">Surname</label>

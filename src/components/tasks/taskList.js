@@ -45,25 +45,6 @@ export default class TaskList extends Component {
 
     buildNewTask = evt => {
         evt.preventDefault();
-
-            const newTask = {
-                taskDesc: this.state.taskDesc,
-                dueDate: this.state.dueDate,
-                note: this.state.note,
-                isPriority: this.state.isPriority,
-                isComplete: false,
-                type: this.state.type,
-                companyId: parseInt(sessionStorage.getItem("companyId")),
-                userId:""
-            };
-
-            console.log(newTask)
-            this.props.addTask(newTask)
-                .then(() => this.onCloseModal());
-        }
-
-    buildNewTask = evt => {
-        evt.preventDefault();
         if (this.state.taskDesc === "") {
             window.alert("Please enter a task description.");
         } else if (this.state.dueDate === "") {
@@ -78,11 +59,12 @@ export default class TaskList extends Component {
                 dueDate: this.state.dueDate,
                 type: this.state.type,
                 isPriority: this.state.isPriority,
+                isComplete: false,
                 note: this.state.note,
                 userId: ""
             };
 
-            console.log(newTask)
+            // console.log(newTask)
 
             this.props.newTask(newTask)
                 .then(() => this.onCloseModal())
