@@ -86,7 +86,7 @@ export default class EmployeeList extends Component {
         const filteredEmps = this.props.employees.filter(
             user => user.name.includes(evt.target.value) || user.surname.includes(evt.target.value)
         )
-        console.log(filteredEmps)
+        // console.log(filteredEmps)
         newState.filterEmps = filteredEmps
         this.setState(newState)
     }

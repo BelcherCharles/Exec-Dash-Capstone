@@ -241,7 +241,7 @@ export default class ApplicationViews extends Component {
             })
             .then(pct => {
                 const empTasks = pct.filter(task => task.userId === +sessionStorage.getItem("userId"))
-                console.log(pct)
+                // console.log(pct)
                 // console.log(empTasks)
                 newState.tasks = pct
                 newState.empTasks = empTasks
@@ -324,13 +324,13 @@ export default class ApplicationViews extends Component {
                     return <Redirect to="/" />
                 }} /> */}
 
-                <Route path="/tasks/:taskId(\d+)/edit" render={(props) => {
+                {/* <Route path="/tasks/:taskId(\d+)/edit" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <TaskEditForm {...props} tasks={this.state.tasks} updateTask={this.updateTask} />
                     } else {
                         return <Redirect to="/" />
                     }
-                }} />
+                }} /> */}
 
                 {/* <Route path="/clients/new" render={(props) => {
                     if (this.isAuthenticated()) {
