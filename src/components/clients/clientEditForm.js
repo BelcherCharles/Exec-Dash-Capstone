@@ -82,7 +82,7 @@ export default class ClientEditForm extends Component {
             <input
               type="text"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="name"
               placeholder="First Name"
@@ -93,7 +93,7 @@ export default class ClientEditForm extends Component {
             <input
               type="text"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="surname"
               placeholder="Surname"
@@ -104,7 +104,7 @@ export default class ClientEditForm extends Component {
             <input
               type="email"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="email"
               placeholder="Email"
@@ -115,7 +115,7 @@ export default class ClientEditForm extends Component {
             <input
               type="tel"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="phone"
               placeholder="Phone #"
@@ -126,7 +126,7 @@ export default class ClientEditForm extends Component {
             <input
               type="text"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="address"
               placeholder="Street Address"
@@ -137,7 +137,7 @@ export default class ClientEditForm extends Component {
             <input
               type="text"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="city"
               placeholder="City"
@@ -148,7 +148,7 @@ export default class ClientEditForm extends Component {
             <input
               type="text"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="state"
               placeholder="State"
@@ -159,23 +159,13 @@ export default class ClientEditForm extends Component {
             <input
               type="text"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="zip"
               placeholder="Zip Code"
               value={this.state.zip}
             />
             <br></br>
-            {/* <label htmlFor="image">Headshot</label>
-            <input
-              type="file"
-              required
-              className="form-control"
-              onChange={this.handleFieldChange}
-              id="image"
-              placeholder="Image"
-              value={this.state.image}
-            /> */}
             <button
               type="submit"
               onClick={this.updateClient}

@@ -8,24 +8,22 @@
     /* margin-top:10vh; */
 }
 
-.empCard {
+.clientCard {
+    border: 1px solid black;
     display: flex;
     justify-content: space-evenly;
     flex: wrap;
     margin-left: auto;
     margin-right: auto;
+    width: 10rem;
 }
 
-.empImg {
+.clientImg {
     width: 8rem;
     height: 8rem;
 }
 
-.empCard {
-    width: 10rem;
-}
-
-.empCardTitle {
+.clientCardTitle {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -44,8 +42,8 @@
   }
 
   #addClientBtn {
-      margin-top: 3vh;
-      margin-bottom: 8vh;
+      margin-top: 1vh;
+      margin-bottom: 3vh;
       margin-left:auto;
       margin-right:auto;
   }
@@ -58,3 +56,11 @@
       text-align:center;
       margin-top:10vh;
   }
+
+  /* .search-form-control {
+      width: 35%
+  } */
+
+  .client-form-control {
+    width: 60%
+}
