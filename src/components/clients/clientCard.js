@@ -72,28 +72,28 @@ export default class ClientCard extends Component {
         } else if (this.state.state === "") {
             window.alert("Please enter the client's zip.");
         } else {
-          const editedClient = {
-            id: parseInt(this.props.match.params.clientId),
-            name: this.state.name,
-            surname: this.state.surname,
-            email: this.state.email,
-            phone: this.state.phone,
-            address: this.state.address,
-            city: this.state.city,
-            state: this.state.state,
-            zip: this.state.zip,
-            clientSince: this.state.clientSince,
-            companyId: parseInt(sessionStorage.getItem("companyId")),
-            userType: "client"
-          };
+            const editedClient = {
+                id: parseInt(this.props.match.params.clientId),
+                name: this.state.name,
+                surname: this.state.surname,
+                email: this.state.email,
+                phone: this.state.phone,
+                address: this.state.address,
+                city: this.state.city,
+                state: this.state.state,
+                zip: this.state.zip,
+                clientSince: this.state.clientSince,
+                companyId: parseInt(sessionStorage.getItem("companyId")),
+                userType: "client"
+            };
 
-      this.props.updateUser(editedClient, this.props.client.id)
-      .then(() => this.onCloseModal())
-    //   this.props.history.push("/clientList"))
-      // console.log(parseInt(this.props.match.params.employeeId))
-      // console.log(editedEmployee)
+            this.props.updateUser(editedClient, this.props.client.id)
+                .then(() => this.onCloseModal())
+            //   this.props.history.push("/clientList"))
+            // console.log(parseInt(this.props.match.params.employeeId))
+            // console.log(editedEmployee)
 
-      }
+        }
     }
     render() {
         const { open } = this.state;
@@ -199,7 +199,7 @@ export default class ClientCard extends Component {
                                         onChange={this.handleFieldChange}
                                         id="state"
                                         placeholder="State"
-                                        value={this.state.city}
+                                        value={this.state.state}
                                     />
                                     <br></br>
                                     <label htmlFor="zip">Zip Code</label>
@@ -224,22 +224,125 @@ export default class ClientCard extends Component {
             )
         } else {
             return (
-                <div key={this.props.client.id} className="clientCard">
-                    <div className="clientCardBody">
-                        <h3 className="clientCardTitle">
-                            {/* <img src={this.props.employee.image} alt={this.props.employee.name} className="empImg" /> */}
-                            <p>{this.props.client.name} {this.props.client.surname}</p>
-                            <p>{this.props.client.email}</p>
-                            <p>{this.props.client.phone}</p>
-                            <p>{this.props.client.address}</p>
-                            <p>{this.props.client.city}, {this.props.client.state} {this.props.client.zip}</p>
-                            {/* <p>{this.props.employee.id}</p> */}
+                <React.Fragment>
+                    <div key={this.props.client.id} className="clientCard">
+                        <div className="clientCardBody">
+                            <h3 className="clientCardTitle">
+                                {/* <img src={this.props.employee.image} alt={this.props.employee.name} className="empImg" /> */}
+                                <p>{this.props.client.name} {this.props.client.surname}</p>
+                                <p>{this.props.client.email}</p>
+                                <p>{this.props.client.phone}</p>
+                                <p>{this.props.client.address}</p>
+                                <p>{this.props.client.city}, {this.props.client.state} {this.props.client.zip}</p>
+                                {/* <p>{this.props.employee.id}</p> */}
 
-                            <button className="btn btn-primary" onClick={() => this.props.history.push(`/clients/${this.props.client.id}/edit`)} >Edit Client</button>
-                            <br></br>
-                        </h3>
+                                <button className="btn btn-primary" onClick={this.onOpenModal}>Edit Client</button>
+                                {/* <button className="btn btn-primary" onClick={() => this.props.history.push(`/clients/${this.props.client.id}/edit`)} >Edit Client</button> */}
+                                <br></br>
+                            </h3>
+                        </div>
                     </div>
-                </div>
+                    <div style={styles}>
+                        <Modal open={open} onClose={this.onCloseModal} center>
+                            <h2 className="editHeader">Edit {this.state.name}'s Info.</h2>
+                            <form className="employeeForm">
+                                <div className="form-group">
+                                    <label htmlFor="firstName">First Name</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        className="edit-form-control"
+                                        onChange={this.handleFieldChange}
+                                        id="name"
+                                        placeholder="First Name"
+                                        value={this.state.name}
+                                    />
+                                    <br></br>
+                                    <label htmlFor="surname">Surname</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        className="edit-form-control"
+                                        onChange={this.handleFieldChange}
+                                        id="surname"
+                                        placeholder="Surname"
+                                        value={this.state.surname}
+                                    />
+                                    <br></br>
+                                    <label htmlFor="userEmail">Email</label>
+                                    <input
+                                        type="email"
+                                        required
+                                        className="edit-form-control"
+                                        onChange={this.handleFieldChange}
+                                        id="email"
+                                        placeholder="Email"
+                                        value={this.state.email}
+                                    />
+                                    <br></br>
+                                    <label htmlFor="phone">Phone #</label>
+                                    <input
+                                        type="tel"
+                                        required
+                                        className="edit-form-control"
+                                        onChange={this.handleFieldChange}
+                                        id="phone"
+                                        placeholder="Phone #"
+                                        value={this.state.phone}
+                                    />
+                                    <br></br>
+                                    <label htmlFor="address">Address</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        className="edit-form-control"
+                                        onChange={this.handleFieldChange}
+                                        id="address"
+                                        placeholder="Street Address"
+                                        value={this.state.address}
+                                    />
+                                    <br></br>
+                                    <label htmlFor="city">City</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        className="edit-form-control"
+                                        onChange={this.handleFieldChange}
+                                        id="city"
+                                        placeholder="City"
+                                        value={this.state.city}
+                                    />
+                                    <br></br>
+                                    <label htmlFor="state">State</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        className="edit-form-control"
+                                        onChange={this.handleFieldChange}
+                                        id="state"
+                                        placeholder="State"
+                                        value={this.state.city}
+                                    />
+                                    <br></br>
+                                    <label htmlFor="zip">Zip Code</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        className="edit-form-control"
+                                        onChange={this.handleFieldChange}
+                                        id="zip"
+                                        placeholder="Zip Code"
+                                        value={this.state.zip}
+                                    />
+                                    <br></br>
+                                    <button type="submit" onClick={this.updateClient} className="btn btn-primary">
+                                        Submit
+                            </button>
+                                </div>
+                            </form>
+                        </Modal>
+                    </div>
+                </React.Fragment>
             )
         }
     }

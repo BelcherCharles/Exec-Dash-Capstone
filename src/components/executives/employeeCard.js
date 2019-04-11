@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import { Link, Redirect } from "react-router-dom"
 import Modal from "react-responsive-modal";
 import userAPImgr from '../../modules/userAPImgr'
-// import PropTypes from "prop-types"
 import "./employees.css"
 
 const styles = {
@@ -241,13 +240,3 @@ export default class EmployeeCard extends Component {
         }
     }
 }
-
-//  EmployeeCard.propTypes = {
-//     employee: PropTypes.shape ({
-//         id: PropTypes.number.isRequired,
-//         name: PropTypes.string.isRequired,
-//         department: PropTypes.string
-//     })
-// }
-
-// export default EmployeeCard

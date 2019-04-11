@@ -34,7 +34,7 @@ export default class EmpLandingPage extends Component {
                 <section className="tasks">
                     {
                         this.props.empTasks.map(task => {
-                            console.log(task)
+                            // console.log(task)
                             return (
                                 <div key={task.id}>
                                     <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} {...this.props} />

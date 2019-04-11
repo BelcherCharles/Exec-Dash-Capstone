@@ -30,6 +30,7 @@ export default class ApplicationViews extends Component {
         empTasks: [],
         employees: [],
         filterEmps: [],
+        filterClients: [],
         clients: []
     }
 
@@ -237,6 +238,7 @@ export default class ApplicationViews extends Component {
                 )
                 // console.log(clients)
                 newState.clients = clients;
+                newState.filterClients = clients;
                 return companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId"));
             })
             .then(pct => {

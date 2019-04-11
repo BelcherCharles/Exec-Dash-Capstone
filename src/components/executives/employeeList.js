@@ -93,14 +93,15 @@ export default class EmployeeList extends Component {
 
     render() {
         const { open } = this.state;
-        if (sessionStorage.getItem("isAdmin") === "true") {
-            let empsToPrint = ""
-            if (this.state.filterEmps.length === 0) {
-                empsToPrint = this.props.filterEmps
-            } else {
-                empsToPrint = this.state.filterEmps
-            }
 
+        let empsToPrint = ""
+        if (this.state.filterEmps.length === 0) {
+            empsToPrint = this.props.filterEmps
+        } else {
+            empsToPrint = this.state.filterEmps
+        }
+
+        if (sessionStorage.getItem("isAdmin") === "true") {
             return (
                 <React.Fragment>
                     <h1 className="header">Employee Manager</h1>
@@ -249,12 +250,12 @@ export default class EmployeeList extends Component {
                 </React.Fragment>
             )
         } else {
-            let empsToPrint = ""
-            if (this.state.filterEmps.length === 0) {
-                empsToPrint = this.props.filterEmps
-            } else {
-                empsToPrint = this.state.filterEmps
-            }
+            // let empsToPrint = ""
+            // if (this.state.filterEmps.length === 0) {
+            //     empsToPrint = this.props.filterEmps
+            // } else {
+            //     empsToPrint = this.state.filterEmps
+            // }
             return (
                 <React.Fragment>
                     <h1 className="header">Employee Listing</h1>

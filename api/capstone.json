@@ -56,22 +56,96 @@
       "clientSince": "2019-04-09T17:36:15.102Z",
       "companyId": 1,
       "userType": "client"
+    },
+    {
+      "id": 5,
+      "name": "Bret \"Hitman\"",
+      "surname": "Hart",
+      "email": "BH@WWE.com",
+      "phone": "(111) 555-8888",
+      "address": "Turnbuckle St.",
+      "city": "New York",
+      "state": "KY",
+      "zip": "11101",
+      "clientSince": "2019-04-10T15:40:34.306Z",
+      "companyId": 1,
+      "userType": "client"
+    },
+    {
+      "id": 8,
+      "name": "Joe",
+      "surname": "Wellman",
+      "email": "JE@JE.com",
+      "phone": "(555) 444-9999",
+      "address": "Huntington",
+      "city": "WV",
+      "state": "WV",
+      "zip": "25701",
+      "hireDate": "2019-04-10T18:34:21.508Z",
+      "password": "vMy04txk",
+      "companyId": 1,
+      "userType": "employee"
+    },
+    {
+      "name": "Kim",
+      "surname": "Preece",
+      "phone": "(304) 111-2222",
+      "email": "K@K.com",
+      "password": "kkkkkk",
+      "companyId": 2,
+      "hireDate": "2019-04-10T18:38:51.399Z",
+      "userType": "employee",
+      "isAdmin": true,
+      "deptId": 1,
+      "id": 9
+    },
+    {
+      "name": "Scout",
+      "surname": "Labrador",
+      "email": "SL@dogs.com",
+      "phone": "(444) 999-6666",
+      "address": "1 Doghouse Ln.",
+      "city": "Pawtunxet",
+      "state": "PA",
+      "zip": "88888",
+      "companyId": 1,
+      "clientSince": "2019-04-11T14:03:43.603Z",
+      "userType": "client",
+      "id": 10
+    },
+    {
+      "id": 11,
+      "name": "New",
+      "surname": "Guy",
+      "email": "NewGuy@company1.com",
+      "phone": "(111) 222-3333",
+      "address": "Street",
+      "city": "City",
+      "state": "AK",
+      "zip": "01234",
+      "hireDate": "2019-04-11T14:45:26.855Z",
+      "password": "Kc14sKPK",
+      "companyId": 1,
+      "userType": "employee"
+    },
+    {
+      "id": 12,
+      "name": "Edited",
+      "surname": "Client",
+      "email": "NC@NC.com",
+      "phone": "(111) 222-3333",
+      "address": "500 S Kitley Ave",
+      "city": "Indianapolis",
+      "state": "Indiana",
+      "zip": "46219",
+      "clientSince": "2019-04-11T15:08:07.050Z",
+      "companyId": 1,
+      "userType": "client"
     }
   ],
   "tasks": [
     {
-      "taskDesc": "Go Sell Some Shit!",
-      "dueDate": "2019-04-19",
-      "note": "",
-      "isPriority": "",
-      "isComplete": true,
-      "type": "",
-      "companyId": 1,
-      "id": 1,
-      "userId": 3
-    },
-    {
-      "userId": 3,
+      "userId": "",
       "id": 2,
       "taskDesc": "Task #16",
       "dueDate": "2019-04-30",
@@ -80,6 +154,17 @@
       "type": "Service",
       "isComplete": false,
       "companyId": 1
+    },
+    {
+      "userId": 8,
+      "id": 3,
+      "taskDesc": "Smoke the bees out",
+      "dueDate": "2019-04-12",
+      "isPriority": true,
+      "note": "Get 'er Done!",
+      "type": "Sales",
+      "isComplete": true,
+      "companyId": 1
     }
   ],
   "empTasks": [],
@@ -87,6 +172,10 @@
     {
       "companyName": "Almost Heaven Interiors",
       "id": 1
+    },
+    {
+      "companyName": "KimCo",
+      "id": 2
     }
   ],
   "departments": [

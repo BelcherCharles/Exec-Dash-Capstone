@@ -68,7 +68,7 @@ export default class TaskList extends Component {
 
             this.props.newTask(newTask)
                 .then(() => this.onCloseModal())
-                    // () => this.props.history.push("/taskManager"));
+            // () => this.props.history.push("/taskManager"));
         };
     }
 
@@ -85,18 +85,36 @@ export default class TaskList extends Component {
                         Add New Task
                     </button>
                 </div>
+                <h3 className="sectionHeader">Unassigned Tasks</h3>
                 <section className="tasks">
                     {
                         this.props.tasks.map(task => {
-                            console.log(task)
-                            return (
-                                <div key={task.id}>
-                                    <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} {...this.props} />
-                                </div>
-                            )
-                        })
-                    }
+                            if (task.userId === "") {
+                                return (
+                                    <div key={task.id}>
+                                        <TaskCard className="priority" key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} {...this.props} />
+                                    </div>
+                                )
+                            } else {
+
+                    }})}
                 </section>
+                <br></br>
+                <h3 className="sectionHeader">Completed / To Be Reviewed</h3>
+                <section className="tasks">
+                    {
+                        this.props.tasks.map(task => {
+                            if (task.isComplete === true) {
+                                return (
+                                    <div key={task.id}>
+                                        <TaskCard className="priority" key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} {...this.props} />
+                                    </div>
+                                )
+                            } else {
+
+                    }})}
+                </section>
+
                 <div style={styles}>
                     <Modal open={open} onClose={this.onCloseModal} center>
                         <h2 className="editHeader">Enter New Task Info.</h2>
@@ -150,7 +168,7 @@ export default class TaskList extends Component {
                                     className="task-form-control"
                                     onChange={this.handleCheckbox}
                                     id="isPriority"
-                                   >
+                                >
                                 </input>
                                 <br></br>
                                 <br></br>

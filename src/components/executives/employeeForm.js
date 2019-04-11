@@ -60,7 +60,8 @@ export default class EmployeeForm extends Component {
 
                 // department: this.state.department,
             };
-            console.log(newUser)
+
+           console.log(`${this.state.name} ${this.state.surname}'s password is ${this.state.password}`)
 
             this.props.addUser(newUser)
                 .then(() => this.props.history.push("/employees"));

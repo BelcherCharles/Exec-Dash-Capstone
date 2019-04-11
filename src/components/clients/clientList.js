@@ -3,16 +3,12 @@ import { Link } from "react-router-dom";
 import Modal from "react-responsive-modal";
 import userAPImgr from '../../modules/userAPImgr'
 import ClientCard from './clientCard'
-// import ResourceCard from '../generics/resourceCard'
-// import EmployeeCard from './employeeCard'
-// import PropTypes from "prop-types"
 import "./clients.css"
 
 const styles = {
     fontFamily: "sans-serif",
     textAlign: "center"
 };
-
 export default class ClientList extends Component {
     state = {
         open: false,
@@ -23,7 +19,9 @@ export default class ClientList extends Component {
         address: "",
         city: "",
         state: "",
-        zip: ""
+        zip: "",
+        filterClients: [],
+        searchName: []
     }
 
     onOpenModal = () => {
@@ -73,7 +71,24 @@ export default class ClientList extends Component {
         };
     }
 
+    clientSearch = evt => {
+        const newState = {}
+        const filteredClients = this.props.clients.filter(
+            user => user.name.includes(evt.target.value) || user.surname.includes(evt.target.value)
+        )
+        // console.log(filteredEmps)
+        newState.filterClients = filteredClients
+        this.setState(newState)
+    }
+
     render() {
+        let clientsToPrint = ""
+        if (this.state.filterClients.length === 0) {
+            clientsToPrint = this.props.clients
+        } else {
+            clientsToPrint = this.state.filterClients
+        }
+
         const { open } = this.state;
         return (
             <React.Fragment>
@@ -86,10 +101,33 @@ export default class ClientList extends Component {
                         Add New Client
                     </button>
                 </div >
+                <section className="empSearch">
+                        <h3 className="sectHeader">Search For Clients</h3>
+                        <label htmlFor="firstName">First Name</label>
+                        <input
+                            type="text"
+                            required
+                            className="clientSearchInput"
+                            onChange={this.clientSearch}
+                            id="searchName"
+                            placeholder="First Name"
+                        />
+                        <br></br>
+                        <label htmlFor="surname">Surname</label>
+                        <input
+                            type="text"
+                            required
+                            className="clientSearchInput"
+                            onChange={this.clientSearch}
+                            id="searchSurname"
+                            placeholder="Surname"
+                        />
+                    </section>
+                    <br></br>
                 <section className="clients">
                     {
-                        this.props.clients.map(client => {
-                            // console.log(client)
+                        clientsToPrint.map(client => {
+                            // console.log(client)})
                             return (
                                 <div key={client.id}>
                                     < ClientCard key={client.id} client={client} deleteClient={this.props.deleteClient} {...this.props} />
