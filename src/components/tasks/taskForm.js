@@ -35,12 +35,11 @@ export default class TaskForm extends Component {
                 isPriority: this.state.isPriority,
                 isComplete: false,
                 type: this.state.type,
-                companyId: parseInt(sessionStorage.getItem("companyId"))
+                companyId: parseInt(sessionStorage.getItem("companyId")),
+                userId:""
             };
 
             console.log(newTask)
-            //   debugger;
-            // Create the animal and redirect user to animal list
             this.props.addTask(newTask)
                 .then(() => this.props.history.push("/taskManager"));
 

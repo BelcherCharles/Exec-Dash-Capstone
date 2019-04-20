@@ -77,7 +77,7 @@ class NavBar extends Component {
                                 <Link className="nav-link" to="/empLandingPage">Dashboard</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/employees">Employee Manager</Link>
+                                <Link className="nav-link" to="/employees">Employee Listing</Link>
                             </li>
                             {/* <li className="nav-item">
                                 <Link className="nav-link" to="/taskManager">Task Manager</Link>

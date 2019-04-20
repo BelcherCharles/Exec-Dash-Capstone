@@ -16,9 +16,6 @@ import ClientList from '../clients/clientList'
 import ClientForm from '../clients/clientForm'
 import ClientEditForm from '../clients/clientEditForm'
 import EmpLandingPage from '../employees/empLandingPage'
-// import Callback from '../authentication/callBack'
-// import ResourceList from '../generics/resourceList'
-// import Auth0Client from "../authentication/auth"
 
 export default class ApplicationViews extends Component {
 
@@ -30,30 +27,43 @@ export default class ApplicationViews extends Component {
         empTasks: [],
         employees: [],
         filterEmps: [],
+        filterClients: [],
         clients: []
     }
 
     isAuthenticated = () => sessionStorage.getItem("userId") !== null && sessionStorage.getItem("companyId") !== null
 
-    getCompUsers = () => {
-        const newState = {}
-        return userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
+    getCompData = (compId, userId) => {
+        const newState = {};
+        userAPImgr.getCompanyUsers(compId)
             .then(pcu => {
+                // console.log(pcu)
+                newState.users = pcu;
                 const employees = pcu.filter(
                     user => user.userType === "employee" && user.isAdmin !== true
                 )
+                // console.log(employees)
+                newState.employees = employees;
+                newState.filterEmps = employees
                 const clients = pcu.filter(
-                    user => user.userType === "client"
+                    client => client.userType === "client"
                 )
-                newState.users = pcu
-                newState.employees = employees
-                newState.clients = clients
+                // console.log(clients)
+                newState.clients = clients;
+                return companyAPImgr.getCompanyTasks(compId);
+            })
+            .then(pct => {
+                const empTasks = pct.filter(task => task.userId === userId)
+                // console.log(pct)
+                // console.log(empTasks)
+                newState.tasks = pct
+                newState.empTasks = empTasks
                 this.setState(newState)
-            });
+            })
     }
 
-    getCompEmps = () =>
-        userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
+    getCompEmps = () => {
+        return userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
             .then(pcu => {
                 const employees = pcu.filter(
                     user => user.userType === "employee" && user.isAdmin !== true
@@ -64,6 +74,7 @@ export default class ApplicationViews extends Component {
                 })
                 console.log(employees)
             })
+    }
 
     addUser = (newUser) => {
         const newState = {}
@@ -96,6 +107,7 @@ export default class ApplicationViews extends Component {
                         user => user.userType === "client"
                     )
                     newState.users = pcu
+                    newState.filterEmps = employees
                     newState.employees = employees
                     newState.clients = clients
                     this.setState(newState)
@@ -132,7 +144,7 @@ export default class ApplicationViews extends Component {
                 console.log(pct)
             })
 
-    addTask = newTask => {
+    newTask = newTask => {
         const newState = {}
         return companyAPImgr.postNewTask(newTask)
             .then(() => companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId")))
@@ -148,6 +160,32 @@ export default class ApplicationViews extends Component {
             .then(() => companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId"))
                 .then(pct => {
                     newState.tasks = pct
+                    this.setState(newState)
+                })
+            );
+    }
+
+    assignTo = (taskId, userId) => {
+        const newState = {}
+        return companyAPImgr.assignTask(taskId, userId)
+        .then(() => companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId"))
+                .then(pct => {
+                    newState.tasks = pct
+                    this.setState(newState)
+                })
+            );
+    }
+
+    markComplete = (id) => {
+        const newState = {}
+        return companyAPImgr.markTaskComp(id)
+            .then(() => companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId"))
+            .then(pct => {
+                const empTasks = pct.filter(task => task.userId === +sessionStorage.getItem("userId") && task.isComplete == false)
+                // console.log(pct)
+                // console.log(empTasks)
+                newState.tasks = pct
+                newState.empTasks = empTasks
                     this.setState(newState)
                 })
             );
@@ -190,7 +228,7 @@ export default class ApplicationViews extends Component {
             })
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const newState = {};
         userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId"))
             .then(pcu => {
@@ -207,10 +245,11 @@ export default class ApplicationViews extends Component {
                 )
                 // console.log(clients)
                 newState.clients = clients;
+                newState.filterClients = clients;
                 return companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId"));
             })
             .then(pct => {
-                const empTasks = pct.filter(task => task.userId === +sessionStorage.getItem("userId"))
+                const empTasks = pct.filter(task => task.userId === +sessionStorage.getItem("userId") && task.isComplete == false)
                 // console.log(pct)
                 // console.log(empTasks)
                 newState.tasks = pct
@@ -226,7 +265,7 @@ export default class ApplicationViews extends Component {
                 <Route exact path="/"
                     // component={Login}
                     render={props => {
-                        return <Login {...props} handleLogin={this.props.handleLogin} />
+                        return <Login {...props} handleLogin={this.props.handleLogin} getCompData={this.getCompData} />
                     }} />
 
                 <Route path="/regNewCompany" render={(props) => {
@@ -242,77 +281,31 @@ export default class ApplicationViews extends Component {
 
                 <Route path="/empLandingPage" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <EmpLandingPage  {...props} tasks={this.state.tasks} empTasks={this.state.empTasks} />
+                        return <EmpLandingPage  {...props} tasks={this.state.tasks} empTasks={this.state.empTasks} markTaskComp={this.markComplete}/>
                     }
                     return <Redirect to="/" />
                 }} />
 
                 <Route exact path="/employees" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <EmployeeList  {...props} users={this.state.users} employees={this.state.employees}  addUser={this.addUser} deleteEmp={this.deleteEmp} filterEmps={this.state.filterEmps} updateUser={this.updateUser} />
+                        return <EmployeeList  {...props} users={this.state.users} employees={this.state.employees} addUser={this.addUser} deleteEmp={this.deleteEmp} filterEmps={this.state.filterEmps} updateUser={this.updateUser} />
                         // getCompUsers={this.getCompUsers} getCompEmps={this.getCompEmps}
                     }
                     return <Redirect to="/" />
                 }} />
 
-                <Route path="/employees/new" render={(props) => {
-                    if (this.isAuthenticated()) {
-                        return <EmployeeForm  {...props} addUser={this.addUser} />
-                    }
-                    return <Redirect to="/" />
-                }} />
-
-                <Route path="/employees/:employeeId(\d+)/edit" render={(props) => {
-                    if (this.isAuthenticated()) {
-                        return <EmployeeEditForm {...props} employees={this.state.employees} updateUser={this.updateUser} />
-                    } else {
-                        return <Redirect to="/" />
-                    }
-                }
-                } />
-
                 <Route exact path="/taskManager" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} employees={this.state.employees} />
+                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} updateTask={this.updateTask} employees={this.state.employees} markTaskComp={this.markTaskComp} assignTo={this.assignTo} />
                     }
                     return <Redirect to="/" />
-                }} />
-
-                <Route path="/tasks/new" render={(props) => {
-                    if (this.isAuthenticated()) {
-                        return <TaskForm  {...props} tasks={this.state.tasks} addTask={this.addTask} />
-                    }
-                    return <Redirect to="/" />
-                }} />
-
-                <Route path="/tasks/:taskId(\d+)/edit" render={(props) => {
-                    if (this.isAuthenticated()) {
-                        return <TaskEditForm {...props} tasks={this.state.tasks} updateTask={this.updateTask} />
-                    } else {
-                        return <Redirect to="/" />
-                    }
                 }} />
 
                 <Route exact path="/clientList" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <ClientList  {...props} clients={this.state.clients} getCompClients={this.getCompClients} addUser={this.addUser} deleteClient={this.deleteClient} />
+                        return <ClientList  {...props} clients={this.state.clients} getCompClients={this.getCompClients} addUser={this.addUser} deleteClient={this.deleteClient} updateUser={this.updateUser} />
                     }
                     return <Redirect to="/" />
-                }} />
-
-                <Route path="/clients/new" render={(props) => {
-                    if (this.isAuthenticated()) {
-                        return <ClientForm  {...props} clients={this.state.clients} addUser={this.addUser} />
-                    }
-                    return <Redirect to="/" />
-                }} />
-
-                <Route path="/clients/:clientId(\d+)/edit" render={(props) => {
-                    if (this.isAuthenticated()) {
-                        return <ClientEditForm {...props} client={this.state.clients} updateUser={this.updateUser} />
-                    } else {
-                        return <Redirect to="/" />
-                    }
                 }} />
 
             </div>

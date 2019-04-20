@@ -59,9 +59,8 @@ export default class TaskEditForm extends Component {
                     isPriority: task.isPriority,
                     note: task.note,
                     type: task.type,
-                    isComplete: task.isComplete
-
-                    // image: employee.image
+                    isComplete: task.isComplete,
+                    userId: task.userId
                 });
             });
     }

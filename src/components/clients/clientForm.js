@@ -47,7 +47,7 @@ export default class ClientForm extends Component {
                 // department: this.state.department,
             };
 
-            console.log(newClient)
+            // console.log(newClient)
             //   debugger;
             // Create the animal and redirect user to animal list
             this.props.addUser(newClient)
@@ -66,7 +66,7 @@ export default class ClientForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="firstName"
                             placeholder="First Name"
@@ -76,7 +76,7 @@ export default class ClientForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="surname"
                             placeholder="Surname"
@@ -86,7 +86,7 @@ export default class ClientForm extends Component {
                         <input
                             type="email"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="email"
                             placeholder="Email"
@@ -96,7 +96,7 @@ export default class ClientForm extends Component {
                         <input
                             type="tel"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="phone"
                             placeholder="Phone #"
@@ -106,7 +106,7 @@ export default class ClientForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="address"
                             placeholder="Street Address"
@@ -116,7 +116,7 @@ export default class ClientForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="city"
                             placeholder="City"
@@ -126,7 +126,7 @@ export default class ClientForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="state"
                             placeholder="State"
@@ -136,7 +136,7 @@ export default class ClientForm extends Component {
                         <input
                             type="text"
                             required
-                            className="form-control"
+                            className="search-form-control"
                             onChange={this.handleFieldChange}
                             id="zip"
                             placeholder="Zip Code"

@@ -6,8 +6,6 @@ import './login.css'
 
 
 export default class NewCompanyReg extends Component {
-
-    // Set initial state
     state = {
         companyName: "",
         userFirstName: "",
@@ -20,12 +18,9 @@ export default class NewCompanyReg extends Component {
         isAdmin: "",
     }
 
-    // Update state whenever an input field is edited
     handleFieldChange = (evt) => {
         const stateToChange = {}
         stateToChange[evt.target.id] = evt.target.value
-        // console.log(evt.target.checked)
-        // console.log(evt.target.id)
         this.setState(stateToChange)
     }
 
@@ -69,10 +64,8 @@ export default class NewCompanyReg extends Component {
                 companyName: this.state.companyName,
             }
 
-            // this.props.addCompany
             companyAPImgr.postNewCompany(newCompany)
                 .then(pnc => {
-                    console.log(pnc)
 
                     const newUser = {
                         name: this.state.userFirstName,
@@ -87,12 +80,13 @@ export default class NewCompanyReg extends Component {
                         deptId: 1
                     }
 
-                    console.log(newUser)
                     userAPImgr.postNewUser(newUser)
                         .then(nu => {
                             sessionStorage.setItem("userId", nu.id)
                             sessionStorage.setItem("companyId", pnc.id)
+                            sessionStorage.setItem("isAdmin", true)
                         })
+
                     .then(() => this.props.history.push("/execLandingPage"));
                 })
         };

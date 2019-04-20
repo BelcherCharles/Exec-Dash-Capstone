@@ -50,23 +50,28 @@
 
   .empCardBody p {
       font-size: 14px;
+      margin: 2px 0 2px 0;
   }
+
+  .empCardBody img {
+    height: 95%;
+    width: 95%;
+    margin: 2px auto 2px auto;
+}
 
   .header {
       text-align:center;
       margin-top:10vh;
   }
 
-  .search-form-control {
-      width:30%;
-
+  .empSearchInput {
+      width:40%;
   }
 
-  .edit-form-control {
-    width:60%;
-}
+  .hireBtn {
+      margin-bottom:3px;
+  }
 
-.editHeader {
-    font-size:18px;
-    text-align:center;
-}
+  .editHeader {
+      text-align:center;
+  }

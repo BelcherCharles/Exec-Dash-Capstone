@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import userAPImgr from "../../modules/userAPImgr"
+import './employees.css'
 
 export default class EmployeeEditForm extends Component {
   state = {
@@ -12,7 +13,8 @@ export default class EmployeeEditForm extends Component {
     state: "",
     zip: "",
     image: "",
-    hireDate: ""
+    hireDate: "",
+    password: "",
   }
 
   handleFieldChange = evt => {
@@ -21,39 +23,46 @@ export default class EmployeeEditForm extends Component {
     this.setState(stateToChange)
   }
 
-    updateEmployee = evt => {
-      evt.preventDefault()
+  updateEmployee = evt => {
+    evt.preventDefault()
 
-      if (this.state.employee === "") {
-        window.alert("Please select a caretaker");
-      } else {
-        const editedEmployee = {
-          id: parseInt(this.props.match.params.employeeId),
-          name: this.state.name,
-          surname: this.state.surname,
-          email: this.state.email,
-          phone: this.state.phone,
-          address: this.state.address,
-          city: this.state.city,
-          state: this.state.state,
-          zip: this.state.zip,
-          hireDate: this.state.hireDate,
-          companyId: parseInt(sessionStorage.getItem("companyId")),
-          userType: "employee"
-        };
+    if (this.state.name === "") {
+      window.alert("Please enter the employee's first name");
+    } else if (this.state.surname === "") {
+      window.alert("Please enter the employee's first name")
+    } else if (this.state.email === "") {
+      window.alert("Please enter the employee's email address")
+    } else if (this.state.phone === "") {
+      window.alert("Please enter the employee's phone #")
+    } else {
+      const editedEmployee = {
+        id: parseInt(this.props.match.params.employeeId),
+        name: this.state.name,
+        surname: this.state.surname,
+        email: this.state.email,
+        phone: this.state.phone,
+        address: this.state.address,
+        city: this.state.city,
+        state: this.state.state,
+        zip: this.state.zip,
+        hireDate: this.state.hireDate,
+        companyId: parseInt(sessionStorage.getItem("companyId")),
+        userType: "employee",
+        password: this.state.password
+      };
 
-    this.props.updateUser(editedEmployee, this.props.match.params.employeeId)
-    .then(() => this.props.history.push("/employees"))
-    // console.log(parseInt(this.props.match.params.employeeId))
-    // console.log(editedEmployee)
+      this.props.updateUser(editedEmployee, this.props.match.params.employeeId)
+        .then(() => this.props.history.push("/employees"))
+      // console.log(parseInt(this.props.match.params.employeeId))
+      // console.log(editedEmployee)
 
     }
   }
 
   componentDidMount() {
-    console.log(this.props.match.params.employeeId)
+    // console.log(this.props.match.params.employeeId)
     userAPImgr.getOneUser(this.props.match.params.employeeId)
-    .then(employee => {
+      .then(employee => {
         this.setState({
           name: employee.name,
           surname: employee.surname,
@@ -64,6 +73,9 @@ export default class EmployeeEditForm extends Component {
           state: employee.state,
           zip: employee.zip,
           hireDate: employee.hireDate,
+          password: employee.password,
+          userType: employee.userType
+
 
 
           // image: employee.image
@@ -82,7 +94,7 @@ export default class EmployeeEditForm extends Component {
             <input
               type="text"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="name"
               placeholder="First Name"
@@ -93,7 +105,7 @@ export default class EmployeeEditForm extends Component {
             <input
               type="text"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="surname"
               placeholder="Surname"
@@ -104,7 +116,7 @@ export default class EmployeeEditForm extends Component {
             <input
               type="email"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="email"
               placeholder="Email"
@@ -115,7 +127,7 @@ export default class EmployeeEditForm extends Component {
             <input
               type="tel"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="phone"
               placeholder="Phone #"
@@ -126,7 +138,7 @@ export default class EmployeeEditForm extends Component {
             <input
               type="text"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="address"
               placeholder="Street Address"
@@ -137,7 +149,7 @@ export default class EmployeeEditForm extends Component {
             <input
               type="text"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="city"
               placeholder="City"
@@ -148,7 +160,7 @@ export default class EmployeeEditForm extends Component {
             <input
               type="text"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="state"
               placeholder="State"
@@ -159,7 +171,7 @@ export default class EmployeeEditForm extends Component {
             <input
               type="text"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="zip"
               placeholder="Zip Code"
@@ -170,7 +182,7 @@ export default class EmployeeEditForm extends Component {
             <input
               type="file"
               required
-              className="form-control"
+              className="search-form-control"
               onChange={this.handleFieldChange}
               id="image"
               placeholder="Image"
@@ -183,9 +195,9 @@ export default class EmployeeEditForm extends Component {
             >
               Submit
            </button>
-           </div>
-          </form>
-        </React.Fragment>
-        );
-      }
+          </div>
+        </form>
+      </React.Fragment>
+    );
+  }
 }
