@@ -9,12 +9,12 @@
 }
 
 .empCard {
+    /* flex-basis:25%-8px; */
     border:1px solid black;
     display: flex;
     justify-content: space-evenly;
     flex: wrap;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 2px 4px 2px 4px;
     width: 10rem;
 }
 
@@ -75,3 +75,7 @@
   .editHeader {
       text-align:center;
   }
+
+  .empCard a {
+    font-size:12px
+}

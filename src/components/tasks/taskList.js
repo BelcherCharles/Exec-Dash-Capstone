@@ -64,13 +64,27 @@ export default class TaskList extends Component {
                 isPriority: this.state.isPriority,
                 isComplete: false,
                 note: this.state.note,
-                userId: ""
+                userId: 0
             };
 
             // console.log(newTask)
 
             this.props.newTask(newTask)
                 .then(() => this.onCloseModal())
+
+            const newState = {
+                clientId: "",
+                taskDesc: "",
+                dueDate: "",
+                isPriority: "",
+                note: "",
+                type: "Sales",
+                isComplete: "",
+                taskSelector: "unassigned",
+            }
+
+            this.setState(newState)
+
             // () => this.props.history.push("/taskManager"));
         };
     }
@@ -97,6 +111,7 @@ export default class TaskList extends Component {
                         <option value="unassigned">Unassigned</option>
                         <option value="incomplete">Assigned / Not Completed</option>
                         <option value="completed">Completed</option>
+                        <option value="archived">Archived</option>
                     </select>
                 </section>
 
@@ -105,38 +120,50 @@ export default class TaskList extends Component {
                 <section className="tasks">
                     {
                         this.props.tasks.map(task => {
-                            if (this.state.taskSelector === "unassigned" && task.userId === "") {
+                            if (this.state.taskSelector === "unassigned" && task.userId == 0) {
                                 return (
                                     <section>
                                         <br></br>
                                         <div key={task.id}>
-                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} {...this.props}
+                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask}  {...this.props}
                                             // markTaskComp={this.props.markTaskComp}
                                             />
                                         </div>
                                     </section>
                                 )
-                            } else if (this.state.taskSelector === "incomplete" && task.userId !== "" && task.isComplete == false) {
+                            } else if (this.state.taskSelector === "incomplete" && task.userId !== 0 && task.isComplete == false) {
                                 return (
                                     <section>
                                         <br></br>
                                         <div key={task.id}>
-                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} {...this.props} />
+                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask} {...this.props} />
                                         </div>
                                     </section>
                                 )
-                            }   else if (this.state.taskSelector === "completed" && task.userId !== "" && task.isComplete == true) {
+                            } else if (this.state.taskSelector === "completed" && task.archived !== true && task.isComplete == true ) {
                                 return (
                                     <section>
                                         <br></br>
                                         <div key={task.id}>
-                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} {...this.props}
+                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask} reopenTask={this.props.reopenTask} {...this.props}
                                             // markTaskComp={this.props.markTaskComp}
-                                             />
+                                            />
                                         </div>
                                     </section>
                                 )
-                        }})}
+                            } else if (this.state.taskSelector === "archived" && task.archived == true && task.isComplete == true) {
+                                return (
+                                    <section>
+                                        <br></br>
+                                        <div key={task.id}>
+                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask} {...this.props}
+                                            // markTaskComp={this.props.markTaskComp}
+                                            />
+                                        </div>
+                                    </section>
+                                )
+                            }
+                        })}
                 </section>
 
                 <br></br>

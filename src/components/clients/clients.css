@@ -64,3 +64,15 @@
   .client-form-control {
     width: 60%
 }
+
+.clientBtn{
+    margin: 2px 0 2px 0
+}
+
+.clientCard a {
+    font-size:12px
+}
+
+.clientCard p {
+    margin: 2px 0 2px 0
+}

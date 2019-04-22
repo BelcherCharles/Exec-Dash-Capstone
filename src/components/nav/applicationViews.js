@@ -154,6 +154,17 @@ export default class ApplicationViews extends Component {
             })
     }
 
+    archiveTask = id => {
+        const newState = {}
+        return companyAPImgr.archiveTask(id)
+        .then(() => companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId")))
+            .then(pct => {
+                newState.tasks = pct
+                this.setState(newState)
+            })
+    }
+
+
     updateTask = (editedTask, id) => {
         const newState = {}
         return companyAPImgr.updateTask(editedTask, id)
@@ -184,6 +195,20 @@ export default class ApplicationViews extends Component {
                 const empTasks = pct.filter(task => task.userId === +sessionStorage.getItem("userId") && task.isComplete == false)
                 // console.log(pct)
                 // console.log(empTasks)
+                newState.tasks = pct
+                newState.empTasks = empTasks
+                    this.setState(newState)
+                })
+            );
+    }
+
+    reopenTask = (id) => {
+        const newState = {}
+        return companyAPImgr.reopenTask(id)
+            .then(() => companyAPImgr.getCompanyTasks(sessionStorage.getItem("companyId"))
+            .then(pct => {
+                const empTasks = pct.filter(task => task.userId === +sessionStorage.getItem("userId") && task.isComplete == false)
+
                 newState.tasks = pct
                 newState.empTasks = empTasks
                     this.setState(newState)
@@ -296,7 +321,7 @@ export default class ApplicationViews extends Component {
 
                 <Route exact path="/taskManager" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} updateTask={this.updateTask} employees={this.state.employees} markTaskComp={this.markTaskComp} assignTo={this.assignTo} />
+                        return <TaskList  {...props} users={this.state.users} tasks={this.state.tasks} newTask={this.newTask} deleteTask={this.deleteTask} updateTask={this.updateTask} employees={this.state.employees} markTaskComp={this.markTaskComp} assignTo={this.assignTo} archiveTask={this.archiveTask} reopenTask={this.reopenTask}/>
                     }
                     return <Redirect to="/" />
                 }} />
