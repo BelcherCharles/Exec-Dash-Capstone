@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Modal from "react-responsive-modal";
 import TaskCard from './taskCard'
 import "./tasks.css";
-import { runInThisContext } from "vm";
+import companyAPImgr from '../../modules/companyAPImgr'
+// import { runInThisContext } from "vm";
 
 const styles = {
     fontFamily: "sans-serif",
@@ -18,7 +19,9 @@ export default class TaskList extends Component {
         isPriority: "",
         note: "",
         type: "Sales",
-        isComplete: ""
+        isComplete: "",
+        taskSelector: "unassigned",
+        // flag: ""
     }
 
     onOpenModal = () => {
@@ -61,19 +64,36 @@ export default class TaskList extends Component {
                 isPriority: this.state.isPriority,
                 isComplete: false,
                 note: this.state.note,
-                userId: ""
+                userId: 0
             };
 
             // console.log(newTask)
 
             this.props.newTask(newTask)
                 .then(() => this.onCloseModal())
+
+            const newState = {
+                clientId: "",
+                taskDesc: "",
+                dueDate: "",
+                isPriority: "",
+                note: "",
+                type: "Sales",
+                isComplete: "",
+                taskSelector: "unassigned",
+            }
+
+            this.setState(newState)
+
             // () => this.props.history.push("/taskManager"));
         };
     }
 
+
+
     render() {
         const { open } = this.state;
+
         return (
             <React.Fragment>
                 <h1 className="header">Task Manager</h1>
@@ -85,35 +105,68 @@ export default class TaskList extends Component {
                         Add New Task
                     </button>
                 </div>
-                <h3 className="sectionHeader">Unassigned Tasks</h3>
+                <h4 className="sectionHeader">Show Tasks That Are:</h4>
+                <section>
+                    <select className="taskSelector" id="taskSelector" onChange={this.handleFieldChange}>
+                        <option value="unassigned">Unassigned</option>
+                        <option value="incomplete">Assigned / Not Completed</option>
+                        <option value="completed">Completed</option>
+                        <option value="archived">Archived</option>
+                    </select>
+                </section>
+
+                {/* <h3 className="sectionHeader">Unassigned Tasks</h3> */}
+
                 <section className="tasks">
                     {
                         this.props.tasks.map(task => {
-                            if (task.userId === "") {
+                            if (this.state.taskSelector === "unassigned" && task.userId == 0) {
                                 return (
-                                    <div key={task.id}>
-                                        <TaskCard className="priority" key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} {...this.props} />
-                                    </div>
+                                    <section>
+                                        <br></br>
+                                        <div key={task.id}>
+                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask}  {...this.props}
+                                            // markTaskComp={this.props.markTaskComp}
+                                            />
+                                        </div>
+                                    </section>
                                 )
-                            } else {
-
-                    }})}
+                            } else if (this.state.taskSelector === "incomplete" && task.userId !== 0 && task.isComplete == false) {
+                                return (
+                                    <section>
+                                        <br></br>
+                                        <div key={task.id}>
+                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask} {...this.props} />
+                                        </div>
+                                    </section>
+                                )
+                            } else if (this.state.taskSelector === "completed" && task.archived !== true && task.isComplete == true ) {
+                                return (
+                                    <section>
+                                        <br></br>
+                                        <div key={task.id}>
+                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask} reopenTask={this.props.reopenTask} {...this.props}
+                                            // markTaskComp={this.props.markTaskComp}
+                                            />
+                                        </div>
+                                    </section>
+                                )
+                            } else if (this.state.taskSelector === "archived" && task.archived == true && task.isComplete == true) {
+                                return (
+                                    <section>
+                                        <br></br>
+                                        <div key={task.id}>
+                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask} {...this.props}
+                                            // markTaskComp={this.props.markTaskComp}
+                                            />
+                                        </div>
+                                    </section>
+                                )
+                            }
+                        })}
                 </section>
+
                 <br></br>
-                <h3 className="sectionHeader">Completed / To Be Reviewed</h3>
-                <section className="tasks">
-                    {
-                        this.props.tasks.map(task => {
-                            if (task.isComplete === true) {
-                                return (
-                                    <div key={task.id}>
-                                        <TaskCard className="priority" key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} {...this.props} />
-                                    </div>
-                                )
-                            } else {
-
-                    }})}
-                </section>
 
                 <div style={styles}>
                     <Modal open={open} onClose={this.onCloseModal} center>

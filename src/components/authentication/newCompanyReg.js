@@ -71,7 +71,7 @@ export default class NewCompanyReg extends Component {
                         name: this.state.userFirstName,
                         surname: this.state.userSurname,
                         phone: this.state.userPhone,
-                        email: this.state.userEmail,
+                        email: this.state.userEmail.toLowerCase(),
                         password: this.state.userPassword,
                         companyId: parseInt(pnc.id),
                         hireDate: new Date(),

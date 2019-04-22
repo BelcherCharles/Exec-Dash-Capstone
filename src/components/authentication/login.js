@@ -39,7 +39,7 @@ export default class Login extends Component {
     handleLogin = (e) => {
         e.preventDefault()
 
-        userAPImgr.userLogin(this.state.email)
+        userAPImgr.userLogin(this.state.email.toLowerCase())
             .then(su => {
                 // console.log(su)
                 if
@@ -82,6 +82,18 @@ export default class Login extends Component {
                     }
                 }
                 this.props.getCompData(+sessionStorage.getItem("companyId"), +sessionStorage.getItem("userId"))
+                const newState = {
+                    users: [],
+                    companies: [],
+                    departments: [],
+                    tasks: [],
+                    empTasks: [],
+                    employees: [],
+                    filterEmps: [],
+                    filterClients: [],
+                    clients: []
+                }
+                this.setState(newState)
             })
     }
 

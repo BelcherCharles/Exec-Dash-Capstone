@@ -52,6 +52,16 @@ export default {
             .then(et => et.json())
     },
 
+    archiveTask: (taskId) => {
+        return fetch(`${remoteURL}/tasks/${taskId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ archived: true })
+        })
+    },
+
     deleteTask: (taskId) => {
         return fetch(`${remoteURL}/tasks/${taskId}`, {
             method: "DELETE"
@@ -65,6 +75,16 @@ export default {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ isComplete: true })
+        });
+    },
+
+    reopenTask: (taskId) => {
+        return fetch(`${remoteURL}/tasks/${taskId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ isComplete: false })
         });
     },
 

@@ -21,12 +21,12 @@ export default class TaskCard extends Component {
         isPriority: "",
         note: "",
         type: "",
-        isComplete: ""
+        isComplete: "",
+
     }
 
     onOpenModal = () => {
         companyAPImgr.getOneTask(this.props.task.id)
-            // console.log(this.props.task.id)
             .then(task => {
                 console.log(task)
                 this.setState({
@@ -65,9 +65,8 @@ export default class TaskCard extends Component {
         const stateToChange = {}
         stateToChange[evt.target.id] = evt.target.value
         this.setState(stateToChange)
-        // console.log(this.props.task.id)
-        // console.log(evt.target.value)
-        companyAPImgr.assignTask(this.props.task.id, evt.target.value)
+        this.props.assignTo(this.props.task.id, evt.target.value)
+        // this.props.setState({flag: evt.target.value})
     }
 
     updateTask = evt => {
@@ -102,7 +101,53 @@ export default class TaskCard extends Component {
 
     render() {
         const { open } = this.state;
-        if (this.props.task.isPriority === true) {
+        if (this.props.task.archived == true) {
+            return (
+                <React.Fragment>
+                    <div key={this.props.task.id} className="taskCard">
+                        <div className="taskCardBody">
+                            <h3 className="taskCardTitle">
+                                <p>{this.props.task.taskDesc}</p>
+                                <p>{this.props.task.type}</p>
+                                <p>{this.props.task.dueDate}</p>
+                                <p>{this.props.task.note}</p>
+
+                                <p>Completed By:</p>
+                                <p>{this.props.task.user.name} {this.props.task.user.surname}</p>
+                            </h3>
+                        </div>
+                    </div>
+                </React.Fragment >
+            )
+        } else if (this.props.task.isComplete == true) {
+            return (
+                <React.Fragment>
+                    <div key={this.props.task.id} className="taskCard">
+                        <div className="taskCardBody">
+                            <h3 className="taskCardTitle">
+                                <p>{this.props.task.taskDesc}</p>
+                                <p>{this.props.task.type}</p>
+                                <p>{this.props.task.dueDate}</p>
+                                <p>{this.props.task.note}</p>
+
+                                <p>Completed By:</p>
+                                <p>{this.props.task.user.name} {this.props.task.user.surname}</p>
+
+                                <br></br>
+
+                                <button className="btn btn-primary taskBtn" onClick={() => this.props.reopenTask(this.props.task.id)}>
+                                    Re-Open Issue</button>
+                                {/* <br></br> */}
+                                <button onClick={() => this.props.archiveTask(this.props.task.id)}
+                                    className="btn btn-danger taskBtn">Archive Task
+                                </button>
+                            </h3>
+                        </div>
+                    </div>
+                </React.Fragment >
+            )
+        }
+        else if (this.props.task.isPriority === true) {
             return (
                 <React.Fragment>
                     <div key={this.props.task.id} className="priorityTaskCard">
@@ -117,29 +162,32 @@ export default class TaskCard extends Component {
                                 <select className="form-control"
                                     onChange={this.assignTo}
                                     id="assignTo" >
-                                    {(this.props.task.userId === "0") ? <option key="0" id="0" value="0" selected>Assign Task</option> : ""}
 
-                                    {this.props.employees.map(employee => {
-                                        if (employee.id === this.props.task.userId) {
-                                            return <option key={employee.id} id={employee.id} value={employee.id} selected>
-                                                {employee.name} {employee.surname}
-                                            </option>
-                                        } else {
-                                            return <option key={employee.id} id={employee.id} value={employee.id} >
-                                                {employee.name} {employee.surname}
-                                            </option>
-                                        }
-                                    })}
-                                </select>
+                                    {this.props.task.userId === 0
+                                        ? <option value="0">Assign To:</option>
+                                        : ""}
+
+                                    {this.props.employees.map(employee => (
+                                        <option
+                                            key={employee.id}
+                                            id={employee.id}
+                                            value={employee.id}
+                                            selected={employee.id === this.props.task.userId}
+                                        >
+                                            {employee.name} {employee.surname}
+                                        </option>
+                                    ))
+                                    };
+                                     </select>
 
                                 <br></br>
 
-                                <button className="btn btn-primary" onClick={this.onOpenModal}>
+                                <button className="btn btn-primary taskBtn" onClick={this.onOpenModal}>
                                     {/* {() => this.props.history.push(`/tasks/${this.props.task.id}/edit`)} */}
                                     Edit Task</button>
-                                <br></br>
+                                {/* <br></br> */}
                                 <button onClick={() => this.props.deleteTask(this.props.task.id)}
-                                    className="btn btn-danger">Delete Task
+                                    className="btn btn-danger taskBtn">Delete Task
                         </button>
                             </h3>
                         </div>
@@ -174,6 +222,10 @@ export default class TaskCard extends Component {
                                     <select className="form-control" value={this.state.type}
                                         onChange={this.handleFieldChange}
                                         id="type">
+                                        <option value="Sales">Sales</option>
+                                        <option value="Service">Service</option>
+                                        <option value="General Info">General Info</option>
+                                        <option value="Finance">Finance</option>
                                     </select>
                                     <br></br>
                                     <label htmlFor="note">Notes</label>
@@ -203,7 +255,9 @@ export default class TaskCard extends Component {
                     </div>
                 </React.Fragment>
             )
-        } else {
+        } else
+        // if (this.props.task.isPriority === false)
+        {
             return (
                 <React.Fragment>
                     <div key={this.props.task.id} className="taskCard">
@@ -218,28 +272,32 @@ export default class TaskCard extends Component {
                                 <select className="form-control"
                                     onChange={this.assignTo}
                                     id="assignTo" >
-                                    {/* <option value={this.props.task.userId}>{this.props.task.user.name} {this.props.task.user.surname}</option> */}
-                                    {this.props.employees.map(employee => {
-                                        if (employee.id === this.props.task.userId) {
-                                            return <option key={employee.id} id={employee.id} value={employee.id} selected>
-                                                {employee.name} {employee.surname}
-                                            </option>
-                                        } else {
-                                            return <option key={employee.id} id={employee.id} value={employee.id} >
-                                                {employee.name} {employee.surname}
-                                            </option>
-                                        }
-                                    })}
-                                </select>
+
+                                    {this.props.task.userId === 0
+                                        ? <option value="0">Assign To:</option>
+                                        : ""}
+
+                                    {this.props.employees.map(employee => (
+                                        <option
+                                            key={employee.id}
+                                            id={employee.id}
+                                            value={employee.id}
+                                            selected={employee.id === this.props.task.userId}
+                                        >
+                                            {employee.name} {employee.surname}
+                                        </option>
+                                    ))
+                                    };
+                                    </select>
 
                                 <br></br>
 
-                                <button className="btn btn-primary" onClick={this.onOpenModal}>
+                                <button className="btn btn-primary taskBtn" onClick={this.onOpenModal}>
                                     {/* {() => this.props.history.push(`/tasks/${this.props.task.id}/edit`)} */}
                                     Edit Task</button>
-                                <br></br>
+                                {/* <br></br> */}
                                 <button onClick={() => this.props.deleteTask(this.props.task.id)}
-                                    className="btn btn-danger">Delete Task
+                                    className="btn btn-danger taskBtn">Delete Task
                         </button>
                             </h3>
                         </div>
@@ -274,6 +332,10 @@ export default class TaskCard extends Component {
                                     <select className="form-control" value={this.state.type}
                                         onChange={this.handleFieldChange}
                                         id="type">
+                                        <option value="Sales">Sales</option>
+                                        <option value="Service">Service</option>
+                                        <option value="General Info">General Info</option>
+                                        <option value="Finance">Finance</option>
                                     </select>
                                     <br></br>
                                     <label htmlFor="note">Notes</label>
@@ -301,7 +363,7 @@ export default class TaskCard extends Component {
                             </form>
                         </Modal>
                     </div>
-                </React.Fragment>
+                </React.Fragment >
             )
         }
     }

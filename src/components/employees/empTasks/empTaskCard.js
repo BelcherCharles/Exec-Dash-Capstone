@@ -6,10 +6,10 @@ import companyAPImgr from "../../../modules/companyAPImgr";
 
 export default class TaskCard extends Component {
 
-    markTaskComp = () => {
-        console.log(this.props.task.id)
-        return companyAPImgr.markTaskComp(this.props.task.id)
-    }
+    // markTaskComp = () => {
+    //     console.log(this.props.task.id)
+    //     return companyAPImgr.markTaskComp(this.props.task.id)
+    // }
     render() {
         if (this.props.task.isPriority === true) {
             return (
@@ -19,7 +19,7 @@ export default class TaskCard extends Component {
                             <p>{this.props.task.taskDesc}</p>
                             <p>{this.props.task.dueDate}</p>
 
-                            <button className="btn btn-primary" onClick={() => this.markTaskComp()}>Mark Completed</button>
+                            <button className="btn btn-primary" onClick={() => this.props.markTaskComp(this.props.task.id)}>Mark Completed</button>
                             {/* this.props.history.push(`/tasks/${this.props.task.id}/edit`) */}
                             <br></br>
                             {/* <button onClick={() => this.props.deleteTask(this.props.task.id)}
@@ -37,7 +37,7 @@ export default class TaskCard extends Component {
                             <p>{this.props.task.taskDesc}</p>
                             <p>{this.props.task.dueDate}</p>
 
-                            <button className="btn btn-primary" onClick={() => this.markTaskComp()}>Mark Completed</button>
+                            <button className="btn btn-primary" onClick={() => this.props.markTaskComp(this.props.task.id)}>Mark Completed</button>
                             {/* this.props.history.push(`/tasks/${this.props.task.id}/edit`) */}
                             <br></br>
                             {/* <button onClick={() => this.props.deleteTask(this.props.task.id)}

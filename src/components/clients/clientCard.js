@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Link, Redirect } from "react-router-dom"
 import Modal from "react-responsive-modal";
 import userAPImgr from '../../modules/userAPImgr'
-// import PropTypes from "prop-types"
+
 import "./clients.css"
 
 const styles = {
@@ -46,7 +46,7 @@ export default class ClientCard extends Component {
 
     handleFieldChange = evt => {
         const updatedState = {
-            ...this.state, // This is called the spread operator
+            ...this.state,
             [evt.target.id]: evt.target.value
         }
         this.setState(updatedState)
@@ -89,9 +89,6 @@ export default class ClientCard extends Component {
 
             this.props.updateUser(editedClient, this.props.client.id)
                 .then(() => this.onCloseModal())
-            //   this.props.history.push("/clientList"))
-            // console.log(parseInt(this.props.match.params.employeeId))
-            // console.log(editedEmployee)
 
         }
     }
@@ -103,19 +100,16 @@ export default class ClientCard extends Component {
                     <div key={this.props.client.id} className="clientCard">
                         <div className="clientCardBody">
                             <h3 className="clientCardTitle">
-                                {/* <img src={this.props.employee.image} alt={this.props.employee.name} className="empImg" /> */}
                                 <p>{this.props.client.name} {this.props.client.surname}</p>
-                                <p>{this.props.client.email}</p>
+                                <a href = {`mailto: ${this.props.client.email}`}>{this.props.client.email}</a>
                                 <p>{this.props.client.phone}</p>
                                 <p>{this.props.client.address}</p>
                                 <p>{this.props.client.city}, {this.props.client.state} {this.props.client.zip}</p>
-                                {/* <p>{this.props.employee.id}</p> */}
 
-                                <button className="btn btn-primary" onClick={this.onOpenModal}>Edit Client</button>
-                                {/* {() => this.props.history.push(`/clients/${this.props.client.id}/edit`)} >Edit Client</button> */}
-                                <br></br>
+                                <button className="btn btn-primary clientBtn" onClick={this.onOpenModal}>Edit Client</button>
+
                                 <button onClick={() => this.props.deleteClient(this.props.client.id)}
-                                    className="btn btn-danger">Delete Client
+                                    className="btn btn-danger clientBtn">Delete Client
                         </button>
                             </h3>
                         </div>
@@ -228,17 +222,14 @@ export default class ClientCard extends Component {
                     <div key={this.props.client.id} className="clientCard">
                         <div className="clientCardBody">
                             <h3 className="clientCardTitle">
-                                {/* <img src={this.props.employee.image} alt={this.props.employee.name} className="empImg" /> */}
                                 <p>{this.props.client.name} {this.props.client.surname}</p>
-                                <p>{this.props.client.email}</p>
+                                <a href = {`mailto: ${this.props.client.email}`}>{this.props.client.email}</a>
                                 <p>{this.props.client.phone}</p>
                                 <p>{this.props.client.address}</p>
                                 <p>{this.props.client.city}, {this.props.client.state} {this.props.client.zip}</p>
-                                {/* <p>{this.props.employee.id}</p> */}
 
-                                <button className="btn btn-primary" onClick={this.onOpenModal}>Edit Client</button>
-                                {/* <button className="btn btn-primary" onClick={() => this.props.history.push(`/clients/${this.props.client.id}/edit`)} >Edit Client</button> */}
-                                <br></br>
+                                <button className="btn btn-primary clientBtn" onClick={this.onOpenModal}>Edit Client</button>
+
                             </h3>
                         </div>
                     </div>

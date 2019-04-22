@@ -85,6 +85,7 @@ export default class EmployeeCard extends Component {
                 city: this.state.city,
                 state: this.state.state,
                 zip: this.state.zip,
+                image: this.state.image,
                 hireDate: this.state.hireDate,
                 password: this.state.password,
                 companyId: parseInt(sessionStorage.getItem("companyId")),
@@ -103,24 +104,24 @@ export default class EmployeeCard extends Component {
                 <div key={this.props.employee.id} className="empCard">
                     <div className="empCardBody">
                         <h3 className="empCardTitle">
-                            {/* <img src={this.props.employee.image} alt={this.props.employee.name} className="empImg" /> */}
+                            <img src={this.props.employee.image} alt={this.props.employee.name} className="empImg" />
                             <p>{this.props.employee.name} {this.props.employee.surname}</p>
-                            <p>{this.props.employee.email}</p>
+                            <a href = {`mailto: ${this.props.employee.email}`}>{this.props.employee.email}</a>
+                            {/* <p>{this.props.employee.email}</p> */}
                             <p>{this.props.employee.phone}</p>
                             <p>{this.props.employee.address}</p>
                             <p>{this.props.employee.city}, {this.props.employee.state} {this.props.employee.zip}</p>
 
 
-                            <button className="btn btn-primary" onClick={this.onOpenModal}>Edit Employee</button>
-                            {/* this.props.history.push(`/employees/${this.props.employee.id}/edit`)} >Edit Employee</button> */}
-                            <br></br>
+                            <button className="btn btn-primary hireBtn" onClick={this.onOpenModal}>Edit Employee</button>
+
                             <button onClick={() => this.props.deleteEmp(this.props.employee.id)}
-                                className="btn btn-danger">Fire Employee
+                                className="btn btn-danger fireBtn">Fire Employee
                         </button>
                         </h3>
                     </div>
                     <div style={styles}>
-                        <Modal open={open} onClose={this.onCloseModal} center>
+                        <Modal className="editEmpModal" open={open} onClose={this.onCloseModal} center><br></br>
                             <h2 className="editHeader">Edit {this.props.employee.name}'s Info</h2>
                             <form className="employeeForm">
                                 <div className="form-group">
@@ -212,6 +213,17 @@ export default class EmployeeCard extends Component {
                                         value={this.state.zip}
                                     />
                                     <br></br>
+                                    <label htmlFor="image">Photo URL</label>
+                                    <input
+                                        type="URL"
+                                        required
+                                        className="edit-form-control"
+                                        onChange={this.handleFieldChange}
+                                        id="image"
+                                        // placeholder="Zip Code"
+                                        value={this.state.image}
+                                    />
+                                    {/* <br></br> */}
                                     <br></br>
                                     <button type="submit" onClick={this.updateEmployee} className="btn btn-primary">
                                         Submit
@@ -227,9 +239,10 @@ export default class EmployeeCard extends Component {
                 <div key={this.props.employee.id} className="empCard">
                     <div className="empCardBody">
                         <h3 className="empCardTitle">
-                            {/* <img src={this.props.employee.image} alt={this.props.employee.name} className="empImg" /> */}
+                            <img src={this.props.employee.image} alt={this.props.employee.name} className="empImg" />
                             <p>{this.props.employee.name} {this.props.employee.surname}</p>
-                            <p>{this.props.employee.email}</p>
+                            <a href = {`mailto: ${this.props.employee.email}`}>{this.props.employee.email}</a>
+                            {/* <p>{this.props.employee.email}</p> */}
                             <p>{this.props.employee.phone}</p>
                             <p>{this.props.employee.address}</p>
                             <p>{this.props.employee.city}, {this.props.employee.state} {this.props.employee.zip}</p>

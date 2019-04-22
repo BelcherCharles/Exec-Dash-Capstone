@@ -8,22 +8,6 @@ import "../executives/landingPage.css"
 
 export default class EmpLandingPage extends Component {
 
-    // state = {
-    //     users: [],
-    //     tasks: [],
-    //     empTasks: [],
-    //     departments: [],
-    // }
-
-    // componentDidMount() {
-    //     const newState = {};
-    //     userAPImgr.getAllUsers()
-    //         .then(pau => {
-    //             newState.users = pau
-    //             this.setState(newState)
-    //         })
-    // }
-
     render() {
         return (
             <React.Fragment>
@@ -37,7 +21,7 @@ export default class EmpLandingPage extends Component {
                             // console.log(task)
                             return (
                                 <div key={task.id}>
-                                    <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} {...this.props} />
+                                    <TaskCard key={task.id} task={task} route={"tasks"} markTaskComp={this.props.markTaskComp} {...this.props} />
                                 </div>
                             )
                         }
