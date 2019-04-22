@@ -24,7 +24,7 @@ export default class EmployeeList extends Component {
         zip: "",
         image: "",
         hireDate: "",
-        filterEmps: [],
+        // filterEmps: [],
         searchName: []
     }
 
@@ -112,7 +112,7 @@ export default class EmployeeList extends Component {
         empSearch = evt => {
             const newState = {}
             const filteredEmps = this.props.employees.filter(
-                user => user.name.includes(evt.target.value) || user.surname.includes(evt.target.value)
+                user => user.name.toLowerCase().includes(evt.target.value.toLowerCase()) || user.surname.toLowerCase().includes(evt.target.value.toLowerCase())
             )
 
             newState.filterEmps = filteredEmps
@@ -122,12 +122,22 @@ export default class EmployeeList extends Component {
         render() {
             const { open } = this.state;
 
-            let empsToPrint = ""
-            if (this.state.filterEmps.length === 0) {
-                empsToPrint = this.props.filterEmps
-            } else {
-                empsToPrint = this.state.filterEmps
-            }
+                let empsToPrint = ""
+                if (!this.state.filterEmps) {
+                    empsToPrint = this.props.employees
+                }
+                else if (this.state.filterEmps.length === 0) {
+                    empsToPrint = []
+                } else {
+                    empsToPrint = this.state.filterEmps
+                }
+
+            // let empsToPrint = ""
+            // if (this.state.filterEmps.length === 0) {
+            //     empsToPrint = this.props.filterEmps
+            // } else {
+            //     empsToPrint = this.state.filterEmps
+            // }
 
             if (sessionStorage.getItem("isAdmin") === "true") {
                 return (

@@ -20,7 +20,7 @@ export default class ClientList extends Component {
         city: "",
         state: "",
         zip: "",
-        filterClients: [],
+        // filterClients: [],
         searchName: []
     }
 
@@ -97,7 +97,7 @@ export default class ClientList extends Component {
         clientSearch = evt => {
             const newState = {}
             const filteredClients = this.props.clients.filter(
-                user => user.name.includes(evt.target.value) || user.surname.includes(evt.target.value)
+                user => user.name.toLowerCase().includes(evt.target.value.toLowerCase()) || user.surname.toLowerCase().includes(evt.target.value.toLowerCase())
             )
             // console.log(filteredEmps)
             newState.filterClients = filteredClients
@@ -106,11 +106,22 @@ export default class ClientList extends Component {
 
         render() {
             let clientsToPrint = ""
-            if (this.state.filterClients.length === 0) {
+            if (!this.state.filterClients) {
                 clientsToPrint = this.props.clients
+            }
+            else if (this.state.filterClients.length === 0) {
+                clientsToPrint = []
             } else {
                 clientsToPrint = this.state.filterClients
             }
+
+            // if (!this.state.filterClients) {
+            //     clientsToPrint = this.props.clients
+            // } else
+
+            // } else {
+            //     clientsToPrint = this.state.filterClients
+            // }
 
             const { open } = this.state;
             return (
