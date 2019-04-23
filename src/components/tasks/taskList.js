@@ -101,7 +101,6 @@ export default class TaskList extends Component {
                     <button type="button"
                         className="btn btn-success" id="addTaskBtn"
                         onClick={this.onOpenModal}>
-                        {/* {() => {this.props.history.push("/tasks/new")}}> */}
                         Add New Task
                     </button>
                 </div>
@@ -115,18 +114,16 @@ export default class TaskList extends Component {
                     </select>
                 </section>
 
-                {/* <h3 className="sectionHeader">Unassigned Tasks</h3> */}
-
                 <section className="tasks">
                     {
                         this.props.tasks.map(task => {
-                            if (this.state.taskSelector === "unassigned" && task.userId == 0) {
+                            if (this.state.taskSelector === "unassigned" && task.userId === 0) {
                                 return (
                                     <section>
                                         <br></br>
                                         <div key={task.id}>
-                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask}  {...this.props}
-                                            // markTaskComp={this.props.markTaskComp}
+                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} {...this.props}
+                                            // archiveTask={this.props.archiveTask}
                                             />
                                         </div>
                                     </section>
@@ -136,7 +133,9 @@ export default class TaskList extends Component {
                                     <section>
                                         <br></br>
                                         <div key={task.id}>
-                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask} {...this.props} />
+                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} {...this.props}
+                                            // archiveTask={this.props.archiveTask}
+                                             />
                                         </div>
                                     </section>
                                 )
@@ -146,7 +145,6 @@ export default class TaskList extends Component {
                                         <br></br>
                                         <div key={task.id}>
                                             <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask} reopenTask={this.props.reopenTask} {...this.props}
-                                            // markTaskComp={this.props.markTaskComp}
                                             />
                                         </div>
                                     </section>
@@ -156,8 +154,8 @@ export default class TaskList extends Component {
                                     <section>
                                         <br></br>
                                         <div key={task.id}>
-                                            <TaskCard key={task.id} task={task} route={"tasks"} deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask} {...this.props}
-                                            // markTaskComp={this.props.markTaskComp}
+                                            <TaskCard key={task.id} task={task} route={"tasks"} {...this.props}
+                                            // deleteTask={this.props.deleteTask} assignTo={this.props.assignTo} archiveTask={this.props.archiveTask}
                                             />
                                         </div>
                                     </section>

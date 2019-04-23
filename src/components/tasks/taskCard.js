@@ -101,7 +101,7 @@ export default class TaskCard extends Component {
 
     render() {
         const { open } = this.state;
-        if (this.props.task.archived == true) {
+        if (this.props.task.archived === true) {
             return (
                 <React.Fragment>
                     <div key={this.props.task.id} className="taskCard">
@@ -119,7 +119,7 @@ export default class TaskCard extends Component {
                     </div>
                 </React.Fragment >
             )
-        } else if (this.props.task.isComplete == true) {
+        } else if (this.props.task.isComplete === true && this.props.task.archived !== true) {
             return (
                 <React.Fragment>
                     <div key={this.props.task.id} className="taskCard">
@@ -255,9 +255,7 @@ export default class TaskCard extends Component {
                     </div>
                 </React.Fragment>
             )
-        } else
-        // if (this.props.task.isPriority === false)
-        {
+        } else {
             return (
                 <React.Fragment>
                     <div key={this.props.task.id} className="taskCard">
