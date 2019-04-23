@@ -102,7 +102,7 @@ export default class Login extends Component {
         return (
             <div>
                 <form onSubmit={this.handleLogin}>
-                    <h1>Widget World</h1>
+                    <h1>Executive Dashboard</h1>
                     <h2 className="h3 mb-3 font-weight-normal">Please sign in</h2>
                     <br></br>
                     <label htmlFor="inputEmail">

@@ -95,7 +95,7 @@ export default class NewCompanyReg extends Component {
     render() {
         return (
             <form onSubmit={this.handleRegister}>
-                <h1>Widget World</h1>
+                <h1>Executive Dashboard</h1>
                 <h2 className="h3 mb-3 font-weight-normal">Register New Company</h2>
                 <br></br>
 
