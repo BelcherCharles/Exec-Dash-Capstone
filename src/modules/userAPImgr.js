@@ -1,4 +1,4 @@
-const remoteURL = "http://localhost:5002"
+const remoteURL = "https://frontend-capstone-api.herokuapp.com"
 
 export default {
     getAllUsers: () => {

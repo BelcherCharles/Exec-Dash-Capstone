@@ -83,11 +83,11 @@
       "surname": "Joseph",
       "email": "jj@jj.com",
       "phone": "(614) 333-5555",
-      "address": "Somewhere St.",
-      "city": "Chillicothe",
-      "state": "OH",
-      "zip": "43002",
-      "image": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/57006297_721027644959816_7225189298968985600_n.jpg?_nc_cat=103&_nc_oc=AQmU-6o4MXg9bhhkrxsSBNcHpJgKqfC_Jzo3GYvsih_OFauEFg_NqFa4BJjlftfjp-M&_nc_ht=scontent-iad3-1.xx&oh=790dc448ccb0cdc7d4491feeb99a19aa&oe=5D35464E",
+      "address": "123 Main St.",
+      "city": "Hungtington",
+      "state": "WV",
+      "zip": "25701",
+      "image": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/56910143_721028124959768_9108916149168373760_n.jpg?_nc_cat=100&_nc_oc=AQlc_wLnHS5FGDNHVv0vbd_Gb74l20RDhoi7r7elwY-fjKsaRVL6eqFjRvswRhzJDoI&_nc_ht=scontent-iad3-1.xx&oh=d0ed95fbb13c242c1d79abe326d73627&oe=5D6F90BA",
       "hireDate": "2019-04-22T13:14:25.850Z",
       "password": "mkjruxZY",
       "companyId": 1,
@@ -122,18 +122,18 @@
       "id": 8
     },
     {
+      "id": 9,
       "name": "James",
       "surname": "Pennington",
       "email": "JPennington@swopeco.com",
-      "phone": "304-525-9958",
+      "phone": "304-111-9999",
       "address": "100 Price Industrial Ln",
       "city": "Huntington",
       "state": "WV",
       "zip": "25705",
-      "companyId": 1,
       "clientSince": "2019-04-22T13:51:41.239Z",
-      "userType": "client",
-      "id": 9
+      "companyId": 1,
+      "userType": "client"
     },
     {
       "name": "Hollie",
@@ -174,6 +174,35 @@
       "isAdmin": true,
       "deptId": 1,
       "id": 12
+    },
+    {
+      "name": "Steve",
+      "surname": "Platz",
+      "phone": "(304) 111-9999",
+      "email": "sp@sp.com",
+      "password": "aaaaaa",
+      "companyId": 5,
+      "hireDate": "2019-04-23T13:28:37.126Z",
+      "userType": "employee",
+      "isAdmin": true,
+      "deptId": 1,
+      "id": 13
+    },
+    {
+      "id": 14,
+      "name": "Natalie",
+      "surname": "Roper",
+      "email": "NR@nr.com",
+      "phone": "(304) 555-6666",
+      "address": "Kanawha Blvd",
+      "city": "Huntington",
+      "state": "WV",
+      "zip": "25701",
+      "image": "",
+      "hireDate": "2019-04-23T13:29:23.226Z",
+      "password": "u9dY5GWq",
+      "companyId": 5,
+      "userType": "employee"
     }
   ],
   "tasks": [
@@ -184,11 +213,11 @@
       "dueDate": "2019-04-24",
       "type": "General Info",
       "isPriority": true,
-      "isComplete": false,
+      "isComplete": true,
       "note": "State Tax Dept & Sect. of State",
-      "userId": 6,
+      "userId": 2,
       "id": 4,
-      "archived": false
+      "archived": true
     },
     {
       "companyId": 1,
@@ -197,7 +226,7 @@
       "dueDate": "2019-05-10",
       "type": "General Info",
       "isPriority": "",
-      "isComplete": true,
+      "isComplete": false,
       "note": "Reach out to community; advertise",
       "userId": 3,
       "id": 5,
@@ -213,7 +242,7 @@
       "type": "Sales",
       "isComplete": true,
       "companyId": 1,
-      "archived": false
+      "archived": true
     },
     {
       "companyId": 1,
@@ -235,11 +264,11 @@
       "dueDate": "2019-04-23",
       "type": "General Info",
       "isPriority": "",
-      "isComplete": true,
+      "isComplete": false,
       "note": "Setup Account On Exec. Dashboard",
       "userId": 2,
       "id": 9,
-      "archived": true
+      "archived": false
     },
     {
       "userId": 0,
@@ -259,10 +288,11 @@
       "dueDate": "2019-05-03",
       "type": "Finance",
       "isPriority": "",
-      "isComplete": false,
+      "isComplete": true,
       "note": "Better be good ones",
-      "userId": 3,
-      "id": 11
+      "userId": 2,
+      "id": 11,
+      "archived": true
     }
   ],
   "empTasks": [],
@@ -282,6 +312,10 @@
     {
       "companyName": "Dan Hill Construction",
       "id": 4
+    },
+    {
+      "companyName": "Advantage Tech",
+      "id": 5
     }
   ],
   "departments": [
