@@ -79,6 +79,8 @@ export default class ApplicationViews extends Component {
     addUser = (newUser) => {
         const newState = {}
         return userAPImgr.postNewUser(newUser)
+        .then((nu) => sessionStorage.setItem("userId", nu.id))
+        .then(() => this.getCompTasks(sessionStorage.getItem("companyId")))
             .then(() => userAPImgr.getCompanyUsers(sessionStorage.getItem("companyId")))
             .then(pcu => {
                 const employees = pcu.filter(
@@ -94,6 +96,7 @@ export default class ApplicationViews extends Component {
                 this.setState(newState)
             });
     }
+
 
     updateUser = (editedUser, id) => {
         const newState = {}
@@ -133,6 +136,7 @@ export default class ApplicationViews extends Component {
 
     addCompany = newCompany =>
         companyAPImgr.postNewCompany(newCompany)
+        .then((pnc) =>  sessionStorage.setItem("companyId", pnc.id))
 
     getCompTasks = compId =>
         companyAPImgr.getCompanyTasks(compId)
@@ -141,7 +145,7 @@ export default class ApplicationViews extends Component {
                 this.setState({
                     tasks: pct,
                 })
-                console.log(pct)
+                // console.log(pct)
             })
 
     newTask = newTask => {

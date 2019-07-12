@@ -64,116 +64,123 @@ export default class NewCompanyReg extends Component {
                 companyName: this.state.companyName,
             }
 
-            companyAPImgr.postNewCompany(newCompany)
-                .then(pnc => {
+            this.props.addCompany(newCompany)
+            // .then(pnc => {
 
-                    const newUser = {
-                        name: this.state.userFirstName,
-                        surname: this.state.userSurname,
-                        phone: this.state.userPhone,
-                        email: this.state.userEmail.toLowerCase(),
-                        password: this.state.userPassword,
-                        companyId: parseInt(pnc.id),
-                        hireDate: new Date(),
-                        userType: "employee",
-                        isAdmin: true,
-                        deptId: 1
-                    }
-
-                    userAPImgr.postNewUser(newUser)
-                        .then(nu => {
-                            sessionStorage.setItem("userId", nu.id)
-                            sessionStorage.setItem("companyId", pnc.id)
-                            sessionStorage.setItem("isAdmin", true)
-                        })
-
-                    .then(() => this.props.history.push("/execLandingPage"));
-                })
-        };
-    }
-
-    render() {
-        return (
-            <form onSubmit={this.handleRegister}>
-                <h1>Executive Dashboard</h1>
-                <h2 className="h3 mb-3 font-weight-normal">Register New Company</h2>
-                <br></br>
-
-                <label htmlFor="companyName">
-                    Company Name
-                </label>
-                <input onChange={this.handleFieldChange} type="text"
-                    id="companyName"
-                    placeholder="Company Name"
-                    required="" autoFocus="" />
-                <br></br>
-                <h2 className="h3 mb-3 font-weight-normal">Executive Information</h2>
-
-                <label htmlFor="adminFirstName">
-                    Admin's First Name
-                </label>
-                <input onChange={this.handleFieldChange} type="text"
-                    id="userFirstName"
-                    placeholder="Admin's First Name"
-                    required="" autoFocus="" />
-                <br></br>
-
-                <label htmlFor="adminSurname">
-                    Admin's Surname
-                </label>
-                <input onChange={this.handleFieldChange} type="text"
-                    id="userSurname"
-                    placeholder="Admin's Surname"
-                    required="" autoFocus="" />
-                <br></br>
-
-
-                <label htmlFor="adminEmail">
-                    Admin Email
-                </label>
-                <input onChange={this.handleFieldChange} type="email"
-                    id="userEmail"
-                    placeholder="Admin Email"
-                    required="" />
-                <br></br>
-
-                <label htmlFor="adminPhone">
-                    Admin Phone Number
-                </label>
-                <input onChange={this.handleFieldChange} type="tel"
-                    id="userPhone"
-                    placeholder="Phone Number"
-                    // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                    required=""
-                />
-                <br></br>
-                <label htmlFor="adminPassword">
-                    Enter Password
-                </label>
-                <input onChange={this.handleFieldChange} type="password"
-                    id="userPassword"
-                    placeholder="Password"
-                    pattern=".{6,12}"
-                    required title="6 to 12 characters, please"
-                // required=""
-                />
-                <br></br>
-                <label htmlFor="passwordCheck">
-                    Re-Enter Password
-                </label>
-                <input onChange={this.handleFieldChange} type="password"
-                    id="passwordCheck"
-                    placeholder="Re-enter password"
-                // required=""
-                />
-                <br></br>
-                <br></br>
-
-                <button type="submit">
-                    Register New Company
-                </button>
-            </form>
-
+           .then(() =>
+           {
+               const newUser = {
+                name: this.state.userFirstName,
+                surname: this.state.userSurname,
+                phone: this.state.userPhone,
+                email: this.state.userEmail.toLowerCase(),
+                password: this.state.userPassword,
+                companyId: parseInt(sessionStorage.getItem("companyId")),
+                hireDate: new Date(),
+                userType: "employee",
+                isAdmin: true,
+                deptId: 1
+            }
+            this.props.addUser(newUser)
+                .then(() =>
+                    sessionStorage.setItem("isAdmin", true)
+                )
+                .then(() => this.props.history.push("/execLandingPage"));
+        }
         )
-    }
+
+            // this.props.addUser(newUser)
+            //     .then(() =>
+            //         sessionStorage.setItem("isAdmin", true)
+            //     )
+
+
+        // }
+    };
+}
+
+render() {
+    return (
+        <form onSubmit={this.handleRegister}>
+            <h1>Executive Dashboard</h1>
+            <h2 className="h3 mb-3 font-weight-normal">Register New Company</h2>
+            <br></br>
+
+            <label htmlFor="companyName">
+                Company Name
+                </label>
+            <input onChange={this.handleFieldChange} type="text"
+                id="companyName"
+                placeholder="Company Name"
+                required="" autoFocus="" />
+            <br></br>
+            <h2 className="h3 mb-3 font-weight-normal">Executive Information</h2>
+
+            <label htmlFor="adminFirstName">
+                Admin's First Name
+                </label>
+            <input onChange={this.handleFieldChange} type="text"
+                id="userFirstName"
+                placeholder="Admin's First Name"
+                required="" autoFocus="" />
+            <br></br>
+
+            <label htmlFor="adminSurname">
+                Admin's Surname
+                </label>
+            <input onChange={this.handleFieldChange} type="text"
+                id="userSurname"
+                placeholder="Admin's Surname"
+                required="" autoFocus="" />
+            <br></br>
+
+
+            <label htmlFor="adminEmail">
+                Admin Email
+                </label>
+            <input onChange={this.handleFieldChange} type="email"
+                id="userEmail"
+                placeholder="Admin Email"
+                required="" />
+            <br></br>
+
+            <label htmlFor="adminPhone">
+                Admin Phone Number
+                </label>
+            <input onChange={this.handleFieldChange} type="tel"
+                id="userPhone"
+                placeholder="Phone Number"
+                // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                required=""
+            />
+            <br></br>
+            <label htmlFor="adminPassword">
+                Enter Password
+                </label>
+            <input onChange={this.handleFieldChange} type="password"
+                id="userPassword"
+                placeholder="Password"
+                pattern=".{6,12}"
+                required title="6 to 12 characters, please"
+            // required=""
+            />
+            <br></br>
+            <label htmlFor="passwordCheck">
+                Re-Enter Password
+                </label>
+            <input onChange={this.handleFieldChange} type="password"
+                id="passwordCheck"
+                placeholder="Re-enter password"
+            // required=""
+            />
+            <br></br>
+            <br></br>
+
+            <button type="submit">
+                Register New Company
+                </button>
+        </form>
+
+    )
+}
 }
